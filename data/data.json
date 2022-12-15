@@ -1,0 +1,30 @@
+[
+    {
+        "title": "Harry Potter and the Philosopher's Stone",
+        "author": "J.K. Rowling",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1170803558l/72193._SX318_SY475_.jpg",
+        "description": "Harry Potter thinks he is an ordinary boy - until he is rescued by an owl, taken to Hogwarts School of Witchcraft and Wizardry, learns to play Quidditch and does battle in a deadly duel. The Reason ... HARRY POTTER IS A WIZARD!",
+        "edidtion": "UK Edition",
+        "pages": 223,
+        "publishing-date": "June 30th 1997",
+        "publisher": "Bloomsbury Publishing"
+    },
+    {
+        "title": "Harry Potter and the Chamber of Secrets",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1474169725l/15881._SY475_.jpg",
+        "description": "Harry Potter, along with his best friends, Ron and Hermione, is about to start his third year at Hogwarts School of Witchcraft and Wizardry. Harry can't wait to get back to school after the summer holidays. (Who wouldn't if they lived with the horrible Dursleys?) But when Harry gets to Hogwarts, the atmosphere is tense. There's an escaped mass murderer on the loose, and the sinister prison guards of Azkaban have been called in to guard the school... ",
+        "edidtion": "First American Edition",
+        "pages": 341,
+        "publishing-date": "June 2nd 1999",
+        "publisher": "Arthur A. Levine Books"
+    },
+    {
+        "title": "Harry Potter and the Prisoner of Azkaban",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1630547330i/5._SY180_.jpg",
+        "description": "Ever since Harry Potter had come home for the summer, the Dursleys had been so mean and hideous that all Harry wanted was to get back to the Hogwarts School for Witchcraft and Wizardry. But just as he’s packing his bags, Harry receives a warning from a strange impish creature who says that if Harry returns to Hogwarts, disaster will strike. And strike it does. For in Harry’s second year at Hogwarts, fresh torments and horrors arise, including an outrageously stuck-up new professor and a spirit who haunts the girls’ bathroom. But then the real trouble begins – someone is turning Hogwarts students to stone. Could it be Draco Malfoy, a more poisonous rival than ever? Could it possibly be Hagrid, whose mysterious past is finally told? Or could it be the one everyone at Hogwarts most suspects… Harry Potter himself!",
+        "edidtion": "Mass Market Paperback",
+        "pages": 435,
+        "publishing-date": "May 1st 2004",
+        "publisher": "Scholastic Inc."
+    }
+]
