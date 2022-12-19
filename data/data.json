@@ -8,6 +8,7 @@
         "pages": 223,
         "publishing_date": "June 30th 1997",
         "publisher": "Bloomsbury Publishing",
+        "serie":"Harry Potter",
         "part_of_series":1
     },
     {
@@ -18,6 +19,7 @@
         "pages": 341,
         "publishing_date": "June 2nd 1999",
         "publisher": "Arthur A. Levine Books",
+        "serie":"Harry Potter",
         "part_of_series":2
     },
     {
@@ -28,6 +30,7 @@
         "pages": 435,
         "publishing_date": "May 1st 2004",
         "publisher": "Scholastic Inc.",
+        "serie":"Harry Potter",
         "part_of_series":3
     },
     {
@@ -38,6 +41,7 @@
         "pages": 435,
         "publishing_date": "May 1st 2004",
         "publisher": "Scholastic Inc.",
+        "serie":"Harry Potter",
         "part_of_series":4
     },
     {
@@ -48,6 +52,7 @@
         "pages": 912,
         "publishing_date": "May 1st 2004",
         "publisher": "Scholastic Inc.",
+        "serie":"Harry Potter",
         "part_of_series":5
     },
     {
@@ -58,6 +63,7 @@
         "pages": 912,
         "publishing_date": "September 16th 2006",
         "publisher": "Scholastic Inc.",
+        "serie":"Harry Potter",
         "part_of_series":6
     },
     {
@@ -68,6 +74,7 @@
         "pages":  759,
         "publishing_date": "July 21st 2007",
         "publisher": "Arthur A. Levine Books",
+        "serie":"Harry Potter",
         "part_of_series":7
     },
     {
@@ -78,6 +85,7 @@
         "pages":  377,
         "publishing_date": "March 1st 2006",
         "publisher": "Disney Hyperion Books",
+        "serie":"Percy Jackson and the Olympians",
         "part_of_series":1
     },
     {
@@ -86,10 +94,45 @@
         "description": "The heroic son of Poseidon makes an action-packed comeback in the second must-read installment of Rick Riordan's amazing young readers series. Starring Percy Jackson, a \"half blood\" whose mother is human and whose father is the God of the Sea, Riordan's series combines cliffhanger adventure and Greek mythology lessons that results in true page-turners that get better with each installment.\n\nIn this episode, The Sea of Monsters, Percy sets out to retrieve the Golden Fleece before his summer camp is destroyed, surpassing the first book's drama and setting the stage for more thrills to come.",
         "edidtion":"First edition",
         "pages":279,
-        "publishing_date": "April 1st 2006 ",
+        "publishing_date": "April 1st 2006",
         "publisher": "Hyperion Books",
+        "serie":"Percy Jackson and the Olympians",
         "part_of_series":2
+    },
+    {
+        "title": "The Titan's Curse",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1361038385l/561456.jpg",
+        "description": "It's not everyday you find yourself in combat with a half-lion, half-human.\n\nBut when you're the son of a Greek god, it happens. And now my friend Annabeth is missing, a goddess is in chains and only five half-blood heroes can join the quest to defeat the doomsday monster.\n\nOh, and guess what? The Oracle has predicted that not all of us will survive... ",
+        "edidtion":"Paperback",
+        "pages":320,
+        "publishing_date": "May 5th 2007",
+        "publisher": "Puffin Books",
+        "serie":"Percy Jackson and the Olympians",
+        "part_of_series":3
+    },
+    {
+        "title": "The Battle of the Labyrinth",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1518607478l/2120932.jpg",
+        "description": "Percy Jackson isn't expecting freshman orientation to be any fun. But when a mysterious mortal acquaintance appears at his potential new school, followed by demon cheerleaders, things quickly move from bad to worse.\n\nIn this fourth installment of the blockbuster series, time is running out as war between the Olympians and the evil Titan lord Kronos draws near. Even the safe haven of Camp Half-Blood grows more vulnerable by the minute as Kronos's army prepares to invade its once impenetrable borders. To stop the invasion, Percy and his demigod friends must set out on a quest through the Labyrinth - a sprawling underground world with stunning surprises at every turn.",
+        "edidtion":"Hardcover",
+        "pages":361,
+        "publishing_date": "March 6th 2008",
+        "publisher": "Hyperion Books for Children",
+        "serie":"Percy Jackson and the Olympians",
+        "part_of_series":4
+    },
+    {
+        "title": "The Last Olympian",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1519022209l/4556058._SX318_.jpg",
+        "description": "All year the half-bloods have been preparing for battle against the Titans, knowing the odds of victory are grim. Kronos's army is stronger than ever, and with every god and half-blood he recruits, the evil Titan's power only grows.\n\nWhile the Olympians struggle to contain the rampaging monster Typhon, Kronos begins his advance on New York City, where Mount Olympus stands virtually unguarded. Now it's up to Percy Jackson and an army of young demigods to stop the Lord of Time.\n\nIn this momentous final book in the New York Times best-selling series, the long-awaited prophecy surrounding Percy's sixteenth birthday unfolds. And as the battle for Western civilization rages on the streets of Manhattan, Percy faces a terrifying suspicion that he may be fighting against his own fate.",
+        "edidtion":"Hardcover",
+        "pages":381,
+        "publishing_date": "March 5th 2009",
+        "publisher": "Disney-Hyperion Books",
+        "serie":"Percy Jackson and the Olympians",
+        "part_of_series":5
     }
+
 
 
 ]
