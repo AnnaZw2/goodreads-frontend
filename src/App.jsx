@@ -6,7 +6,7 @@ import './App.css'
 import { Home } from './pages/Home';
 import { SignIn } from './pages/SignIn';
 import { LogIn } from './pages/LogIn';
-import { MyProfile } from './pages/MyProfile';
+import { MyProfile } from './pages/Settings';
 
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
     <div className='flex justify-end ' >
     {/* in settings there will be option to change name/username/email/password, delete your account, import to file your account info, maybe to add some description to your profile */}
       <Link to="/settings" className=' text-light-brown border border-brown w-fit rounded-lg p-1 hover:bg-yellow hover:text-light-brown'>Settings</Link>
-      
+
     </div>
   
       <Routes>
