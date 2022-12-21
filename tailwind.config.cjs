@@ -2,12 +2,15 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    colors:{
-      "brown":'#7C5418',
-      "freesia":'#D0A830',
-      "beige":'#E6E2DC',
-      "sand":'#CDB262',
-      "oatmeal":'#DAC788'
+    colors: {
+      "black":"#1A120B",
+      "dark-brown":"#3C2A21",
+      "brown": '#7C5418',
+      "light-yellow": "#FAEAB1",
+      "yellow": "#E5BA73",
+      "light-brown": "#C58940",
+      "beige": '#FAF8F1'
+
 
     },
     extend: {},
