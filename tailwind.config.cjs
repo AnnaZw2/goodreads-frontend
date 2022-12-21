@@ -9,7 +9,8 @@ module.exports = {
       "light-yellow": "#FAEAB1",
       "yellow": "#E5BA73",
       "light-brown": "#C58940",
-      "beige": '#FAF8F1'
+      "beige":"#F3F1EA",
+      "white":"#ffffff"
 
 
     },
