@@ -18,3 +18,12 @@ body {
 }
 
 
+@layer components {
+  .header-3 {
+    @apply font-medium leading-tight text-3xl mt-0 mb-2
+  }
+
+
+}
+
+

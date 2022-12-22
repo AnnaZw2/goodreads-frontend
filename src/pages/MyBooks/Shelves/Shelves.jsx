@@ -5,7 +5,7 @@ export function Shelves() {
         <div>
         <Navbar/>
         <NavigateMyBooks/>
-            <h3 className="font-medium leading-tight text-3xl mt-0 mb-2">Shelves</h3>
+            <h3 className="header-3">Shelves</h3>
             <p>Page is not completed yet</p>
         </div>
     )
