@@ -9,7 +9,7 @@ export  function NavigateMyBooks() {
     <p>Bookshelves</p>
     <Link to="/mybooks/shelves/all" className="text-light-brown hover:underline">All</Link>
     <Link to="/mybooks/shelves/currentlyreading" className="text-light-brown hover:underline">Currently reading</Link>
-    <Link to="/mybooks/shelves/currentlyreading" className="text-light-brown hover:underline">Read</Link>
+    <Link to="/mybooks/shelves/read" className="text-light-brown hover:underline">Read</Link>
 </div>
 
 <div className="stats  flex flex-col g-2 border border-brown border-t-0 hover:underline">

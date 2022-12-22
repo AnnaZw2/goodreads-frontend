@@ -11,6 +11,7 @@ import { MyBooks } from './pages/MyBooks/MyBooks';
 import { All } from './pages/MyBooks/Shelves/All';
 import { CurrentlyReading } from './pages/MyBooks/Shelves/CurrentlyReading';
 import { Read } from './pages/MyBooks/Shelves/Read';
+import { Stats } from './pages/MyBooks/Stats/Stats';
 
 
 function App() {
@@ -18,12 +19,6 @@ function App() {
 
   return (
     <div className="root bg-white min-h-screen " >
-
-
-
-
-
-
 
       <Routes>
 
@@ -36,6 +31,7 @@ function App() {
         <Route exact path='mybooks/shelves/all' element={<All/>}></Route>
         <Route exact path='mybooks/shelves/currentlyreading' element={<CurrentlyReading/>}></Route>
         <Route exact path='mybooks/shelves/read' element={<Read/>}></Route>
+        <Route exact path='mybooks/stats' element={<Stats/>}></Route>
 
       </Routes>
 
