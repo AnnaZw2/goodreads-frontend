@@ -3,6 +3,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router';
 import './App.css'
 import { Home } from './pages/Home';
+import { Explore } from './pages/Explore';
 import { SignIn } from './pages/BeforeLogIn/SignIn';
 import { LogIn } from './pages/BeforeLogIn/LogIn';
 import { NotLoggedIn } from "./pages/BeforeLogIn/NotLoggedIn"
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/" element={<Home />}></Route>
         <Route exact path='/sign' element={<SignIn />}></Route>
         <Route exact path='/login' element={<LogIn />}></Route>
+        <Route exact path='/explore' element={<Explore />}></Route>
         <Route exact path='/settings' element={<Settings />}></Route>
         <Route exact path="/notlogged" element={<NotLoggedIn />}></Route>
         <Route exact path='/mybooks' element={<MyBooks />}>    </Route>
