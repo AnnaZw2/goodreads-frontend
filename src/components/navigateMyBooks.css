@@ -3,11 +3,12 @@
 @tailwind utilities;
 
 @layer components {
-    .links {
-      @apply text-light-brown hover:underline
-    }
+ 
   .section{
     @apply flex flex-col gap-2 border border-brown
 }
+.links {
+    @apply text-light-brown hover:underline
+  }
 
   }

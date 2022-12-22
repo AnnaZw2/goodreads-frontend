@@ -12,6 +12,7 @@ import { All } from './pages/MyBooks/Shelves/All';
 import { CurrentlyReading } from './pages/MyBooks/Shelves/CurrentlyReading';
 import { Read } from './pages/MyBooks/Shelves/Read';
 import { Stats } from './pages/MyBooks/Stats/Stats';
+import { Navbar } from './components/navbar';
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
 
   return (
     <div className="root bg-white min-h-screen " >
-
+    <Navbar/> 
       <Routes>
 
         <Route exact path="/" element={<Home />}></Route>
