@@ -8,9 +8,9 @@ import { LogIn } from './pages/BeforeLogIn/LogIn';
 import { NotLoggedIn } from "./pages/BeforeLogIn/NotLoggedIn"
 import { Settings } from './pages/Settings';
 import { MyBooks } from './pages/MyBooks/MyBooks';
-import { All } from './pages/MyBooks/Shelfs/All';
-import { CurrentlyReading } from './pages/MyBooks/Shelfs/CurrentlyReading';
-import { Read } from './pages/MyBooks/Shelfs/Read';
+import { All } from './pages/MyBooks/Shelves/All';
+import { CurrentlyReading } from './pages/MyBooks/Shelves/CurrentlyReading';
+import { Read } from './pages/MyBooks/Shelves/Read';
 
 
 function App() {
@@ -33,9 +33,9 @@ function App() {
         <Route exact path='/settings' element={<Settings />}></Route>
         <Route exact path="/notlogged" element={<NotLoggedIn />}></Route>
         <Route exact path='/mybooks' element={<MyBooks />}>    </Route>
-        <Route exact path='mybooks/shelfs/all' element={<All/>}></Route>
-        <Route exact path='mybooks/shelfs/currentlyreading' element={<CurrentlyReading/>}></Route>
-        <Route exact path='mybooks/shelfs/read' element={<CurrentlyReading/>}></Route>
+        <Route exact path='mybooks/shelves/all' element={<All/>}></Route>
+        <Route exact path='mybooks/shelves/currentlyreading' element={<CurrentlyReading/>}></Route>
+        <Route exact path='mybooks/shelves/read' element={<Read/>}></Route>
 
       </Routes>
 
