@@ -18,6 +18,8 @@ export function Navbar() {
 
 
                 {/* CHANGE ALL OF IT TO DROPDOWN MENU */}
+  
+
                 <div className="flex">
                     {/* in settings there will be option to change name/username/email/password, delete your account, import to file your account info, maybe to add some description to your profile */}
                     <Link
