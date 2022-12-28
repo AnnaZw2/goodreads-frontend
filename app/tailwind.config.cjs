@@ -10,7 +10,9 @@ module.exports = {
       "yellow": "#E5BA73",
       "light-brown": "#C58940",
       "beige":"#F3F1EA",
-      "white":"#ffffff"
+      "light-beige":"#F9F7F3",
+      "white":"#ffffff",
+      "green":"#3D9363"
 
 
     },
