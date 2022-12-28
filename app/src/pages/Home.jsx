@@ -1,13 +1,9 @@
-
+import { DisplayBooks } from "../components/books/displayBooks";
 export function Home() {
-    return (
-        <div className="min-w-screen">
-         
-            <h3 className="header-3">Home</h3>
-            <p>Page is not completed yet</p>
 
-
-        </div>
-    )
+  return (
+    <div className="min-w-screen">
+     <DisplayBooks/>
+    </div>
+  );
 }
-
