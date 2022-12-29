@@ -16,7 +16,8 @@ export function AddClicked({ setAdding, shelves }) {
   }, [inputValue]);
 
   function handleClick() {
-    const newSortValue = shelves[shelves.length - 1].sort + 10;
+    if(click){
+        const newSortValue = shelves[shelves.length - 1].sort + 10;
     console.log(shelves[shelves.length - 1].sort);
     axios
       .post(
@@ -33,6 +34,9 @@ export function AddClicked({ setAdding, shelves }) {
       }})
       .catch((err) => console.log(err));
 
+
+    }
+    
    
   }
 
