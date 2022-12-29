@@ -49,7 +49,7 @@ export function AddToShelf() {
            
             ))
           : null}
-          {open ? adding ? <li><AddClicked adding={adding} setAdding={setAdding}/></li>  : <AddNotClicked adding={adding} setAdding={setAdding}/>: null} 
+          {open ? adding ? <li><AddClicked  setAdding={setAdding} shelves={shelves}/></li>  : <AddNotClicked adding={adding} setAdding={setAdding}/>: null} 
      
       </ul>
     </div>

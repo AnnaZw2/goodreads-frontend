@@ -1,42 +1,54 @@
-import "./../addToShelf.css"
-import { useState,useEffect } from "react"
+import "./../addToShelf.css";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
+export function AddClicked({ setAdding, shelves }) {
+  const [inputValue, setInputValue] = useState("");
+  const [click, setClick] = useState(false);
 
-
-export function AddClicked({adding,setAdding}){
-const [name,setName] = useState('')
-const [click,setClick] = useState(false)
-
-
-
-
-useEffect(() => {
-    console.log("change input value")
-    if(name.length!=0){
-        setClick(true)
-    }else{
-        setClick(false)
+  useEffect(() => {
+    console.log("change input value");
+    if (inputValue.length != 0) {
+      setClick(true);
+    } else {
+      setClick(false);
     }
+  }, [inputValue]);
 
-    
-  },[name]);
+  function handleClick() {
+    const newSortValue = shelves[shelves.length - 1].sort + 10;
+    console.log(shelves[shelves.length - 1].sort);
+    axios
+      .post(
+        "http://localhost:3000/shelves",
+        { sort: newSortValue, name: inputValue },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .catch((err) => console.log(err));
 
-    function handleClick(){
-      console.log("clicked")
-      
-    //   axios.put("http://localhost:3000/shelves")
-     
-setAdding(false)
-      console.log(adding)
-      
-       
-    }
-    return (
-        <div  className="btn-style  border-t pb-1">
-        <input type="text" placeholder="New shelf name" className="border m-3" onChange={(e)=> setName(e.target.value)}></input>
-        <button className={` ${click ? `hover text-black ` : `text-light-gray cursor-auto` } bg-light-beige px-2 border rounded-sm`} onClick={handleClick} >Add</button>
-        </div>
-    )
-
+    setAdding(false);
+  }
+  
+  return (
+    <div className="btn-style  border-t pb-1">
+      <input
+        type="text"
+        placeholder="New shelf name"
+        className="border m-3"
+        onChange={(e) => setInputValue(e.target.value)}
+      ></input>
+      <button
+        className={` ${
+          click ? `hover text-black ` : `text-light-gray cursor-auto`
+        } bg-light-beige px-2 border rounded-sm`}
+        onClick={handleClick}
+      >
+        Add
+      </button>
+    </div>
+  );
 }
