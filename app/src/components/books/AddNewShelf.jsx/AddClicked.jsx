@@ -4,19 +4,21 @@ import axios from "axios";
 
 export function AddClicked({ setAdding, shelves }) {
   const [inputValue, setInputValue] = useState("");
-  const [click, setClick] = useState(false);
+  const [CanClick, setCanClick] = useState(false);
 
   useEffect(() => {
+    const nameIsUnique = shelves.filter(el => el.name==inputValue).length==0
+    console.log("unique: " +nameIsUnique)
     console.log("change input value");
-    if (inputValue.length != 0) {
-      setClick(true);
+    if (inputValue.length != 0 && nameIsUnique ) {
+      setCanClick(true);
     } else {
-      setClick(false);
+      setCanClick(false);
     }
   }, [inputValue]);
 
   function handleClick() {
-    if(click){
+    if(CanClick){
         const newSortValue = shelves[shelves.length - 1].sort + 10;
     console.log(shelves[shelves.length - 1].sort);
     axios
@@ -50,7 +52,7 @@ export function AddClicked({ setAdding, shelves }) {
       ></input>
       <button
         className={` ${
-          click ? `hover text-black ` : `text-light-gray cursor-auto`
+          CanClick ? `hover text-black ` : `text-light-gray cursor-auto`
         } bg-light-beige px-2 border rounded-sm`}
         onClick={handleClick}
       >
