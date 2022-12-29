@@ -28,11 +28,14 @@ export function AddClicked({ setAdding, shelves }) {
           },
         }
       )
+      .then(res => {if(res.status==200){
+        setAdding(false)
+      }})
       .catch((err) => console.log(err));
 
-    setAdding(false);
+   
   }
-  
+
   return (
     <div className="btn-style  border-t pb-1">
       <input
