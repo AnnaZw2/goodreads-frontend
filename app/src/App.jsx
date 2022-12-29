@@ -20,7 +20,7 @@ function App() {
 
 
   return (
-    <div className="root bg-light-beige max-h-screen " >
+    <div className="root bg-light-beige min-h-screen " >
     <Navbar/> 
       <Routes>
 
