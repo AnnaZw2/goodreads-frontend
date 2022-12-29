@@ -16,7 +16,7 @@ export function AddClicked({ setAdding, shelves }) {
             setCanClick(true);
         } else {
             if (!nameIsUnique) {
-                setError("Shelve already exists!");
+                setError("Shelf already exists!");
             }
             setCanClick(false);
         }
