@@ -26,13 +26,16 @@ export function AddToShelf() {
       .catch((err) => console.log(err));
   }, [adding]);
 
-
+const handleClick = () =>{
+    adding ? setAdding(false) : null
+    open ? setOpen(false)   : setOpen(true) 
+}
 
   return (
     <div className="manu-container   btn-width self-center ">
       <button
         className="menu-trigger border btn-width  p-3 bg-green hover:bg-dark-green text-white cursor-pointer"
-        onClick={() => (open ? setOpen(false) : setOpen(true))}
+        onClick={handleClick}
       >
         Add to shelf
       </button>
@@ -49,7 +52,7 @@ export function AddToShelf() {
            
             ))
           : null}
-          {open ? adding ? <li><AddClicked  setAdding={setAdding} shelves={shelves}/></li>  : <AddNotClicked adding={adding} setAdding={setAdding}/>: null} 
+          {open ? adding ?  <li>{console.log("adding active")}<AddClicked  setAdding={setAdding} shelves={shelves}/></li>  :<li>{console.log("adding not active")}<AddNotClicked adding={adding} setAdding={setAdding}/></li> : null} 
      
       </ul>
     </div>

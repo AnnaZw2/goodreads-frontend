@@ -6,14 +6,20 @@ export function AddClicked({ setAdding, shelves }) {
     const [inputValue, setInputValue] = useState("");
     const [CanClick, setCanClick] = useState(false);
     const [error, setError] = useState("");
+
+
+
+
     const nameIsUnique =
         shelves.filter((el) => el.name == inputValue).length == 0;
+
+
     useEffect(() => {
-        console.log("unique: " + nameIsUnique);
-        console.log("change input value");
+
         if (inputValue.length != 0 && nameIsUnique) {
             setError("")
             setCanClick(true);
+
         } else {
             if (!nameIsUnique) {
                 setError("Shelf already exists!");
@@ -22,10 +28,18 @@ export function AddClicked({ setAdding, shelves }) {
         }
     }, [inputValue]);
 
+
+
+
+    function handleKeyUp(event) {
+        if (event.key === 'Enter') {
+            handleClick()
+        }
+    };
+
     function handleClick() {
         if (CanClick) {
             const newSortValue = shelves[shelves.length - 1].sort + 10;
-            console.log(shelves[shelves.length - 1].sort);
             axios
                 .post(
                     "http://localhost:3000/shelves",
@@ -52,6 +66,7 @@ export function AddClicked({ setAdding, shelves }) {
                 placeholder="New shelf name"
                 className="border m-3"
                 onChange={(e) => setInputValue(e.target.value)}
+                onKeyUp={handleKeyUp}
             ></input>
             {error.length != 0 ? <p className="text-red">{error}</p> : null}
             <button
