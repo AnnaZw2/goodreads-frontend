@@ -2,6 +2,8 @@ import "./../addToShelf.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+// this is component for view when you open "add new shelf" button and click "add"
+// it changes the "add" button to view where you can input name of your new shelf
 export function AddClicked({ setAdding, shelves }) {
     const [inputValue, setInputValue] = useState("");
     const [CanClick, setCanClick] = useState(false);
