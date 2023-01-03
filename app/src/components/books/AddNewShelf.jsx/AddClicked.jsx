@@ -45,7 +45,7 @@ export function AddClicked({ setAdding, shelves }) {
             axios
                 .post(
                     "http://localhost:3000/shelves",
-                    { sort: newSortValue, name: inputValue },
+                    { sort: newSortValue, name: inputValue,type:"custom" },
                     {
                         headers: {
                             "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export function AddClicked({ setAdding, shelves }) {
                     }
                 )
                 .then((res) => {
-                    if (res.status == 200) {
+                    if (res.status == 201) {
                         setAdding(false);
                     }
                 })

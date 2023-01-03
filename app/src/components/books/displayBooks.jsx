@@ -23,7 +23,7 @@ return(
     <div>
 
      {/* <ul> {books.map(el=><li key={el.id}><img className="h-32 w-auto" src={el.cover} ></img></li>)}</ul> */}
-     <ul>{books.map((el)=><li key={el.id} ><Book title={el.title} cover={el.cover} description={el.description} author={el.author}/></li>)}</ul>
+     <ul>{books.map((el)=><li key={el._id} ><Book title={el.title} cover={el.cover} description={el.description} author={el.author}/></li>)}</ul>
    
      </div>
 )
