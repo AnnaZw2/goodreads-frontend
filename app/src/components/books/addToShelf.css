@@ -3,13 +3,13 @@
 @tailwind utilities;
 @layer components {
  
-    .btn-width{
+.btn-width{
       @apply w-48
   }
-  .btn-style{
+.btn-style{
     @apply  bg-white btn-width 
   }
-  .hover{
+.hover{
     @apply hover:bg-beige
 
   }
