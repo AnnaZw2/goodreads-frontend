@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+ 
+  .input-field{
+    @apply flex flex-col items-start
+}
+
+
+  }
+
+  .errors{
+    color:#cc0000 ;
+    font-size: small;
+  }
+
+  .input-errors{
+    border:solid 1px #cc0000  ;
+  }
+ 
