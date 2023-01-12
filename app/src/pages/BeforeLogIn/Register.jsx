@@ -54,7 +54,7 @@ export function Register() {
   return (
     <div >
       <Link to="/login" className=' text-light-brown border border-brown rounded-lg p-1 hover:bg-yellow hover:text-light-brown' >Log in</Link>
-      <h3 className="header-3">Sign In</h3>
+      <h3 className="header-3">Register</h3>
 
       <form className="p-3 bg-light-beige flex flex-col items-center justify-start h-screen  gap-3 w-screen" onSubmit={handleSubmit}>
 
