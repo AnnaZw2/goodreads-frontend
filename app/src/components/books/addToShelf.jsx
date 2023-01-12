@@ -11,6 +11,7 @@ export function AddToShelf() {
   const [open, setOpen] = useState(false);
   const [adding, setAdding] = useState(false);
 
+  const jwt = localStorage.getItem("jwt")
   const compare = (a, b) => {
     if (a.sort > b.sort) return 1;
     else return -1;
@@ -19,13 +20,13 @@ export function AddToShelf() {
   useEffect(() => {
     console.log("get shelves");
     axios
-      .get("http://localhost:3000/shelves")
+      .get("http://localhost:3000/shelves",{headers:{ "Authorization":`Bearer ${jwt}`}})
       .then((res) => res.data)
       .then((res) => res.sort(compare))
       .then((res) => {
         setShelves(res);
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>console.log(err) );
   }, [adding]);
 
 const handleClick = () =>{
@@ -48,7 +49,7 @@ const handleClick = () =>{
           ? 
          
           shelves.map((el) => (
-              <li key={el.id}>
+              <li key={el._id}>
                 <button className="btn-style hover">{el.name}</button>
               </li>
            

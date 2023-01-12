@@ -1,6 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export function Navbar() {
+
+    const jwt = localStorage.getItem("jwt")
+    const navigate = useNavigate()
     return (
 
         <nav className="bg-beige flex flex-row align-top justify-between">
@@ -44,7 +48,7 @@ export function Navbar() {
                 </Link>
 
                 {/* TO be added feature that signs out and ridarects to log in page */}
-                <button className=" hover:bg-black p-3 hover:text-white">Sign Out</button>
+                <button className=" hover:bg-black p-3 hover:text-white" onClick={() => { localStorage.removeItem("jwt"); navigate("/login") }}>Sign Out</button>
             </div>
         </nav>
 
