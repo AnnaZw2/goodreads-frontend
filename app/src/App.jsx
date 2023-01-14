@@ -15,6 +15,7 @@ import { Stats } from './pages/MyBooks/Stats/Stats';
 import { Shelf } from './pages/MyBooks/Shelves/Shelf';
 import { userContext } from './context/userContex';
 import jwt_decode from "jwt-decode";
+import { newShelfContext } from './context/newShelfContext';
 
 function App() {
 
@@ -24,12 +25,15 @@ function App() {
   const [jwt,updateJwt]= useState(token)
   const [user,updateUser]= useState(decode)
 
+  const [addedNewShelf,setAddedNewShelf] = useState()
+
 
 
   return (
       <div className="root bg-light-beige min-h-screen " >
 
 <userContext.Provider value={{user,updateUser,jwt,updateJwt}}>
+<newShelfContext.Provider value={{addedNewShelf,setAddedNewShelf}}>
         <Routes>
 
           <Route exact path="/" element={<Home />}></Route>
@@ -38,6 +42,7 @@ function App() {
           <Route exact path='/explore' element={<Explore />}></Route>
           <Route exact path='/settings' element={<Settings />}></Route>
           <Route exact path="/notlogged" element={<NotLoggedIn />}></Route>
+
           <Route exact path='/mybooks' element={<MyBooks />}>    </Route>
 
           <Route exact path='mybooks/shelves/all' element={<All />}></Route>
@@ -53,6 +58,7 @@ function App() {
           
           
         </Routes>
+        </newShelfContext.Provider>
 </userContext.Provider>
       </div>
   )
