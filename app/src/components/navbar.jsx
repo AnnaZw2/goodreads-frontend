@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export function Navbar() {
 
-    const jwt = localStorage.getItem("jwt")
+
     const navigate = useNavigate()
     return (
 
