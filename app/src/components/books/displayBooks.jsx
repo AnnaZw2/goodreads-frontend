@@ -1,11 +1,13 @@
 import axios from "axios";
-import { useEffect, useState} from "react";
+import { useContext, useEffect, useState} from "react";
+import { userContext } from "../../context/userContex";
 import { Book } from "./book";
 
 export  function DisplayBooks(){
     const [books, setBooks] = useState([]);
 
-    const jwt = localStorage.getItem("jwt")
+    const {jwt,user} = useContext(userContext)
+    
   
 
 useEffect(() => {

@@ -1,6 +1,7 @@
 import "./../addToShelf.css";
-import { useState, useEffect} from "react";
+import { useState, useEffect,useContext } from "react";
 import axios from "axios";
+import { userContext } from "../../../context/userContex";
 
 
 // this is component for view when you open "add new shelf" button and click "add"
@@ -10,7 +11,7 @@ export function AddClicked({ setAdding, shelves }) {
     const [CanClick, setCanClick] = useState(false);
     const [error, setError] = useState("");
 
-    const jwt = localStorage.getItem("jwt")
+   const {jwt} = useContext(userContext)
 
 
     const nameIsUnique =
