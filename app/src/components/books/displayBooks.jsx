@@ -6,7 +6,7 @@ import { Book } from "./book";
 export  function DisplayBooks(){
     const [books, setBooks] = useState([]);
 
-    const {jwt,user} = useContext(userContext)
+    const {jwt} = useContext(userContext)
     
   
 

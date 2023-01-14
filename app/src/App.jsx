@@ -14,15 +14,16 @@ import { Stats } from './pages/MyBooks/Stats/Stats';
 
 import { Shelf } from './pages/MyBooks/Shelves/Shelf';
 import { userContext } from './context/userContex';
-import jwt_decode from "jwt-decode";
+// import jwt_decode from "jwt-decode";
 
 function App() {
 
   const token = localStorage.getItem("jwt")
-  const decode =jwt_decode(token)
+  // const decode =jwt_decode(token)
 
   const [jwt,updateJwt]= useState(token)
-  const [user,updateUser]= useState(decode)
+  // const [user,updateUser]= useState(decode)
+  const [user,updateUser] = useState("")
 
 
 
