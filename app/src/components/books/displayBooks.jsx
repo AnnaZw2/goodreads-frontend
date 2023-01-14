@@ -24,7 +24,7 @@ useEffect(() => {
 },[]);
 return(
     <div>
-     <ul>{books.map((el)=><li key={el._id} ><Book title={el.title} cover={el.cover} description={el.description} author={el.author}/></li>)}</ul>
+     <ul>{books.map((el)=><li key={el._id} ><Book title={el.title} cover={el.cover} description={el.description} author={el.author} id={el._id}/></li>)}</ul>
    
      </div>
 )

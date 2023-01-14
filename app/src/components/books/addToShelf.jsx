@@ -1,48 +1,25 @@
 import axios from "axios";
-
 import { useContext, useEffect, useReducer, useState } from "react";
-import { AddNotClicked } from "./AddNewShelf/AddNotClicked";
-import { AddClicked } from "./AddNewShelf/AddClicked";
 import "./addToShelf.css";
 import { userContext } from "../../context/userContex";
+import { store, open, close } from "../../redux/newShelfReducer"
+import { AddNewShelf } from "./AddNewShelf/AddNewShelfButton";
 
 
-export function AddToShelf() {
+export function AddToShelf({id}) {
   const [shelves, setShelves] = useState([]);
+
+  const [state, setState] = useState(store.getState());
+  useEffect(() => {
+      const unsubscribe = store.subscribe(() => {
+          setState(store.getState());
+      });
+      return unsubscribe;
+  }, []);
+
 
 
   const { jwt } = useContext(userContext)
-  const ACTIONS = {
-    OPEN_MENU: "open-menu",
-    CLOSE_MENU: "close-menu",
-    ADDING: "add"
-  }
-  function reducer(state, action) {
-    switch (action.type) {
-      case ACTIONS.OPEN_MENU:
-        return { open: true, adding: false }
-      case ACTIONS.CLOSE_MENU:
-        return { open: false, adding: false }
-      case ACTIONS.ADDING:
-        return { open: true, adding: true }
-      default:
-        return state
-    }
-
-  }
-  const [state, dispatch] = useReducer(reducer, { open: false, adding: false })
-
-
-  function open() {
-    dispatch({ type: ACTIONS.OPEN_MENU })
-  }
-  function close() {
-    dispatch({ type: ACTIONS.CLOSE_MENU })
-  }
-  function add() {
-    dispatch({ type: ACTIONS.ADDING })
-  }
-
 
 
 
@@ -75,6 +52,7 @@ export function AddToShelf() {
     <div className="manu-container   btn-width self-center ">
       <button
         className="menu-trigger border border-1 btn-width   p-3 bg-green hover:bg-dark-green text-white cursor-pointer"
+        id= {id}
         onClick={handleClick}
       >
         Add to shelf
@@ -93,7 +71,8 @@ export function AddToShelf() {
           ))
           : null}
         {console.log(state.adding, state.open)}
-        {state.open ? state.adding ? <li>{console.log("adding active")}<AddClicked shelves={shelves} open={open} state={state} /></li> : <li>{console.log("adding not active")}<AddNotClicked state={state} open={open} add={add} /></li> : null}
+      {state.open ?  <AddNewShelf background={'bg-white'} shelves={shelves}/> : null } 
+   
 
       </ul>
     </div>

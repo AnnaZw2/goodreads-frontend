@@ -5,10 +5,12 @@
 @layer components {
  
   .section{
-    @apply flex flex-col gap-2 border border-brown
+    @apply flex flex-col gap-2 border border-brown 
 }
 .links {
     @apply text-light-brown hover:underline
   }
 
   }
+
+
