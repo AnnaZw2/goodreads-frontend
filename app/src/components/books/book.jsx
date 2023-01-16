@@ -1,4 +1,4 @@
-import { AddToShelf } from "./addToShelf";
+import { AddToShelf } from "../../pages/Home/addToShelf";
 export function Book({ title, cover, description, author }) {
 
     return (
@@ -8,7 +8,7 @@ export function Book({ title, cover, description, author }) {
             <div className="flex flex-col ml-5 ">
                 <h3 className="header-3">{title}</h3>
                 <p className="text-lg mb-6">by {author}</p>
-                <AddToShelf/>
+                <AddToShelf />
                 {/* <button className="bg-green text-white cursor-pointer border rounded-md w-48 self-center mb-12 p-3" >Add to shelf</button> */}
                 <div>{description}</div>
             </div>
