@@ -7,7 +7,7 @@
       @apply w-48
   }
 .btn-style{
-    @apply  bg-white btn-width 
+    @apply   btn-width 
   }
 .hover{
     @apply hover:bg-beige

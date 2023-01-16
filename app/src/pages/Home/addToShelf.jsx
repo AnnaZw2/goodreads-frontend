@@ -1,10 +1,10 @@
 import axios from "axios";
 
 import { useContext, useEffect, useReducer, useState } from "react";
-import { AddNotClicked } from "./AddNewShelf/AddNotClicked";
-import { AddClicked } from "./AddNewShelf/AddClicked";
 import "./addToShelf.css";
 import { userContext } from "../../context/userContex";
+import { AddButton } from "../../components/AddNewShelf/AddButton";
+import { addingNewShelf } from "../../context/addingNewShelf";
 
 
 export function AddToShelf() {
@@ -12,6 +12,7 @@ export function AddToShelf() {
 
 
   const { jwt } = useContext(userContext)
+  const { adding, setAdding } = useContext(addingNewShelf)
   const ACTIONS = {
     OPEN_MENU: "open-menu",
     CLOSE_MENU: "close-menu",
@@ -50,9 +51,10 @@ export function AddToShelf() {
     if (a.sort > b.sort) return 1;
     else return -1;
   };
-
+  console.log(adding)
   useEffect(() => {
     console.log("get shelves");
+
     axios
       .get("http://localhost:3000/shelves", { headers: { "Authorization": `Bearer ${jwt}` } })
       .then((res) => res.data)
@@ -61,7 +63,7 @@ export function AddToShelf() {
         setShelves(res);
       })
       .catch((err) => console.log(err));
-  }, [state.adding]);
+  }, [adding]);
 
   const handleClick = () => {
 
@@ -87,13 +89,15 @@ export function AddToShelf() {
 
           shelves.map((el) => (
             <li key={el._id}>
-              <button className="btn-style hover">{el.name}</button>
+              <button className="btn-width bg-white hover">{el.name}</button>
             </li>
 
           ))
           : null}
-        {console.log(state.adding, state.open)}
-        {state.open ? state.adding ? <li>{console.log("adding active")}<AddClicked shelves={shelves} open={open} state={state} /></li> : <li>{console.log("adding not active")}<AddNotClicked state={state} open={open} add={add} /></li> : null}
+
+
+        {state.open ? <AddButton background_btn="bg-light-beige" background="bg-white" /> : null}
+        {/* {state.open ? state.adding ? <li>{console.log("adding active")}<AddClicked style={{background_btn:"bg-light-beige",background:"bg-white"}} shelves={shelves} open={open} state={state}  /></li> : <li>{console.log("adding not active")}<AddNotClicked style={{background_btn:"bg-light-beige"}} state={state} open={open} add={add} /></li> : null} */}
 
       </ul>
     </div>
