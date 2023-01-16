@@ -1,21 +1,36 @@
-import "./../addToShelf.css";
-import { useState, useEffect,useContext } from "react";
+
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { userContext } from "../../../context/userContex";
+import { userContext } from "../../context/userContex";
+import { addingNewShelf } from "../../context/addingNewShelf";
 
 
 // this is component for view when you open "add new shelf" button and click "add"
 // it changes the "add" button to view where you can input name of your new shelf
-export function AddClicked({ shelves ,open,state}) {
+export function AddClicked({ setClicked, background, background_btn }) {
     const [inputValue, setInputValue] = useState("");
     const [CanClick, setCanClick] = useState(false);
     const [error, setError] = useState("");
+    const [shelves, setShelves] = useState([])
+    const { jwt } = useContext(userContext)
 
-   const {jwt} = useContext(userContext)
-
+    const { adding, setAdding } = useContext(addingNewShelf)
 
     const nameIsUnique =
         shelves.filter((el) => el.name == inputValue).length == 0;
+
+    useEffect(() => {
+        console.log(adding)
+        console.log("get shelves");
+        axios
+            .get("http://localhost:3000/shelves", { headers: { "Authorization": `Bearer ${jwt}` } })
+            .then((res) => res.data)
+            .then((res) => {
+                setShelves(res);
+                setAdding(false)
+            })
+            .catch((err) => console.log(err));
+    }, [adding]);
 
 
     useEffect(() => {
@@ -47,17 +62,21 @@ export function AddClicked({ shelves ,open,state}) {
             axios
                 .post(
                     "http://localhost:3000/shelves",
-                    { sort: newSortValue, name: inputValue,type:"custom" },
+                    { sort: newSortValue, name: inputValue, type: "custom" },
                     {
                         headers: {
                             "Content-Type": "application/json",
-                            "Authorization":`Bearer ${jwt}`
+                            "Authorization": `Bearer ${jwt}`
                         },
                     }
                 )
                 .then((res) => {
                     if (res.status == 201) {
-                        open()
+                        setClicked(false)
+                        setAdding(true)
+
+
+
                     }
                 })
                 .catch((err) => console.log(err));
@@ -65,18 +84,19 @@ export function AddClicked({ shelves ,open,state}) {
     }
 
     return (
-        <div className="btn-style  border-t pb-1">
+        <div className={` ${background} btn-width border-t pb-1`}>
             <input
                 type="text"
                 placeholder="New shelf name"
                 className="border m-3"
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyUp={handleKeyUp}
+                autoFocus={true}
             ></input>
             {error.length != 0 ? <p className="text-red">{error}</p> : null}
             <button
                 className={` ${CanClick ? `hover text-black ` : `text-light-gray cursor-auto`
-                    } bg-light-beige px-2 border rounded-sm`}
+                    } ${background_btn} px-2 border rounded-sm`}
                 onClick={handleClick}
             >
                 Add
