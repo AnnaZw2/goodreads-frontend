@@ -14,7 +14,7 @@ import { Stats } from './pages/MyBooks/Stats/Stats';
 
 import { Shelf } from './pages/MyBooks/Shelves/Shelf';
 import { userContext } from './context/userContex';
-import { addingNewShelf } from './context/addingNewShelf';
+import {  updateShelfContext } from './context/updateShelfContext';
 // import jwt_decode from "jwt-decode";
 
 function App() {
@@ -25,13 +25,13 @@ function App() {
   const [jwt, updateJwt] = useState(token)
   // const [user,updateUser]= useState(decode)
   const [user, updateUser] = useState("")
-  const [adding, setAdding] = useState(false)
+  const [updateShelves, setUpdateShelves] = useState(false)
 
 
 
   return (
     <div className="root bg-light-beige min-h-screen " >
-      <addingNewShelf.Provider value={{ adding, setAdding }} >
+      <updateShelfContext.Provider value={{ updateShelves: updateShelves, setUpdateShelves: setUpdateShelves }} >
         <userContext.Provider value={{ user, updateUser, jwt, updateJwt }}>
           <Routes>
 
@@ -57,7 +57,7 @@ function App() {
 
           </Routes>
         </userContext.Provider>
-      </addingNewShelf.Provider>
+      </updateShelfContext.Provider>
     </div>
   )
 }

@@ -2,7 +2,7 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { userContext } from "../../context/userContex";
-import { addingNewShelf } from "../../context/addingNewShelf";
+import { updateShelfContext } from "../../context/updateShelfContext";
 
 
 // this is component for view when you open "add new shelf" button and click "add"
@@ -14,23 +14,23 @@ export function AddClicked({ setClicked, background, background_btn }) {
     const [shelves, setShelves] = useState([])
     const { jwt } = useContext(userContext)
 
-    const { adding, setAdding } = useContext(addingNewShelf)
+    const {  updateShelves,  setUpdateShelves } = useContext(updateShelfContext)
 
     const nameIsUnique =
         shelves.filter((el) => el.name == inputValue).length == 0;
 
     useEffect(() => {
-        console.log(adding)
+        console.log(updateShelves)
         console.log("get shelves");
         axios
             .get("http://localhost:3000/shelves", { headers: { "Authorization": `Bearer ${jwt}` } })
             .then((res) => res.data)
             .then((res) => {
                 setShelves(res);
-                setAdding(false)
+                setUpdateShelves(false)
             })
             .catch((err) => console.log(err));
-    }, [adding]);
+    }, [updateShelves]);
 
 
     useEffect(() => {
@@ -73,7 +73,7 @@ export function AddClicked({ setClicked, background, background_btn }) {
                 .then((res) => {
                     if (res.status == 201) {
                         setClicked(false)
-                        setAdding(true)
+                        setUpdateShelves(true)
 
 
 

@@ -4,7 +4,7 @@ import { useContext, useEffect, useReducer, useState } from "react";
 import "./addToShelf.css";
 import { userContext } from "../../context/userContex";
 import { AddButton } from "../../components/AddNewShelf/AddButton";
-import { addingNewShelf } from "../../context/addingNewShelf";
+import { updateShelfContext } from "../../context/updateShelfContext";
 
 
 export function AddToShelf() {
@@ -12,7 +12,7 @@ export function AddToShelf() {
 
 
   const { jwt } = useContext(userContext)
-  const { adding, setAdding } = useContext(addingNewShelf)
+  const { updateShelves, setUpdateShelves } = useContext(updateShelfContext)
   const ACTIONS = {
     OPEN_MENU: "open-menu",
     CLOSE_MENU: "close-menu",
@@ -51,7 +51,7 @@ export function AddToShelf() {
     if (a.sort > b.sort) return 1;
     else return -1;
   };
-  console.log(adding)
+  console.log(updateShelves)
   useEffect(() => {
     console.log("get shelves");
 
@@ -63,7 +63,7 @@ export function AddToShelf() {
         setShelves(res);
       })
       .catch((err) => console.log(err));
-  }, [adding]);
+  }, [updateShelves]);
 
   const handleClick = () => {
 
