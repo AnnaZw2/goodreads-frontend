@@ -1,14 +1,13 @@
 import "./../index.css";
 import "./Modal.css"
+import { useRef,useEffect } from "react";
+import  useOutsideClick from "./../hooks/useClickOutside"
 
-
-export function Modal({ textModal, setOpenConfirm, handleConfirm }) {
-
-
+export function Modal({ textModal, setOpenConfirm, handleConfirm ,modalRef}) {
 
   return (
     <div className="modal-background fixed top-0 left-0 w-full h-full flex items-center justify-center z-10">
-     <div  className="modal-content relative  bg-white border rounded-lg p-6 z-20">
+     <div ref={modalRef} className="modal-content relative  bg-white border rounded-lg p-6 z-20">
    
         <div className="absolute top-0 right-0 m-3">
           <button className="text-blackborder  rounded-sm p-2 hover:bg-light-brown font-medium hover:text-black focus:outline-none focus:text-black">
