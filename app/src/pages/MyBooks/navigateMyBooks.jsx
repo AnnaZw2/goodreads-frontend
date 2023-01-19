@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
 import "./NavigateMyBooks.css"
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState,useRef } from "react";
 import { userContext } from "../../context/userContex";
 import { AddButton } from "../../components/AddNewShelf/AddButton";
 import { updateShelfContext } from "../../context/updateShelfContext";
 import { DeleteButton } from "../../components/deleteButton";
+import { useClose } from "../../hooks/useClose";
 
 
 
@@ -19,7 +20,9 @@ export function NavigateMyBooks() {
     const [clicked, setClicked] = useState(false)
     const [editing, setEditing] = useState(false)
 
-    console.log(updateShelves)
+const buttonRef = useRef()
+console.log("edit",editing)
+useClose(buttonRef,()=> { ;console.log("works");setEditing(false)})
     useEffect(() => {
         console.log(shelves)
         axios.get("http://localhost:3000/shelves", { headers: { "Authorization": `Bearer ${jwt}` } })
@@ -32,20 +35,22 @@ export function NavigateMyBooks() {
 
     }, [updateShelves])
 
+   
+
     const handleEdit = () => {
-        console.log("edit",editing)
+       
         editing ? setEditing(false) : setEditing(true)
 
     }
 
 
     return (
-        <div>
+        <div >
 
 
 
             {/* shelves */}
-            <ul className="section [&>*:nth-child(5)]:border-b border-brown navigate-my-books flex flex-col   w-fit">
+            <ul ref={buttonRef} className="section [&>*:nth-child(5)]:border-b border-brown navigate-my-books flex flex-col   w-fit">
                 <li className="flex flex-row items-center justify-center relative">
                     <p className="">Bookshelves</p>
                     <button className="text-xs absolute right-5 text-green  hover:underline" onClick={handleEdit} >Edit</button>
@@ -56,8 +61,11 @@ export function NavigateMyBooks() {
 
                 {shelves.map(el =>
                     <li className={"list-none  flex items-center justify-center"} key={el._id}>
+
                         <Link to={`/mybooks/shelves/${el.name.toLowerCase().replace(/\s+/g, '')}`} className="links">{el.name}</Link>
+
                         {console.log("custom",el.type=="custom")}
+                        
                         {el.type === "custom" && editing === true ? <div className="ml-2">
                         <DeleteButton textModal={<p>Are you sure you want to delete <strong>{el.name}</strong> shelf?</p>} textButton={"Delete"} request={()=> axios.delete(`http://localhost:3000/shelves/${el._id}`,{ headers: { "Authorization": `Bearer ${jwt}` } }).catch(err => console.log(err))} /></div> : null}
                     </li>)}

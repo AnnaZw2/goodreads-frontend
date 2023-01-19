@@ -1,7 +1,5 @@
 import "./../index.css";
 import "./Modal.css"
-import { useRef,useEffect } from "react";
-import  useOutsideClick from "./../hooks/useClickOutside"
 
 export function Modal({ textModal, setOpenConfirm, handleConfirm ,modalRef}) {
 

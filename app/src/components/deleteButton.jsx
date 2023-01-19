@@ -1,64 +1,66 @@
 import axios from "axios";
-import { useContext, useEffect,useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { updateShelfContext } from "../context/updateShelfContext";
 import { useState } from "react";
 import { Modal } from "./Modal";
-import  useOutsideClick from "./../hooks/useClickOutside"
+import useOutsideClick from "../hooks/useClickOutside"
 
 export function DeleteButton({ request, textButton, textModal }) {
-  const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
-  const [openConfirm, setOpenConfirm] = useState(false);
+    const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
+    const [openConfirm, setOpenConfirm] = useState(false);
 
-  
-  
-  const modalRef = useRef(null);
-  const buttonRef = useRef(null);
 
-  
-  useOutsideClick(modalRef, buttonRef, () => {
+
+    const modalRef = useRef(null);
+    const buttonRef = useRef(null);
+const mycallback = () => {
     console.log("yuuuup")
-    setOpenConfirm(false)});
- 
+        setOpenConfirm(false)
 
-  const handleDelete = () => {
+}
 
-    setOpenConfirm(true);
-  };
-  const handleConfirm = () => {
-    request();
-    setUpdateShelves(true);
-  };
+    useOutsideClick(modalRef, buttonRef,mycallback);
 
- 
- 
 
-  return (
-    <div>
-      <button
-      ref={buttonRef}
-        onClick={() => {
-          handleDelete();
-        }}
-        className="text-xs text-red"
-      >
-        {textButton}
-      </button>
+    const handleDelete = () => {
 
-      <div className="relative"  >
-        {openConfirm ? (
-       
-          <Modal
-            modalRef={modalRef}
-            textModal={textModal}
-            setOpenConfirm={setOpenConfirm}
-            handleConfirm={handleConfirm}
-            openConfirm={openConfirm}
-          
-          />
-         
+        setOpenConfirm(true);
+    };
+    const handleConfirm = () => {
+        request();
+        setUpdateShelves(true);
+    };
 
-        ) : null}
-      </div>
-    </div>
-  );
+
+
+
+    return (
+        <div>
+            <button
+                ref={buttonRef}
+                onClick={() => {
+                    handleDelete();
+                }}
+                className="text-xs text-red"
+            >
+                {textButton}
+            </button>
+
+            <div className="relative"  >
+                {openConfirm ? (
+
+                    <Modal
+                        modalRef={modalRef}
+                        textModal={textModal}
+                        setOpenConfirm={setOpenConfirm}
+                        handleConfirm={handleConfirm}
+                        openConfirm={openConfirm}
+
+                    />
+
+
+                ) : null}
+            </div>
+        </div>
+    );
 }

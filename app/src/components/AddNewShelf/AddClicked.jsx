@@ -1,9 +1,9 @@
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import { userContext } from "../../context/userContex";
 import { updateShelfContext } from "../../context/updateShelfContext";
-
+import useOutsideClick from "../../hooks/useClickOutside"
 
 // this is component for view when you open "add new shelf" button and click "add"
 // it changes the "add" button to view where you can input name of your new shelf
@@ -14,11 +14,15 @@ export function AddClicked({ setClicked, background, background_btn }) {
     const [shelves, setShelves] = useState([])
     const { jwt } = useContext(userContext)
 
-    const {  updateShelves,  setUpdateShelves } = useContext(updateShelfContext)
+    const { updateShelves, setUpdateShelves } = useContext(updateShelfContext)
+
 
     const nameIsUnique =
         shelves.filter((el) => el.name == inputValue).length == 0;
 
+      
+    
+    
     useEffect(() => {
         console.log(updateShelves)
         console.log("get shelves");
@@ -84,7 +88,7 @@ export function AddClicked({ setClicked, background, background_btn }) {
     }
 
     return (
-        <div className={` ${background} btn-width border-t pb-1`}>
+        <div  className={` ${background} btn-width border-t pb-1`}>
             <input
                 type="text"
                 placeholder="New shelf name"
