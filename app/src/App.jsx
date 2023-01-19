@@ -15,16 +15,18 @@ import { Stats } from './pages/MyBooks/Stats/Stats';
 import { Shelf } from './pages/MyBooks/Shelves/Shelf';
 import { userContext } from './context/userContex';
 import {  updateShelfContext } from './context/updateShelfContext';
-// import jwt_decode from "jwt-decode";
+import { User } from './pages/User';
+import jwt_decode from "jwt-decode";
 
 function App() {
 
   const token = localStorage.getItem("jwt")
-  // const decode =jwt_decode(token)
+  const decode =jwt_decode(token)
+  console.log(decode)
 
   const [jwt, updateJwt] = useState(token)
-  // const [user,updateUser]= useState(decode)
-  const [user, updateUser] = useState("")
+  const [user,updateUser]= useState(decode)
+  // const [user, updateUser] = useState("")
   const [updateShelves, setUpdateShelves] = useState(false)
 
 
@@ -42,15 +44,11 @@ function App() {
             <Route exact path='/settings' element={<Settings />}></Route>
             <Route exact path="/notlogged" element={<NotLoggedIn />}></Route>
             <Route exact path='/mybooks' element={<MyBooks />}>    </Route>
+            <Route exact path="/users" element={<User/>}/>
 
             <Route exact path='mybooks/shelves/all' element={<All />}></Route>
-            {/* <Route exact path='mybooks/shelves/currentlyreading' element={<CurrentlyReading />}></Route>
-          <Route exact path='mybooks/shelves/read' element={<Read />}></Route>
-         */}
+
             <Route exact path='mybooks/stats' element={<Stats />}></Route>
-
-            {/* {FIXXXXXXX ELEMENT={FETCH DO ODPOWIENIEJ PÓŁKI}} */}
-
             <Route path="mybooks/shelves/:name" element={<Shelf />}></Route>
 
 
