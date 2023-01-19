@@ -2,38 +2,31 @@ import axios from "axios"
 import { useContext, useEffect } from "react"
 import { updateShelfContext } from "../context/updateShelfContext"
 import { userContext } from "../context/userContex"
-import {useState} from "react"
+import { useState } from "react"
 import { Modal } from "./Modal"
 
-export function DeleteButton({id}){
-    const {jwt} = useContext(userContext)
-    const {updateShelves,setUpdateShelves} = useContext(updateShelfContext)
-    const [confirm,setConfirm] = useState(null)
-    const [openConfirm,setOpenConfirm] = useState(false)
-console.log(updateShelves,"shelves")
-    const handleDelete = () =>{
-setOpenConfirm(true)
-
+export function DeleteButton({ request, textButton, textModal }) {
+    const { jwt } = useContext(userContext)
+    const { updateShelves, setUpdateShelves } = useContext(updateShelfContext)
+    const [confirm, setConfirm] = useState(null)
+    const [openConfirm, setOpenConfirm] = useState(false)
+    console.log(updateShelves, "shelves")
+    const handleDelete = () => {
+        setOpenConfirm(true)
+    }
+    const handleConfirm = () => {
+        request()
 
     }
-
-    const handleConfirm=(shelfId) =>{
-      
-            axios.delete(`http://localhost:3000/shelves/${shelfId}`,{ headers: { "Authorization": `Bearer ${jwt}` } })
-            .then(res => {console.log(res.data); })
-            .catch(err => console.log(err))
-         
-
-    }
-    return(
+    return (
         <div>
-        <button onClick={()=>{handleDelete()}} className="text-xs text-red">Delete</button>
-        
-        <div className="relative">
-        
-       
-        {/* {openConfirm ? */}
-         {/* <div className="bg-white w-32 absolute border ">
+            <button onClick={() => { handleDelete() }} className="text-xs text-red">{textButton}</button>
+
+            <div className="relative">
+
+
+                {/* {openConfirm ? */}
+                {/* <div className="bg-white w-32 absolute border ">
          <p>Are you sure you want to delete this shelf?</p>
 
           <div className="flex flex-row gap-2 justify-center ">
@@ -42,9 +35,9 @@ setOpenConfirm(true)
          </div>
 
          </div> */}
-         {openConfirm ?    <Modal/> : null}
+                {openConfirm ? <Modal textModal={textModal} /> : null}
 
-        </div>
+            </div>
         </div>
     )
 }
