@@ -11,7 +11,7 @@ import { Settings } from './pages/Settings';
 import { MyBooks } from './pages/MyBooks/MyBooks';
 import { All } from './pages/MyBooks/Shelves/All';
 import { Stats } from './pages/MyBooks/Stats/Stats';
-
+import { Admin } from './pages/Admin';
 import { Shelf } from './pages/MyBooks/Shelves/Shelf';
 import { userContext } from './context/userContex';
 import {  updateShelfContext } from './context/updateShelfContext';
@@ -22,10 +22,10 @@ function App() {
 
   const token = localStorage.getItem("jwt")
   const decode =jwt_decode(token)
-  console.log(decode)
+  console.log(decode.user)
 
   const [jwt, updateJwt] = useState(token)
-  const [user,updateUser]= useState(decode)
+  const [user,updateUser]= useState(decode.user)
   // const [user, updateUser] = useState("")
   const [updateShelves, setUpdateShelves] = useState(false)
 
@@ -34,7 +34,7 @@ function App() {
   return (
     <div className="root bg-light-beige min-h-screen " >
       <updateShelfContext.Provider value={{ updateShelves: updateShelves, setUpdateShelves: setUpdateShelves }} >
-        <userContext.Provider value={{ user, updateUser, jwt, updateJwt }}>
+        <userContext.Provider value={{ user:user,updateUser: updateUser, jwt:jwt, updateJwt:updateJwt }}>
           <Routes>
 
             <Route exact path="/" element={<Home />}></Route>
@@ -45,11 +45,12 @@ function App() {
             <Route exact path="/notlogged" element={<NotLoggedIn />}></Route>
             <Route exact path='/mybooks' element={<MyBooks />}>    </Route>
             <Route exact path="/users" element={<User/>}/>
-
+<Route exact path="/admin" element={<Admin/>}></Route>
             <Route exact path='mybooks/shelves/all' element={<All />}></Route>
 
             <Route exact path='mybooks/stats' element={<Stats />}></Route>
             <Route path="mybooks/shelves/:name" element={<Shelf />}></Route>
+
 
 
 
