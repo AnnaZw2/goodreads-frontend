@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import "./NavigateMyBooks.css"
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { AddClicked } from "../../components/AddNewShelf/AddClicked";
 import { userContext } from "../../context/userContex";
 import { AddButton } from "../../components/AddNewShelf/AddButton";
 import { updateShelfContext } from "../../context/updateShelfContext";
@@ -19,7 +18,6 @@ export function NavigateMyBooks() {
     const [shelves, setShelves] = useState([])
     const [clicked, setClicked] = useState(false)
     const [editing, setEditing] = useState(false)
-
 
     console.log(updateShelves)
     useEffect(() => {
@@ -60,7 +58,8 @@ export function NavigateMyBooks() {
                     <li className={"list-none  flex items-center justify-center"} key={el._id}>
                         <Link to={`/mybooks/shelves/${el.name.toLowerCase().replace(/\s+/g, '')}`} className="links">{el.name}</Link>
                         {console.log("custom",el.type=="custom")}
-                        {el.type === "custom" && editing === true ? <div className="ml-2"><DeleteButton  id={el._id} /></div> : null}
+                        {el.type === "custom" && editing === true ? <div className="ml-2">
+                        <DeleteButton textModal={<p>Are you sure you want to delete <strong>{el.name}</strong> shelf?</p>} textButton={"Delete"} request={()=> axios.delete(`http://localhost:3000/shelves/${el._id}`,{ headers: { "Authorization": `Bearer ${jwt}` } }).catch(err => console.log(err))} /></div> : null}
                     </li>)}
 
                 <li className="border-t"> <Link to="/mybooks/stats" className="links">Stats</Link>
