@@ -57,10 +57,10 @@ export function NavigateMyBooks() {
                 </li>
 
                 {shelves.map(el =>
-                    <li className={"list-none "} key={el._id}>
+                    <li className={"list-none  flex items-center justify-center"} key={el._id}>
                         <Link to={`/mybooks/shelves/${el.name.toLowerCase().replace(/\s+/g, '')}`} className="links">{el.name}</Link>
                         {console.log("custom",el.type=="custom")}
-                        {el.type === "custom" && editing === true ? <DeleteButton id={el._id} /> : null}
+                        {el.type === "custom" && editing === true ? <div className="ml-2"><DeleteButton  id={el._id} /></div> : null}
                     </li>)}
 
                 <li className="border-t"> <Link to="/mybooks/stats" className="links">Stats</Link>

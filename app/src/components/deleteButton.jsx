@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react"
 import { updateShelfContext } from "../context/updateShelfContext"
 import { userContext } from "../context/userContex"
 import {useState} from "react"
+import { Modal } from "./Modal"
 
 export function DeleteButton({id}){
     const {jwt} = useContext(userContext)
@@ -31,8 +32,8 @@ setOpenConfirm(true)
         <div className="relative">
         
        
-        {openConfirm ?
-         <div className="bg-white w-32 absolute right-6">
+        {/* {openConfirm ? */}
+         {/* <div className="bg-white w-32 absolute border ">
          <p>Are you sure you want to delete this shelf?</p>
 
           <div className="flex flex-row gap-2 justify-center ">
@@ -40,7 +41,8 @@ setOpenConfirm(true)
          <button onClick={()=>{setConfirm(false),setOpenConfirm(false)}}><p className="text-red">No</p></button>
          </div>
 
-         </div>: null}
+         </div> */}
+         {openConfirm ?    <Modal/> : null}
 
         </div>
         </div>
