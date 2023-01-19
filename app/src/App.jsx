@@ -1,6 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
-import { Route, Routes } from 'react-router';
+import React, { useState} from 'react';
+import { Route, Routes} from 'react-router';
+
 import './App.css'
 import { Home } from './pages/Home/Home';
 import { Explore } from './pages/Explore';
@@ -16,6 +17,7 @@ import { Shelf } from './pages/MyBooks/Shelves/Shelf';
 import { userContext } from './context/userContex';
 import {  updateShelfContext } from './context/updateShelfContext';
 import { User } from './pages/User';
+import { NotFound } from "./pages/NotFound"
 import jwt_decode from "jwt-decode";
 
 function App() {
@@ -35,25 +37,23 @@ function App() {
     <div className="root bg-light-beige min-h-screen " >
       <updateShelfContext.Provider value={{ updateShelves: updateShelves, setUpdateShelves: setUpdateShelves }} >
         <userContext.Provider value={{ user:user,updateUser: updateUser, jwt:jwt, updateJwt:updateJwt }}>
+        
           <Routes>
-
-            <Route exact path="/" element={<Home />}></Route>
-            <Route exact path='/sign' element={<Register />}></Route>
-            <Route exact path='/login' element={<LogIn />}></Route>
-            <Route exact path='/explore' element={<Explore />}></Route>
-            <Route exact path='/settings' element={<Settings />}></Route>
-            <Route exact path="/notlogged" element={<NotLoggedIn />}></Route>
-            <Route exact path='/mybooks' element={<MyBooks />}>    </Route>
-            <Route exact path="/users" element={<User/>}/>
-<Route exact path="/admin" element={<Admin/>}></Route>
-            <Route exact path='mybooks/shelves/all' element={<All />}></Route>
-
-            <Route exact path='mybooks/stats' element={<Stats />}></Route>
+         
+            <Route  path="/" element={<Home />}></Route>
+            <Route  path='/sign' element={<Register />}></Route>
+            <Route  path='/login' element={<LogIn />}></Route>
+            <Route  path='/explore' element={<Explore />}></Route>
+            <Route  path='/settings' element={<Settings />}></Route>
+            <Route  path="/notlogged" element={<NotLoggedIn />}></Route>
+            <Route  path='/mybooks' element={<MyBooks />}>    </Route>
+            <Route  path="/users" element={<User/>}/>
+<Route  path="/admin" element={<Admin/>}></Route>
+            <Route  path='mybooks/shelves/all' element={<All />}></Route>
+            <Route  path='mybooks/stats' element={<Stats />}></Route>
             <Route path="mybooks/shelves/:name" element={<Shelf />}></Route>
-
-
-
-
+            <Route  path='*'  element={<NotFound/>} />
+          
           </Routes>
         </userContext.Provider>
       </updateShelfContext.Provider>
