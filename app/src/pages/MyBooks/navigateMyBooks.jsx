@@ -67,7 +67,7 @@ useClose(buttonRef,()=> { ;console.log("works");setEditing(false)})
                         {console.log("custom",el.type=="custom")}
                         
                         {el.type === "custom" && editing === true ? <div className="ml-2">
-                        <DeleteButton textModal={<p>Are you sure you want to delete <strong>{el.name}</strong> shelf?</p>} textButton={"Delete"} request={()=> axios.delete(`http://localhost:3000/shelves/${el._id}`,{ headers: { "Authorization": `Bearer ${jwt}` } }).catch(err => console.log(err))} /></div> : null}
+                        <DeleteButton textModal={<p>Are you sure you want to delete <strong>{el.name}</strong> shelf?</p>} textButton={<i class="fa-regular fa-trash-can text-sm"></i>} request={()=> axios.delete(`http://localhost:3000/shelves/${el._id}`,{ headers: { "Authorization": `Bearer ${jwt}` } }).catch(err => console.log(err))} /></div> : null}
                     </li>)}
 
                 <li className="border-t"> <Link to="/mybooks/stats" className="links">Stats</Link>
