@@ -24,6 +24,10 @@ body {
     @apply font-medium leading-tight text-3xl mt-0 mb-2
   }
 
+  .header-4 {
+    @apply font-medium leading-tight text-2xl mt-0 mb-2
+  }
+
 
 }
 
