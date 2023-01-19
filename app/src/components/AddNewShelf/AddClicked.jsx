@@ -3,7 +3,7 @@ import { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import { userContext } from "../../context/userContex";
 import { updateShelfContext } from "../../context/updateShelfContext";
-import useOutsideClick from "../../hooks/useClickOutside"
+
 
 // this is component for view when you open "add new shelf" button and click "add"
 // it changes the "add" button to view where you can input name of your new shelf
