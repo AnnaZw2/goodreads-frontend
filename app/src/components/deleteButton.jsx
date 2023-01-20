@@ -25,7 +25,6 @@ export function DeleteButton({ request, textButton, textModal }) {
     return (
         <div>
             <button
-                // ref={buttonRef}
                 onClick={() => {
                     handleDelete();
                 }}
@@ -38,7 +37,6 @@ export function DeleteButton({ request, textButton, textModal }) {
                 {openConfirm ? (
 
                     <Modal
-                        // modalRef={modalRef}
                         textModal={textModal}
                         setOpenConfirm={setOpenConfirm}
                         handleConfirm={handleConfirm}
