@@ -8,7 +8,7 @@ import { updateShelfContext } from "../../context/updateShelfContext";
 
 export function AddToShelf() {
   const [shelves, setShelves] = useState([]);
-  const [checked,setChecked] = useState(false)
+  const [checked, setChecked] = useState(false);
 
   const { jwt } = useContext(userContext);
   const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
@@ -48,22 +48,81 @@ export function AddToShelf() {
 
   const [checkedStandardShelves, setCheckedStandardShelves] = useState([]);
   const [checkedCustomShelves, setCheckedCustomShelves] = useState([]);
-  
+
   function handleStandardCheck(el) {
     if (checkedStandardShelves.includes(el._id)) {
-        setCheckedStandardShelves([]);
+      setCheckedStandardShelves([]);
+    
     } else {
-        setCheckedStandardShelves([el._id]);
+      setCheckedStandardShelves([el._id]);
+      checkShelf(el._id);
     }
-}
-
-function handleCustomCheck(el) {
-    if (checkedCustomShelves.includes(el._id)) {
-        setCheckedCustomShelves(checkedCustomShelves.filter(id => id !== el._id));
-    } else {
-        setCheckedCustomShelves([...checkedCustomShelves, el._id]);
-      }
   }
+
+  function handleCustomCheck(el) {
+    if (checkedCustomShelves.includes(el._id)) {
+      setCheckedCustomShelves(
+        checkedCustomShelves.filter((id) => id !== el._id)
+
+      );
+
+    } else {
+      setCheckedCustomShelves([...checkedCustomShelves, el._id]);
+      checkShelf(el._id);
+    }
+  }
+
+
+
+  function checkShelf(id) {
+
+const shelvesIds = checkedCustomShelves.concat(checkedCustomShelves)
+
+    axios
+    .get(`http://localhost:3000/book-details?book_id=${id}`, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    })
+    .then((res) => {
+      console.log(res.data)
+      console.log(res.data[0]._id)
+      const myBookDetailsId = res.data
+      if (res.data.length != 0) {
+        console.log(res.data)
+        axios.patch(
+          `http://localhost:3000/book-details/${res.data[0]._id}`,
+          { shelves: shelvesIds },
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              "Content-type": "application/json",
+            }
+          }
+        )
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+      } else {
+       
+        axios.post(
+          `http://localhost:3000/book-details`,
+          { "shelves": shelvesIds , book_id:id },
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              "Content-type": "application/json",
+            }
+          }
+        )
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+      }
+    })
+    .catch(err => console.log(err));
+  
+
+        }
+
+      
+  
 
   useEffect(() => {
     axios
@@ -74,7 +133,6 @@ function handleCustomCheck(el) {
       .then((res) => res.sort(compare))
       .then((res) => {
         setShelves(res);
-       
       })
       .catch((err) => console.log(err));
   }, [updateShelves]);
@@ -97,24 +155,28 @@ function handleCustomCheck(el) {
           state.open ? ` border   ` : null
         } dropdown-menu  absolute`}
       >
-                {state.open
+        {state.open
           ? shelves.map((el) => (
-            <li key={el._id} className="flex items-center">
-                <button className="btn-width bg-white hover flex-center relative"> 
-                    {el.name}
-                    <input
-                        type="checkbox"
-                        className="checkbox absolute left-1 top-1"
-                        checked={el.type === 'standard' ? checkedStandardShelves.includes(el._id) : checkedCustomShelves.includes(el._id)}
-                        onChange={() => {
-                            el.type === 'standard' ? handleStandardCheck(el) : handleCustomCheck(el);
-                        }
-                        }
-                    />
+              <li key={el._id} className="flex items-center">
+                <button className="btn-width bg-white hover flex-center relative">
+                  {el.name}
+                  <input
+                    type="checkbox"
+                    className="checkbox absolute left-1 top-1"
+                    checked={
+                      el.type === "standard"
+                        ? checkedStandardShelves.includes(el._id)
+                        : checkedCustomShelves.includes(el._id)
+                    }
+                    onChange={() => {
+                      el.type === "standard"
+                        ? handleStandardCheck(el)
+                        : handleCustomCheck(el);
+                    }}
+                  />
                 </button>
-            </li>
-
-          ))
+              </li>
+            ))
           : null}
 
         {state.open ? (
