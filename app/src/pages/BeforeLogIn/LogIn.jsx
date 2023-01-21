@@ -2,12 +2,16 @@ import { Link, useNavigate } from "react-router-dom"
 import { useFormik } from 'formik'
 import "./Register.css"
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { userContext } from "../../context/userContex"
+import jwt_decode from "jwt-decode";
 
 
 export function LogIn() {
 
     const [invalidDataError,setInvalidDataError] =useState(false)
+
+const {user,setUpdateUser} = useContext(userContext)
 
     const navigate = useNavigate();
 
@@ -24,9 +28,20 @@ export function LogIn() {
                 }
             })
             .then(res => {
-                console.log(res + ".....")
+              
                 localStorage.setItem("jwt", res.data.token)
-                //  setJwt(res.data.token)
+             
+                console.log("login decoding jwt here",jwt_decode(localStorage.getItem("jwt")))
+           const decode = jwt_decode(res.data.token).user
+        
+           localStorage.setItem("decoded",JSON.stringify(decode))
+
+        
+
+            }).then(()=>{
+                console.log("local storage before setting user",JSON.parse(localStorage.getItem("decoded")))
+          setUpdateUser(JSON.parse(localStorage.getItem("decoded")))
+console.log("set user from login",user)
 
             }).then(() => { navigate("/") })
 

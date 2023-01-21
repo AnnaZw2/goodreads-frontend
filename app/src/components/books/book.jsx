@@ -1,17 +1,29 @@
-import { AddToShelf } from "./addToShelf";
-export function Book({ title, cover, description, author }) {
+import { Link } from "react-router-dom";
+import { AddToShelf } from "../../pages/Home/addToShelf";
 
-    return (
-        <div className="flex m-48 p-8 border rounded-xl bg-white">
-            <img src={cover} className="h-74 w-26" />
 
-            <div className="flex flex-col ml-5 ">
-                <h3 className="header-3">{title}</h3>
-                <p className="text-lg mb-6">by {author}</p>
-                <AddToShelf/>
-                {/* <button className="bg-green text-white cursor-pointer border rounded-md w-48 self-center mb-12 p-3" >Add to shelf</button> */}
-                <div>{description}</div>
-            </div>
-        </div>
-    )
+
+export function Book({ title, cover, description, author,id ,style}) {
+ 
+
+  return (
+  
+<div className="flex mb-40  ml-48 mr-48 p-8 border rounded-xl bg-white" >
+      <img src={cover} className={` ${style.imgHeight} w-26`} />
+     
+
+      <div className="flex flex-col ml-5">
+        <h3 className="header-3">{title}</h3>
+        <p className="text-lg mb-6">by {author}</p>
+        <div className="rating-container">
+
+</div>
+
+        <Link className="links" to={`/details/${id}`} >More ...</Link>
+        <AddToShelf />
+        <div>{description}</div>
+      </div>
+    </div>
+  
+  );
 }
