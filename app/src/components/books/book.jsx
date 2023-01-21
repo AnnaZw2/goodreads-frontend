@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { AddToShelf } from "../../pages/Home/addToShelf";
 
-import "./book.css"
+
 
 export function Book({ title, cover, description, author,id ,style}) {
  

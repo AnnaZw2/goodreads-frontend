@@ -19,15 +19,16 @@ import { updateShelfContext } from './context/updateShelfContext';
 import { User } from './pages/User';
 import { NotFound } from "./pages/NotFound"
 import {Details} from "./components/books/Details"
-import jwt_decode from "jwt-decode";
 import axios from "axios"
+import { searchShelfContext } from './context/searchContext';
 
 function App() {
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("decoded")));
 const jwt = localStorage.getItem("jwt")
 
-
+const [searchValue,setSearchValue] = useState("")
+const [searchOutput, setSearchOutput] = useState([]);
 
   useEffect(()=>{
     const decode = JSON.parse(localStorage.getItem("decoded"));
@@ -58,6 +59,7 @@ if(user!=null){
       <updateShelfContext.Provider value={{ updateShelves: updateShelves, setUpdateShelves: setUpdateShelves }} >
       
       <userContext.Provider value={{ user: user, setUpdateUser:setUser , jwt: jwt}}>
+      <searchShelfContext.Provider value={{searchValue:searchValue,setSearchValue:setSearchValue,searchOutput:searchOutput,setSearchOutput:setSearchOutput}}>
           <Routes>
         
             <Route path="/" element={<Home />}></Route>
@@ -77,6 +79,7 @@ if(user!=null){
             <Route path='*' element={<NotFound />} />
 
           </Routes>
+          </searchShelfContext.Provider>
           </userContext.Provider>
       </updateShelfContext.Provider>
     </div>
