@@ -1,10 +1,11 @@
 import { useRef } from "react";
 import { useClose } from "../hooks/useClose";
 
+
 import "./../index.css";
 import "./Modal.css"
 
-export function Modal({ textModal, setOpenConfirm, handleConfirm }) {
+export function Modal({ textModal, form, setOpenConfirm, handleConfirm }) {
 const ref = useRef()
 useClose(ref,()=>{setOpenConfirm(false)})
   return (
@@ -20,6 +21,7 @@ useClose(ref,()=>{setOpenConfirm(false)})
           <h4 className="header-4">Confirm</h4>
         </div>
         <div className="text-gray-700 mb-4">{textModal}</div>
+        {form}
         <div className="flex gap-3 justify-center">
           <button
             className="bg-transparent hover:bg-red text-red font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded"
