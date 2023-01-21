@@ -1,12 +1,13 @@
 import { Navbar } from "../components/navbar";
 import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { userContext } from "./../context/userContex";
 import { DeleteButton } from "../components/deleteButton";
 import axios from 'axios'
-import { UpdateButton } from "../components/UpdateButton";
+import { UpdateButton } from "../components/UpdateButton/UpdateButton";
 function User(){
     const {user,jwt} = useContext(userContext)
-
+    const navigate = useNavigate();
     return(
         <div>
         <Navbar/>
@@ -20,7 +21,7 @@ function User(){
         <UpdateButton patchKey={"username"} textButton={"Edit"} textModal={<p>Are you sure you want to change this username?</p>} placeholder="Enter new username" url={`http://localhost:3000/users/${user.email}`}/>
         </div>
        
-        <DeleteButton textModal={"Are you sure you want to delet this account?"} textButton={"Delete account"} request={()=>axios.delete(`http://localhost:3000/users/{${user.email}}`,{ headers: { "Authorization": `Bearer ${jwt}` } }).then(res => console.log(res)).catch(err => console.log(err))}/></div> 
+        <DeleteButton textModal={"Are you sure you want to delet this account?"} textButton={"Delete account"} request={()=>axios.delete(`http://localhost:3000/users/${user.email}`,{ headers: { "Authorization": `Bearer ${jwt}` } }).then(res => navigate("/login")).catch(err => console.log(err))}/></div> 
         </div>
     )
 
