@@ -4,15 +4,15 @@ import axios from "axios";
 import { userContext } from "../../context/userContex";
 import { Navbar } from "../navbar";
 import { CommentsSection } from "./CommentsSection";
-
-
+import { UpdateButton } from "../UpdateButton/UpdateButton";
 
 function Details() {
   const { id } = useParams();
   const { jwt } = useContext(userContext);
   const [details, setDetails] = useState();
   const [loading, setLoading] = useState(true);
- 
+  const { user } = useContext(userContext);
+
   useEffect(() => {
     setLoading(true);
     axios
@@ -22,44 +22,269 @@ function Details() {
       .then((res) => {
         setDetails(res.data);
         setLoading(false);
+       
       })
       .catch((err) => console.log(err));
   }, []);
-let date = null
-  console.log(details);
-  
+
+ 
+
   return (
     <div>
-    <Navbar/>
+      <Navbar />
       {loading ? null : (
         <div className="flex mr-64 ml-64  mt-10 items-start">
           <img src={details.cover} className="h-80 mr-4 mt-5 "></img>
-         
-          <div className="flex flex-col justify-start items-start">
-          <div className="p-4 border-b">
-            <h4 className="header-4"><strong>{details.title}</strong></h4>
-            <p className="">({details.serie} #{details.part_of_series})</p>
-            <p className="text-xl mb-10">by {details.author}</p>
-            <p className="ml-10 mr-10">{details.description}</p>
-            </div>
+          {user.role == "admin" ? (
+            <UpdateButton
+              className="m-1"
+              textButton={
+                <i className="fa-solid fa-pen-to-square text-base text-green"></i>
+              }
+              textModal={
+                <p>
+                  Are you sure you want to change cover of{" "}
+                  <strong>{details.title}</strong>?
+                </p>
+              }
+              placeholder="Enter url of new cover "
+              id={details._id}
+              patchKey={"cover"}
+              url={`http://localhost:3000/books/${details._id}`}
+            />
+          ) : null}
 
+          <div className="flex flex-col justify-start items-start">
+            <div className="p-4 border-b">
+              <h4 className="header-4  ">
+                <div className="flex justify-center items-center gap-3">
+                  <strong>{details.title}</strong>
+                  {user.role == "admin" ? (
+                    <UpdateButton
+                      className="m-1 "
+                      textButton={
+                        <i className="fa-solid fa-pen-to-square text-base text-green"></i>
+                      }
+                      textModal={
+                        <p>
+                          Are you sure you want to change title of{" "}
+                          <strong>{details.title}</strong>?
+                        </p>
+                      }
+                      placeholder="Enter new title "
+                      id={details._id}
+                      patchKey={"title"}
+                      url={`http://localhost:3000/books/${details._id}`}
+                    />
+                  ) : null}
+                </div>{" "}
+              </h4>
+
+              <div>
+                <p className="flex flex-row justify-center gap-2">
+                  ({details.serie}
+                  {user.role == "admin" ? (
+                    <UpdateButton
+                      className="m-1 "
+                      textButton={
+                        <i className="fa-solid fa-pen-to-square text-base text-green"></i>
+                      }
+                      textModal={
+                        <p>
+                          Are you sure you want to change name of the series of{" "}
+                          <strong>{details.title}</strong>?
+                        </p>
+                      }
+                      placeholder="Enter new title "
+                      id={details._id}
+                      patchKey={"serie"}
+                      url={`http://localhost:3000/books/${details._id}`}
+                    />
+                  ) : null}
+                  #{details.part_of_series}{" "}
+                  {user.role == "admin" ? (
+                    <UpdateButton
+                      className="m-1 "
+                      textButton={
+                        <i className="fa-solid fa-pen-to-square text-base text-green"></i>
+                      }
+                      textModal={
+                        <p>
+                          Are you sure you want to change which book in the
+                          serie is <strong>{details.title}</strong>?
+                        </p>
+                      }
+                      placeholder="Enter new part of the serie number"
+                      id={details._id}
+                      patchKey={"part_of_series"}
+                      url={`http://localhost:3000/books/${details._id}`}
+                    />
+                  ) : null}{" "}
+                  )
+                </p>
+              </div>
+
+              <p className="text-xl mb-10 flex justify-center gap-3">
+                by {details.author}{" "}
+
+                {user.role == "admin" ? (
+                  <UpdateButton
+                    className="m-1 "
+                    textButton={
+                      <i className="fa-solid fa-pen-to-square text-base text-green"></i>
+                    }
+                    textModal={
+                      <p>
+                        Are you sure you want to change name of the author of{" "}
+                        <strong>{details.title}</strong>?
+                      </p>
+                    }
+                    placeholder="Enter new title "
+                    id={details._id}
+                    patchKey={"author"}
+                    url={`http://localhost:3000/books/${details._id}`}
+                  />
+                ) : null}
+              </p>
+
+
+<div>
+              <p className="ml-10 mr-10">{details.description}
+             
+              </p>
+              {user.role == "admin" ? (
+                  <UpdateButton
+                    className="m-1 "
+                    style={{height:"h-64",width:"w-96"}}
+                    textButton={
+                      <i className="fa-solid fa-pen-to-square text-base text-green"></i>
+                    }
+                    textModal={
+                      <p>
+                        Are you sure you want to change description of{" "}
+                        <strong>{details.title}</strong>?
+                      </p>
+                    }
+                    placeholder="Enter new description "
+                    id={details._id}
+                    patchKey={"description"}
+                    url={`http://localhost:3000/books/${details._id}`}
+                  />
+                ) : null}
+              </div>
+            </div>
 
             <div className="flex  flex-col  ml-10 items-start justify-start mt-4">
-       
-            <p><strong>Pages:</strong> {details.pages}</p>
-            <p><strong>Edition:</strong>{details.edition}</p>
-            <p><strong>Publisher:</strong>{details.publisher}</p>
-            <p><strong>Publishing date: </strong>{ details.publishing_date.slice(0,10).split("-").reverse().join("-").replace("- ","-")
+            <div className="flex gap-2">
+              <p>
+                <strong>Pages:</strong> {details.pages}
+              </p>
+              {user.role == "admin" ? (
+                  <UpdateButton
+                    className="m-1 "
+                    textButton={
+                      <i className="fa-solid fa-pen-to-square text-base text-green"></i>
+                    }
+                    textModal={
+                      <p>
+                        Are you sure you want to change nuber of pages of{" "}
+                        <strong>{details.title}</strong>?
+                      </p>
+                    }
+                    placeholder="Enter new description "
+                    id={details._id}
+                    patchKey={"pages"}
+                    url={`http://localhost:3000/books/${details._id}`}
+                  />
+                ) : null}
+              </div>
 
-}</p>
+              <div className="flex gap-2">
+              <p>
+                <strong>Edition:</strong>
+                {details.edition}
+              </p>
+              {user.role == "admin" ? (
+                  <UpdateButton
+                    className="m-1 "
+                    textButton={
+                      <i className="fa-solid fa-pen-to-square text-base text-green"></i>
+                    }
+                    textModal={
+                      <p>
+                        Are you sure you want to change name of edition of{" "}
+                        <strong>{details.title}</strong>?
+                      </p>
+                    }
+                    placeholder="Enter new description "
+                    id={details._id}
+                    patchKey={"edition"}
+                    url={`http://localhost:3000/books/${details._id}`}
+                  />
+                ) : null}
+              </div>
 
+<div className="flex gap-2">
+              <p>
+                <strong>Publisher:</strong>
+                {details.publisher}
+              </p>
+              {user.role == "admin" ? (
+                  <UpdateButton
+                    className="m-1 "
+                    textButton={
+                      <i className="fa-solid fa-pen-to-square text-base text-green"></i>
+                    }
+                    textModal={
+                      <p>
+                        Are you sure you want to change name of publisher of{" "}
+                        <strong>{details.title}</strong>?
+                      </p>
+                    }
+                    placeholder="Enter new description "
+                    id={details._id}
+                    patchKey={"edition"}
+                    url={`http://localhost:3000/books/${details._id}`}
+                  />
+                ) : null}
+
+              </div>
+
+              <div className="flex gap-2">
+              <p>
+                <strong>Publishing date: </strong>
+                {details.publishing_date
+                  .slice(0, 10)
+                  .split("-")
+                  .reverse()
+                  .join("-")
+                  .replace("- ", "-")}
+              </p>
+              {user.role == "admin" ? (
+                  <UpdateButton
+                    className="m-1 "
+                    textButton={
+                      <i className="fa-solid fa-pen-to-square text-base text-green"></i>
+                    }
+                    textModal={
+                      <p>
+                        Are you sure you want to change publishing date of{" "}
+                        <strong>{details.title}</strong>?
+                      </p>
+                    }
+                    placeholder="Enter new description "
+                    id={details._id}
+                    patchKey={"publishing_date"}
+                    url={`http://localhost:3000/books/${details._id}`}
+                  />
+                ) : null}
             </div>
 
+            </div>
           </div>
-     
         </div>
       )}
-      <CommentsSection/>
+      <CommentsSection />
     </div>
   );
 }
