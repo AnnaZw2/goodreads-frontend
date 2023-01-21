@@ -8,6 +8,7 @@ import { updateShelfContext } from "../../context/updateShelfContext";
 
 export function AddToShelf() {
   const [shelves, setShelves] = useState([]);
+  const [checked,setChecked] = useState(false)
 
   const { jwt } = useContext(userContext);
   const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
@@ -45,6 +46,25 @@ export function AddToShelf() {
     else return -1;
   };
 
+  const [checkedStandardShelves, setCheckedStandardShelves] = useState([]);
+  const [checkedCustomShelves, setCheckedCustomShelves] = useState([]);
+  
+  function handleStandardCheck(el) {
+    if (checkedStandardShelves.includes(el._id)) {
+        setCheckedStandardShelves([]);
+    } else {
+        setCheckedStandardShelves([el._id]);
+    }
+}
+
+function handleCustomCheck(el) {
+    if (checkedCustomShelves.includes(el._id)) {
+        setCheckedCustomShelves(checkedCustomShelves.filter(id => id !== el._id));
+    } else {
+        setCheckedCustomShelves([...checkedCustomShelves, el._id]);
+      }
+  }
+
   useEffect(() => {
     axios
       .get("http://localhost:3000/shelves", {
@@ -54,6 +74,7 @@ export function AddToShelf() {
       .then((res) => res.sort(compare))
       .then((res) => {
         setShelves(res);
+       
       })
       .catch((err) => console.log(err));
   }, [updateShelves]);
@@ -76,12 +97,24 @@ export function AddToShelf() {
           state.open ? ` border   ` : null
         } dropdown-menu  absolute`}
       >
-        {state.open
+                {state.open
           ? shelves.map((el) => (
-              <li key={el._id}>
-                <button className="btn-width bg-white hover">{el.name}</button>
-              </li>
-            ))
+            <li key={el._id} className="flex items-center">
+                <button className="btn-width bg-white hover flex-center relative"> 
+                    {el.name}
+                    <input
+                        type="checkbox"
+                        className="checkbox absolute left-1 top-1"
+                        checked={el.type === 'standard' ? checkedStandardShelves.includes(el._id) : checkedCustomShelves.includes(el._id)}
+                        onChange={() => {
+                            el.type === 'standard' ? handleStandardCheck(el) : handleCustomCheck(el);
+                        }
+                        }
+                    />
+                </button>
+            </li>
+
+          ))
           : null}
 
         {state.open ? (
