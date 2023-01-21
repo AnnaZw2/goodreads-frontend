@@ -10,10 +10,6 @@ export function Navbar() {
 
   const { user, setUpdateUser, jwt } = useContext(userContext);
   
-  // const [SearchParams,setSearchParams] = useSearchParams()
-  // const searchTerm = setSearchParams.get(`name`) || ``;
-//   const [searchValue,setSearchValue]= useState();
-
   const {searchValue,setSearchValue,searchOutput, setSearchOutput}  = useContext(searchShelfContext)
   useEffect(() => {
     axios
@@ -35,6 +31,11 @@ export function Navbar() {
     // console.log("value is:", event.target.value);
   };
 
+  function handleKeyUp(event) {
+    if (event.key === 'Enter') {
+        navigate("/explore")
+    }
+};
  
 
   return (
@@ -66,6 +67,7 @@ export function Navbar() {
           value={searchValue}
           onChange={handleInput}
           placeholder="Search books"
+          onKeyUp={handleKeyUp}
           className="flex rounded-l-md w-80  border p-4  h-8 border-brown"
         ></input>
         <Link to="/explore" >
