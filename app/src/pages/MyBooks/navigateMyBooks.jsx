@@ -94,7 +94,7 @@ export function NavigateMyBooks() {
                                             shelf?
                                         </p>
                                     }
-                                    textButton={<i class="fa-regular fa-trash-can text-sm"></i>}
+                                    textButton={<i className="fa-regular fa-trash-can text-sm"></i>}
                                     request={() =>
                                         axios
                                             .delete(`http://localhost:3000/shelves/${el._id}`, {
