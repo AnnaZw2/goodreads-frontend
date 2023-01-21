@@ -79,7 +79,7 @@ export function NavigateMyBooks() {
                         <Link
                             to={`/mybooks/shelves/${el.name
                                 .toLowerCase()
-                                .replace(/\s+/g, "")}`}
+                                .replace(/\s+/g, "")}/${el._id}`}
                             className="links"
                         >
                             {el.name}

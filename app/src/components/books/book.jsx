@@ -20,7 +20,7 @@ export function Book({ title, cover, description, author,id ,style}) {
 </div>
 
         <Link className="links" to={`/details/${id}`} >More ...</Link>
-        <AddToShelf />
+        <AddToShelf bookId={id} />
         <div>{description}</div>
       </div>
     </div>

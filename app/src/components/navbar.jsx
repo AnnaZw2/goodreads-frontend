@@ -21,7 +21,7 @@ export function Navbar() {
       })
       .then((res) => {
         setSearchOutput(res.data);
-        console.log(res.data);
+   
       });
   }, [searchValue]);
 

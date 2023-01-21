@@ -75,7 +75,7 @@ if(user!=null){
               <Route path="/admin" element={<Admin />}></Route> : null }
             <Route path='mybooks/shelves/all' element={<All />}></Route>
             <Route path='mybooks/stats' element={<Stats />}></Route>
-            <Route path="mybooks/shelves/:name" element={<Shelf />}></Route>
+            <Route path="mybooks/shelves/:name/:id" element={<Shelf />}></Route>
             <Route path='*' element={<NotFound />} />
 
           </Routes>
