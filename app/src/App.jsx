@@ -27,28 +27,24 @@ function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("decoded")));
 const jwt = localStorage.getItem("jwt")
 
- 
+
 
   useEffect(()=>{
     const decode = JSON.parse(localStorage.getItem("decoded"));
-    console.log("user from useeffect",user)
+ 
 setUser(decode)
   },[jwt])
-  console.log(user);
-  
-  
-  
-// console.log("from app",JSON.parse(decode))
-// const parsed = JSON.parse(decode)
-// setUser(parsed)
-// console.log(user)
+
 
 useEffect(() => {
   
+if(user!=null){
+  axios.get(`http://localhost:3000/users/${user.email}`,  { headers: { Authorization: `Bearer ${jwt}` }}).then(res => {setUser(res.data);}).catch(err => console.log(err))
 
+}
     
 
-      axios.get(`http://localhost:3000/users/${user.email}`,  { headers: { Authorization: `Bearer ${jwt}` }}).then(res => {setUser(res.data);}).catch(err => console.log(err))
+      
 
 }, [jwt]);
 
@@ -73,7 +69,7 @@ useEffect(() => {
             <Route path="/notlogged" element={<NotLoggedIn />}></Route>
             <Route path='/mybooks' element={<MyBooks />}>    </Route>
             <Route path="/users" element={<User />} />
-{user.role === "admin" ?
+{ user.role === "admin" ?
               <Route path="/admin" element={<Admin />}></Route> : null }
             <Route path='mybooks/shelves/all' element={<All />}></Route>
             <Route path='mybooks/stats' element={<Stats />}></Route>
