@@ -9,6 +9,7 @@ export function UpdateButton({
   textButton,
   textModal,
   patchKey,
+  style
 }) {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openEditing, setOpenEditing] = useState(false);
@@ -59,6 +60,7 @@ export function UpdateButton({
             handleConfirm={handleConfirm}
             openConfirm={openEditing}
             placeholder={placeholder}
+            style={style}
           />
           {/* <button  onClick={handleSubmit} className="border rounded-md bg-white p-1 text-light-brown hover:text-white hover:bg-light-brown">Submit</button> */}
         </div>

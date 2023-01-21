@@ -5,13 +5,16 @@ import { useClose } from "../../hooks/useClose";
 import "./../../index.css";
 import "./../Modal.css"
 
-export function EditModal({ textModal, placeholder, setOpenConfirm, handleConfirm }) {
+export function EditModal({ textModal, placeholder, setOpenConfirm, handleConfirm,style }) {
 const ref = useRef()
 useClose(ref,()=>{setOpenConfirm(false)})
 const [newValue, setNewValue] = useState("");
+const [erros,setErrors]= useState("")
+console.log("style",style)
 const handleInput = (event) => {
+  
     setNewValue(event.target.value);
-
+newValue!=0 ? setErrors("") : null
     console.log("value is:", event.target.value);
   };
   return (
@@ -27,17 +30,21 @@ const handleInput = (event) => {
           <h4 className="header-4">Confirm</h4>
         </div>
         <div className="text-gray-700 mb-4">{textModal}</div>
-        <input
+        <div className="flex flex-col justify-center items-center ">
+        {erros.length!=0 ? <p className="text-sm text-red">{erros}</p> : null}
+        <textarea
     autoFocus={true}
     placeholder={placeholder}
-    className="m-4 border rounded-md p-2 border-black w-60 h-10"
-      type="text"
+    className={`m-4 border  resize-both white-space-pre-wrap  rounded-md p-2  border-black w-60 text-start resize-both white-space-normal ${style !== undefined ? style.height + ' ' + style.width : "h-10"}`}
+      type="textarea"
       id="newValue"
       name="newValue"
       onChange={handleInput}
 
       value={newValue}
-    />
+    ></textarea>
+
+    </div>
         <div className="flex gap-3 justify-center">
           <button
             className="bg-transparent hover:bg-red text-red font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded"
@@ -48,8 +55,15 @@ const handleInput = (event) => {
           <button
             className="bg-transparent  hover:bg-green text-green font-semibold hover:text-white py-2 px-4 border border-green hover:border-transparent rounded"
             onClick={() => {
-              setOpenConfirm(false);
-              handleConfirm(newValue);
+            
+              if(newValue.length==0){
+                setErrors("Invalid input!")
+              }else{
+                setOpenConfirm(false);
+                handleConfirm(newValue);
+                setErrors("")
+              }
+            
             }}
           >
             Continue
