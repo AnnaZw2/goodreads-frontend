@@ -13,11 +13,13 @@ export function Shelf() {
 
   useEffect(() => {
     setBooks([])
+
     axios
       .get(`http://localhost:3000/book-details/shelves/${id}`, {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => {
+        console.log("i got this many books from shelf",res.data)
         const arr = res.data.map((el) => el.book_id);
         console.log("arr", arr);
 
@@ -44,7 +46,7 @@ export function Shelf() {
         }
       })
       .catch((err) => console.log(err));
-  }, [id]);
+  }, []);
 
   console.log("books",books)
 
@@ -55,7 +57,7 @@ export function Shelf() {
 
       <h3 className="header-3">{name}</h3>
 
-      {books.length!=0 ? books.map(el =><img src={el.cover}></img> ) : null}
+      {books.length!=0 ? books.map(el =><img key={el._id} src={el.cover}></img> ) : null}
     </div>
   );
 }
