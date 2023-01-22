@@ -85,9 +85,10 @@ export function AddToShelf({ bookId }) {
   // }, [customChecked]);
 
   useEffect(() => {
+   const tmp = getArrayFromSelectedCustomShelves(customChecked)
     console.log("on standard shelf", selectedStandardShelves)
     console.log("on custom shelf", customChecked)
-    console.log(" on all shelves", selectedStandardShelves.concat(customChecked))
+    console.log(" on all shelves", selectedStandardShelves.concat(tmp))
   }, [customChecked, selectedStandardShelves])
 
   function getArrayFromSelectedCustomShelves(_customChecked) {
@@ -192,9 +193,9 @@ export function AddToShelf({ bookId }) {
               headers: { Authorization: `Bearer ${jwt}` },
             })
             .then((res) => {
-              setSelectedStandardShelves(
-                res.data.shelves.filter((el) => standardIds.includes(el))
-              );
+              let tmp = res.data.shelves.filter((el) => standardIds.includes(el))
+              let dedupStd = [...new Set(tmp)]
+              setSelectedStandardShelves(dedupStd);
               console.log(
                 "setting standard to",
                 res.data.shelves.filter((el) => standardIds.includes(el))
@@ -205,18 +206,10 @@ export function AddToShelf({ bookId }) {
               // );
 
               setCustomChecked(
-                // res.data.shelves.filter((el) => !standardIds.includes(el))
                 res.data.shelves.reduce((acc, curr) => {
                   if (!standardIds.includes(curr)) {
-                    console.log("standardIds", standardIds)
-                    console.log("curr inside !standard", curr)
-                    // console.log("curr type of", typeof curr, typeof acc, typeof res.data.shelves)
-
                     acc[curr] = true;
                   }
-                  console.log("curr", curr)
-                  console.log("standartIds", standardIds)
-                  console.log("akumulator acc", acc)
                   return acc;
                 }, {})
               );
