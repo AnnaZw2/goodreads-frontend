@@ -10,9 +10,10 @@ export function AddToShelf({ bookId }) {
   const [shelves, setShelves] = useState([]);
   const [selectedShelves, setSelectedShelves] = useState([]);
   const [selectedStandardShelves, setSelectedStandardShelves] = useState([]);
-  const [selectedCustomShelves, setSelectedCustomShelves] = useState([]);
+  // const [selectedCustomShelves, setSelectedCustomShelves] = useState([]);
   const [standardIds, setStandardIds] = useState([]);
-  useEffect(() => {}, [bookId]);
+  const [customChecked, setCustomChecked] = useState({});
+  useEffect(() => { }, [bookId]);
 
   const { jwt } = useContext(userContext);
   const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
@@ -50,12 +51,10 @@ export function AddToShelf({ bookId }) {
     else return -1;
   };
 
-  useEffect(() => {
-    // setSelectedShelves(selectedCustomShelves.concat(selectedStandardShelves));
-    console.log("custom", selectedCustomShelves);
-    console.log("standard", selectedStandardShelves);
-    console.log("selected shelves", selectedCustomShelves.concat(selectedStandardShelves));
-  }, [selectedCustomShelves, selectedStandardShelves]);
+
+
+
+
 
   useEffect(() => {
     axios
@@ -65,71 +64,97 @@ export function AddToShelf({ bookId }) {
       .then((res) => res.data)
       .then((res) => {
         const ids = res.filter((el) => el.type == "standard");
-        console.log("ids", ids);
-        setStandardIds(ids);
+        const arrIds = ids.map(el => el._id)
+        setStandardIds(arrIds);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  function checkShelf(shelfId, bookId) {
-    // console.log("selected shelves", selectedShelves);
-    axios
-      .get(`http://localhost:3000/book-details?book_id=${bookId}`, {
-        headers: { Authorization: `Bearer ${jwt}` },
-      })
-      .then((res) => {
-        console.log("loging book details search resp", res.data);
+  // useEffect(() => {
+  //   setSelectedCustomShelves(
+  //     Object.keys(customChecked).filter((el) => customChecked[el])
+  //   );
 
-        if (res.data.length != 0) {
-          // if (selectedShelves.includes(shelfId)) {
-          //   setSelectedShelves(selectedShelves.filter((id) => id !== shelfId));
-          // } else {
-          //   setSelectedShelves([...selectedShelves, shelfId]);
-          // }
+  //   console.log("customChecked", customChecked)
+  //   console.log("selectedCustomShelevs", selectedCustomShelves);
+  //   console.log("selectedStandardShelves", selectedStandardShelves);
+  //   console.log(
+  //     "selected shelves",
+  //     selectedCustomShelves.concat(selectedStandardShelves)
+  //   );
+  // }, [customChecked]);
 
-          axios
-            .patch(
-              `http://localhost:3000/book-details/${res.data[0]._id}`,
-              { shelves: selectedStandardShelves.concat(selectedCustomShelves) },
-              {
-                headers: {
-                  Authorization: `Bearer ${jwt}`,
-                  "Content-type": "application/json",
-                },
-              }
-            )
+  useEffect(() => {
+    console.log("on standard shelf", selectedStandardShelves)
+    console.log("on custom shelf", customChecked)
+    console.log(" on all shelves", selectedStandardShelves.concat(customChecked))
+  }, [customChecked, selectedStandardShelves])
 
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
-        } else {
-          // setSelectedShelves([...selectedShelves, shelfId]);
-          // if (selectedShelves.length === 0) {
-          //   setSelectedShelves([]);
-          // }
-          console.log("to post", selectedStandardShelves.concat(selectedCustomShelves).concat(shelfId));
-          console.log(
-            "i am making post, becuase this book has no book details"
-          );
-          axios
-            .post(
-              `http://localhost:3000/book-details`,
-              { shelves: selectedStandardShelves.concat(selectedCustomShelves).concat(shelfId), book_id: bookId },
-              {
-                headers: {
-                  Authorization: `Bearer ${jwt}`,
-                  "Content-type": "application/json",
-                },
-              }
-            )
-            .then((res) => {
-              console.log(res);
-              console.log("leaving post ");
-            })
-            .catch((err) => console.log(err));
-        }
-      })
-      .catch((err) => console.log(err));
+  function getArrayFromSelectedCustomShelves(_customChecked) {
+    return Object.keys(_customChecked).filter((el) => _customChecked[el])
   }
+
+
+
+  // function checkShelf(shelfId, bookId) {
+  //   axios
+  //     .get(`http://localhost:3000/book-details?book_id=${bookId}`, {
+  //       headers: { Authorization: `Bearer ${jwt}` },
+  //     })
+  //     .then((res) => {
+  //       if (res.data.length != 0) {
+  //         axios
+  //           .patch(
+  //             `http://localhost:3000/book-details/${res.data[0]._id}`,
+  //             {
+  //               shelves: selectedStandardShelves.concat(getArrayFromSelectedCustomShelves(customChecked)),
+  //             },
+  //             {
+  //               headers: {
+  //                 Authorization: `Bearer ${jwt}`,
+  //                 "Content-type": "application/json",
+  //               },
+  //             }
+  //           )
+
+  //           .then((res) => console.log(res))
+  //           .catch((err) => console.log(err));
+  //       } else {
+
+  //         console.log(
+  //           "to post",
+  //           selectedStandardShelves
+  //             .concat(getArrayFromSelectedCustomShelves(customChecked))
+  //             .concat(shelfId)
+  //         );
+  //         console.log(
+  //           "i am making post, becuase this book has no book details"
+  //         );
+  //         axios
+  //           .post(
+  //             `http://localhost:3000/book-details`,
+  //             {
+  //               shelves: selectedStandardShelves
+  //                 .concat(getArrayFromSelectedCustomShelves(customChecked))
+  //                 .concat(shelfId),
+  //               book_id: bookId,
+  //             },
+  //             {
+  //               headers: {
+  //                 Authorization: `Bearer ${jwt}`,
+  //                 "Content-type": "application/json",
+  //               },
+  //             }
+  //           )
+  //           .then((res) => {
+  //             console.log(res);
+  //             console.log("leaving post ");
+  //           })
+  //           .catch((err) => console.log(err));
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
 
   useEffect(() => {
     axios
@@ -145,8 +170,10 @@ export function AddToShelf({ bookId }) {
   }, [updateShelves]);
 
   const handleClick = () => {
-    console.log("selected shelf when clicking ", selectedStandardShelves.concat(selectedCustomShelves));
-
+    console.log(
+      "selected shelf when clicking ",
+      selectedStandardShelves.concat(getArrayFromSelectedCustomShelves(customChecked))
+    );
 
     axios
       .get(`http://localhost:3000/book-details?book_id=${bookId}`, {
@@ -158,30 +185,51 @@ export function AddToShelf({ bookId }) {
       })
       .then((info) => {
         if (info != undefined) {
-          console.log("info", info);
+
+          console.log("info is it shelf", info);
           axios
             .get(`http://localhost:3000/book-details/${info._id}`, {
               headers: { Authorization: `Bearer ${jwt}` },
             })
             .then((res) => {
-          
-          
               setSelectedStandardShelves(
-                res.data.shelves.filter((el) => el == standardIds)
+                res.data.shelves.filter((el) => standardIds.includes(el))
               );
               console.log(
                 "setting standard to",
-                res.data.shelves.filter((el) => el == standardIds)
+                res.data.shelves.filter((el) => standardIds.includes(el))
               );
-              console.log(
-                "selected standard after relode",
-                selectedStandardShelves
-              );
-              setSelectedCustomShelves(
-                res.data.shelves.filter((el) => el != standardIds)
+              // console.log(
+              //   "selected standard after relode",
+              //   selectedStandardShelves
+              // );
+
+              setCustomChecked(
+                // res.data.shelves.filter((el) => !standardIds.includes(el))
+                res.data.shelves.reduce((acc, curr) => {
+                  if (!standardIds.includes(curr)) {
+                    console.log("standardIds", standardIds)
+                    console.log("curr inside !standard", curr)
+                    // console.log("curr type of", typeof curr, typeof acc, typeof res.data.shelves)
+
+                    acc[curr] = true;
+                  }
+                  console.log("curr", curr)
+                  console.log("standartIds", standardIds)
+                  console.log("akumulator acc", acc)
+                  return acc;
+                }, {})
               );
 
-              // console.log(selectedShelves)
+              // setSelectedCustomShelves(
+              //   Object.keys(customChecked).filter((el) => customChecked[el])
+              // );
+
+              // console.log("customChecked", customChecked)
+              // console.log(
+              //   "selected custom after relode",
+              //   getArrayFromSelectedCustomShelves(customChecked)
+              // );
             })
             .catch((err) => console.log(err));
         }
@@ -196,10 +244,10 @@ export function AddToShelf({ bookId }) {
       if (shelf._id == selectedStandardShelves[0]) {
         console.log("is equal true", shelf._id == selectedStandardShelves);
         setSelectedStandardShelves([]);
-        checkShelf(shelf._id, bookId);
+        // checkShelf(shelf._id, bookId);
       } else {
         setSelectedStandardShelves([shelf._id]);
-        checkShelf(shelf._id, bookId);
+        // checkShelf(shelf._id, bookId);
       }
     } else {
       if (selectedStandardShelves.includes(shelf._id)) {
@@ -208,24 +256,23 @@ export function AddToShelf({ bookId }) {
         );
         console.log("filtered", filtered);
         setSelectedStandardShelves(filtered);
-        checkShelf(shelf._id, bookId);
+        // checkShelf(shelf._id, bookId);
       } else {
         setSelectedStandardShelves([...selectedStandardShelves, shelf._id]);
-        checkShelf(shelf._id, bookId);
+        // checkShelf(shelf._id, bookId);
       }
     }
   }
 
   function handleCheckingCustom(shelf) {
-    if (selectedCustomShelves.includes(shelf._id)) {
-      const filtered = selectedCustomShelves.filter((el) => el != shelf._id);
-      console.log("filtered", filtered);
-      setSelectedCustomShelves([filtered]);
-      checkShelf(shelf._id, bookId);
-    } else {
-      setSelectedCustomShelves([...selectedCustomShelves, shelf._id]);
-      checkShelf(shelf._id, bookId);
-    }
+    setCustomChecked({
+      ...customChecked,
+      [shelf._id]: !customChecked[shelf._id],
+    });
+
+    console.log("shelf", shelf);
+
+    // checkShelf(shelf._id, bookId);
   }
 
   return (
@@ -238,39 +285,37 @@ export function AddToShelf({ bookId }) {
       </button>
 
       <ul
-        className={`${
-          state.open ? ` border   ` : null
-        } dropdown-menu  absolute`}
+        className={`${state.open ? ` border   ` : null
+          } dropdown-menu  absolute`}
       >
         {state.open
           ? shelves.map((el) => (
-              <li key={el._id} className="flex items-center">
-                <button className="btn-width bg-white hover flex-center relative">
-                  {el.name}
-                  <input
-                    type="checkbox"
-                    className="checkbox absolute left-1 top-1"
-                    checked={
-   el.type == "standard"
-   ? selectedStandardShelves.includes(el._id) 
-   : selectedCustomShelves.includes(el._id)
-}
-
-                    onChange={() =>
-                      el.type == "standard"
-                        ? handleCheckingStandard(el)
-                        : handleCheckingCustom(el)
-                    }
-                  />
-                </button>
-              </li>
-            ))
+            <li key={el._id} className="flex items-center">
+              <button className="btn-width bg-white hover flex-center relative">
+                {el.name}
+                <input
+                  type="checkbox"
+                  className="checkbox absolute left-1 top-1"
+                  checked={
+                    el.type == "standard"
+                      ? selectedStandardShelves.includes(el._id) || false
+                      : customChecked[el._id] || false
+                  }
+                  onChange={() =>
+                    el.type == "standard"
+                      ? handleCheckingStandard(el)
+                      : handleCheckingCustom(el)
+                  }
+                />
+              </button>
+            </li>
+          ))
           : null}
 
         {state.open ? (
           <AddButton background_btn="bg-light-beige" background="bg-white" />
         ) : null}
-        {/* {state.open ? state.adding ? <li>{console.log("adding active")}<AddClicked style={{background_btn:"bg-light-beige",background:"bg-white"}} shelves={shelves} open={open} state={state}  /></li> : <li>{console.log("adding not active")}<AddNotClicked style={{background_btn:"bg-light-beige"}} state={state} open={open} add={add} /></li> : null} */}
+
       </ul>
     </div>
   );
