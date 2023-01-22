@@ -85,10 +85,12 @@ export function AddToShelf({ bookId }) {
   // }, [customChecked]);
 
   useEffect(() => {
+  
    const tmp = getArrayFromSelectedCustomShelves(customChecked)
     console.log("on standard shelf", selectedStandardShelves)
     console.log("on custom shelf", customChecked)
     console.log(" on all shelves", selectedStandardShelves.concat(tmp))
+    checkShelf(bookId)
   }, [customChecked, selectedStandardShelves])
 
   function getArrayFromSelectedCustomShelves(_customChecked) {
@@ -97,65 +99,65 @@ export function AddToShelf({ bookId }) {
 
 
 
-  // function checkShelf(shelfId, bookId) {
-  //   axios
-  //     .get(`http://localhost:3000/book-details?book_id=${bookId}`, {
-  //       headers: { Authorization: `Bearer ${jwt}` },
-  //     })
-  //     .then((res) => {
-  //       if (res.data.length != 0) {
-  //         axios
-  //           .patch(
-  //             `http://localhost:3000/book-details/${res.data[0]._id}`,
-  //             {
-  //               shelves: selectedStandardShelves.concat(getArrayFromSelectedCustomShelves(customChecked)),
-  //             },
-  //             {
-  //               headers: {
-  //                 Authorization: `Bearer ${jwt}`,
-  //                 "Content-type": "application/json",
-  //               },
-  //             }
-  //           )
+  function checkShelf( bookId) {
+    axios
+      .get(`http://localhost:3000/book-details?book_id=${bookId}`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((res) => {
+        if (res.data.length != 0) {
+          axios
+            .patch(
+              `http://localhost:3000/book-details/${res.data[0]._id}`,
+              {
+                shelves: selectedStandardShelves.concat(getArrayFromSelectedCustomShelves(customChecked)),
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${jwt}`,
+                  "Content-type": "application/json",
+                },
+              }
+            )
 
-  //           .then((res) => console.log(res))
-  //           .catch((err) => console.log(err));
-  //       } else {
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+        } else {
 
-  //         console.log(
-  //           "to post",
-  //           selectedStandardShelves
-  //             .concat(getArrayFromSelectedCustomShelves(customChecked))
-  //             .concat(shelfId)
-  //         );
-  //         console.log(
-  //           "i am making post, becuase this book has no book details"
-  //         );
-  //         axios
-  //           .post(
-  //             `http://localhost:3000/book-details`,
-  //             {
-  //               shelves: selectedStandardShelves
-  //                 .concat(getArrayFromSelectedCustomShelves(customChecked))
-  //                 .concat(shelfId),
-  //               book_id: bookId,
-  //             },
-  //             {
-  //               headers: {
-  //                 Authorization: `Bearer ${jwt}`,
-  //                 "Content-type": "application/json",
-  //               },
-  //             }
-  //           )
-  //           .then((res) => {
-  //             console.log(res);
-  //             console.log("leaving post ");
-  //           })
-  //           .catch((err) => console.log(err));
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
+          console.log(
+            "to post",
+            selectedStandardShelves
+              .concat(getArrayFromSelectedCustomShelves(customChecked))
+              // .concat(shelfId)
+          );
+          console.log(
+            "i am making post, becuase this book has no book details"
+          );
+          axios
+            .post(
+              `http://localhost:3000/book-details`,
+              {
+                shelves: selectedStandardShelves
+                  .concat(getArrayFromSelectedCustomShelves(customChecked))
+                  // .concat(shelfId),
+               , book_id: bookId,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${jwt}`,
+                  "Content-type": "application/json",
+                },
+              }
+            )
+            .then((res) => {
+              console.log(res);
+              console.log("leaving post ");
+            })
+            .catch((err) => console.log(err));
+        }
+      })
+      .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
     axios
