@@ -5,6 +5,7 @@ import { NavigateMyBooks } from "../navigateMyBooks";
 import axios from "axios";
 import { userContext } from "../../../context/userContex";
 import { updateShelfContext } from "../../../context/updateShelfContext";
+import { MyBooks } from "../MyBooks";
 export function Shelf() {
   const { name, id } = useParams();
 
@@ -46,23 +47,13 @@ export function Shelf() {
         }
       })
       .catch((err) => console.log(err));
-  }, [updateShelves]);
+  }, [updateShelves,id]);
 
   console.log("books",books)
 
   return (
-<div className="flex flex-col h-screen">
-  <Navbar className="w-full" />
-  <div className="flex">
-    <NavigateMyBooks  />
-    <div className="flex flex-col items-start justify-between w-full ml-12">
-      <h3 className="header-3 flex  justify-center text-center">{shelfName}</h3>
-      <div className="flex flex-col items-center">
-        {books.length !== 0 ? books.map(el => <img key={el._id} src={el.cover} className="my-1 h-48" ></img>) : null}
-      </div>
-    </div>
-  </div>
-</div>
+<MyBooks books={books} shelfName={shelfName}/>
+
   
   );
 }

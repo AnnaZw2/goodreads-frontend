@@ -1,17 +1,20 @@
 
 import { Navbar } from "../../components/navbar"
 import { NavigateMyBooks } from "./navigateMyBooks"
-export function MyBooks() {
+export function MyBooks({shelfName,books}) {
     return (
-        <div>
-             <Navbar/>
-            <NavigateMyBooks />
-
-            <h3 className="header-3">My Books</h3>
-            <p>Page is not completed yet</p>
-            {/* By default will display all books then user can change to their currently reading, read, want to read and finaly to their own shelves (also there is a button to add more shelves) */}
-
+        <div className="flex flex-col min-h-screen">
+        <Navbar className="w-full" />
+        <div className="flex">
+          <NavigateMyBooks  />
+          <div className="flex flex-col items-start justify-between w-full ml-12">
+            <h3 className="header-3 flex mt-10 justify-center text-center">{shelfName}</h3>
+            <div className="flex flex-col items-center h-64">
+              {books.length !== 0 ? books.map(el => <img key={el._id} src={el.cover} className="my-1 h-48" ></img>) : null}
+            </div>
+          </div>
         </div>
+      </div>
 
     )
 }
