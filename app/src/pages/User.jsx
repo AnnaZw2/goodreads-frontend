@@ -5,8 +5,17 @@ import { userContext } from "./../context/userContex";
 import { DeleteButton } from "../components/deleteButton";
 import axios from 'axios'
 import { UpdateButton } from "../components/UpdateButton/UpdateButton";
+import { updateShelfContext } from "../context/updateShelfContext";
 function User(){
-    const {user,jwt} = useContext(userContext)
+    const {user,setUpdateUser,jwt} = useContext(userContext)
+    const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
+    useEffect(()=>{
+      setUpdateShelves(false)
+        axios.get(`http://localhost:3000/users/${user.email}`,{
+            headers: { Authorization: `Bearer ${jwt}` },
+          }).then(res => setUpdateUser(res.data))
+    },[updateShelves])
+    console.log(updateShelves)
     const navigate = useNavigate();
     return(
         <div>

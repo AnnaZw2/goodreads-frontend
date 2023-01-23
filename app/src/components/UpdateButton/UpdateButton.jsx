@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext } from "react";
 import { useState } from "react";
+import { updateShelfContext } from "../../context/updateShelfContext";
 import { userContext } from "../../context/userContex";
 import { EditModal } from "./EditModal";
 export function UpdateButton({
@@ -11,11 +12,11 @@ export function UpdateButton({
   patchKey,
   style
 }) {
-  const [openConfirm, setOpenConfirm] = useState(false);
+
   const [openEditing, setOpenEditing] = useState(false);
 
   const { jwt } = useContext(userContext);
-
+const {setUpdateShelves} = useContext(updateShelfContext)
   const request = (newValue) =>
     axios
       .patch(
@@ -29,6 +30,8 @@ export function UpdateButton({
         }
       )
       .then((res) => console.log(res))
+      .then(()=> setUpdateShelves(true))
+      
       .catch((err) => console.log(err));
 
   const handleUpdate = () => {

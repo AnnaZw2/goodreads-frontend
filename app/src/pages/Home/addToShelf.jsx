@@ -131,7 +131,7 @@ console.log("@@@@@@@@@@@@@@@")
                   },
                 }
               )
-
+                .then(()=> setUpdateShelves(true))
               .catch((err) => console.log(err));
           }
         } else {
@@ -165,6 +165,7 @@ console.log("@@@@@@@@@@@@@@@")
               console.log(res);
               console.log("leaving post ");
             })
+            .then(()=>setUpdateShelves(true))
             .catch((err) => console.log(err));
         }
       })

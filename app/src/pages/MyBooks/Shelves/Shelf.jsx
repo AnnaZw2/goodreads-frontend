@@ -4,12 +4,14 @@ import { Navbar } from "../../../components/navbar";
 import { NavigateMyBooks } from "../navigateMyBooks";
 import axios from "axios";
 import { userContext } from "../../../context/userContex";
+import { updateShelfContext } from "../../../context/updateShelfContext";
 export function Shelf() {
   const { name, id } = useParams();
 
   const { jwt } = useContext(userContext);
-  const [booksId, setBooksId] = useState([]);
+  const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
   const [books, setBooks] = useState([]);
+ const shelfName = name.replaceAll("-"," ")
 
   useEffect(() => {
     setBooks([])
@@ -19,17 +21,14 @@ export function Shelf() {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => {
-        console.log("i got this many books from shelf",res.data)
+      
         const arr = res.data.map((el) => el.book_id);
-        console.log("arr", arr);
-
-        console.log("display books on this shel res data", res.data);
-
+      
         return arr;
       })
       .then((arr) => {
         if (arr.length != 0) {
-          console.log("books ids to be displayed", arr);
+         
 
           const requests = arr.map((id) =>
             axios.get(`http://localhost:3000/books/${id}`, {
@@ -41,23 +40,29 @@ export function Shelf() {
             .then((responses) => {
               const booksData = responses.map((res) => res.data);
               setBooks(booksData);
+              setUpdateShelves(false)
             })
             .catch((err) => console.log(err));
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [updateShelves]);
 
   console.log("books",books)
 
   return (
-    <div>
-      <Navbar />
-      <NavigateMyBooks />
-
-      <h3 className="header-3">{name}</h3>
-
-      {books.length!=0 ? books.map(el =><img key={el._id} src={el.cover}></img> ) : null}
+<div className="flex flex-col h-screen">
+  <Navbar className="w-full" />
+  <div className="flex">
+    <NavigateMyBooks  />
+    <div className="flex flex-col items-start justify-between w-full ml-12">
+      <h3 className="header-3 flex  justify-center text-center">{shelfName}</h3>
+      <div className="flex flex-col items-center">
+        {books.length !== 0 ? books.map(el => <img key={el._id} src={el.cover} className="my-1 h-48" ></img>) : null}
+      </div>
     </div>
+  </div>
+</div>
+  
   );
 }
