@@ -4,7 +4,7 @@ import { userContext } from "../context/userContex";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { searchShelfContext } from "../context/searchContext";
-
+import "./navbar.css"
 export function Navbar() {
   const navigate = useNavigate();
 
@@ -39,49 +39,49 @@ export function Navbar() {
  
 
   return (
-    <nav className="bg-beige flex flex-row align-top justify-between">
-      <div className="flex  flex-row ">
+    <nav className="navbar">
+      <div className="div-center">
         <Link
           to="/"
-          className="flex bg-beige justify-start text-black  p-3  hover:bg-black hover:text-white w-fit"
+          className="links-styling"
         >
           Home
         </Link>
         <Link
           to="/mybooks"
-          className="flex  bg-beige justify-center text-black p-3  w-fit hover:bg-black hover:text-white"
+          className="links-styling"
         >
           My Books
         </Link>
 
         <Link
           to="/explore"
-          className="flex   bg-beige justify-center text-black p-3  w-fit hover:bg-black hover:text-white"
+          className="links-styling"
         >
           Explore
         </Link>
       </div>
-      <div className="flex flex-row justify-center items-center align-middle   ">
+      <div className="input-container">
         <input
           type="search"
           value={searchValue}
           onChange={handleInput}
           placeholder="Search books"
           onKeyUp={handleKeyUp}
-          className="flex rounded-l-md w-80  border p-4 bg-white h-8 border-brown"
+         className="search"
         ></input>
         <Link to="/explore" >
-        <button   className="flex flex-row justify-center items-center rounded-r-md p-4 border border-brown  bg-white  h-8 align-top">
-          <i className="fa-solid fa-magnifying-glass m-tb-4  w-5 bg-white flex items-center justify-center    "></i>
+        <button   className="search-button">
+          <i className="fa-solid fa-magnifying-glass  icon   "></i>
         </button></Link>
       </div>
 
-      <div className="flex flex-row  ">
+      <div className="div-center  ">
         {jwt != null ? (
           user.role == "admin" ? (
             <Link
               to="/admin"
-              className=" text-black  bg-beige  w-fit p-3 hover:bg-black hover:text-beige"
+              className="links-styling"
             >
               Admin
             </Link>
@@ -90,17 +90,16 @@ export function Navbar() {
 
         <Link
           to="/users"
-          className=" text-black  bg-beige  w-fit p-3 hover:bg-black hover:text-beige"
+          className="links-styling"
         >
           My Profile
         </Link>
 
         <button
-          className=" hover:bg-black  bg-beige p-3 hover:text-white"
+          className="links-styling"
           onClick={() => {
             localStorage.removeItem("jwt");
             localStorage.removeItem("decoded");
-            // setUpdateUser(null)
             navigate("/login");
           }}
         >

@@ -6,7 +6,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-color: #F9F7F3;
+
 
 
 }
@@ -16,7 +16,7 @@ body {
   display: flex;
   place-items: center;
   font-family: sans-serif;
-
+  background-color: #F9F7F3;
 }
 
 
