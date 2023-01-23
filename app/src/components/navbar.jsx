@@ -43,20 +43,20 @@ export function Navbar() {
       <div className="flex  flex-row ">
         <Link
           to="/"
-          className="flex  justify-start text-black  p-3  hover:bg-black hover:text-white w-fit"
+          className="flex bg-beige justify-start text-black  p-3  hover:bg-black hover:text-white w-fit"
         >
           Home
         </Link>
         <Link
           to="/mybooks"
-          className="flex justify-center text-black p-3  w-fit hover:bg-black hover:text-white"
+          className="flex  bg-beige justify-center text-black p-3  w-fit hover:bg-black hover:text-white"
         >
           My Books
         </Link>
 
         <Link
           to="/explore"
-          className="flex justify-center text-black p-3  w-fit hover:bg-black hover:text-white"
+          className="flex   bg-beige justify-center text-black p-3  w-fit hover:bg-black hover:text-white"
         >
           Explore
         </Link>
@@ -68,11 +68,11 @@ export function Navbar() {
           onChange={handleInput}
           placeholder="Search books"
           onKeyUp={handleKeyUp}
-          className="flex rounded-l-md w-80  border p-4  h-8 border-brown"
+          className="flex rounded-l-md w-80  border p-4 bg-white h-8 border-brown"
         ></input>
         <Link to="/explore" >
         <button   className="flex flex-row justify-center items-center rounded-r-md p-4 border border-brown  bg-white  h-8 align-top">
-          <i className="fa-solid fa-magnifying-glass m-tb-4  w-5  flex items-center justify-center    "></i>
+          <i className="fa-solid fa-magnifying-glass m-tb-4  w-5 bg-white flex items-center justify-center    "></i>
         </button></Link>
       </div>
 
@@ -81,7 +81,7 @@ export function Navbar() {
           user.role == "admin" ? (
             <Link
               to="/admin"
-              className=" text-black   w-fit p-3 hover:bg-black hover:text-beige"
+              className=" text-black  bg-beige  w-fit p-3 hover:bg-black hover:text-beige"
             >
               Admin
             </Link>
@@ -90,13 +90,13 @@ export function Navbar() {
 
         <Link
           to="/users"
-          className=" text-black   w-fit p-3 hover:bg-black hover:text-beige"
+          className=" text-black  bg-beige  w-fit p-3 hover:bg-black hover:text-beige"
         >
           My Profile
         </Link>
 
         <button
-          className=" hover:bg-black p-3 hover:text-white"
+          className=" hover:bg-black  bg-beige p-3 hover:text-white"
           onClick={() => {
             localStorage.removeItem("jwt");
             localStorage.removeItem("decoded");

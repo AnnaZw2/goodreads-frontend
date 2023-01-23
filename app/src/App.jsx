@@ -55,7 +55,7 @@ if(user!=null){
 
 
   return (
-    <div className="root bg-light-beige min-h-screen " >
+    <div className="root bg-light-beige h-full " >
       <updateShelfContext.Provider value={{ updateShelves: updateShelves, setUpdateShelves: setUpdateShelves }} >
       
       <userContext.Provider value={{ user: user, setUpdateUser:setUser , jwt: jwt}}>
@@ -69,7 +69,7 @@ if(user!=null){
             <Route path='/explore' element={<Explore />}></Route>
             <Route path='/settings' element={<Settings />}></Route>
             <Route path="/notlogged" element={<NotLoggedIn />}></Route>
-            <Route path='/mybooks' element={<MyBooks />}>    </Route>
+            <Route path='/mybooks' element={<All/>}>    </Route>
             <Route path="/users" element={<User />} />
 { user.role === "admin" ?
               <Route path="/admin" element={<Admin />}></Route> : null }

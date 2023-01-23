@@ -8,7 +8,7 @@ export function Book({ title, cover, description, author,id ,style}) {
 
   return (
   
-<div className="flex mb-40  ml-48 mr-48 p-8 border rounded-xl bg-white" >
+<div className="flex mb-40  ml-48 mr-48 p-8 h-78 border rounded-xl bg-white" >
       <img src={cover} className={` ${style.imgHeight} w-26`} />
      
 
