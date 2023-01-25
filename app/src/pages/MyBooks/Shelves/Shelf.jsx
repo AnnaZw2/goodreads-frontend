@@ -49,10 +49,10 @@ export function Shelf() {
       .catch((err) => console.log(err));
   }, [updateShelves,id]);
 
-  console.log("books",books)
+
 
   return (
-<MyBooks books={books} shelfName={shelfName}/>
+<MyBooks books={books} shelfName={shelfName} setBooks={setBooks}/>
 
   
   );
