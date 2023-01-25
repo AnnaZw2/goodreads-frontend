@@ -24,6 +24,6 @@ useEffect(() => {
       }).catch(err => console.log(err));
   }, []);
     return (
-    <MyBooks books={books} shelfName={"All"}/>
+    <MyBooks books={books} shelfName={"All"} setBooks={setBooks}/>
     )
 }
