@@ -46,7 +46,7 @@ export function NavigateMyBooks() {
       {/* shelves */}
       <ul
         ref={buttonRef}
-        className="section [&>*:nth-child(5)]:border-b border-brown navigate-my-books flex flex-col   w-fit"
+        className="section [&>*:nth-child(5)]:border-b border-brown navigate-my-books flex flex-col   w-fit mt-5"
       >
         <li className="flex flex-row items-center justify-center relative">
           <p className="">Bookshelves</p>
@@ -128,14 +128,15 @@ export function NavigateMyBooks() {
             Stats
           </Link>
         </li>
-        {!clicked ? (
+     <li >  {!clicked ? (
           <button onClick={setClicked(true)}>Add</button>
         ) : (
           <AddButton
             background_btn={"bg-white"}
             background={"bg-light-beige"}
+          
           />
-        )}
+        )}</li> 
       </ul>
     </div>
   );
