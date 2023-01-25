@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
-import { userContext } from "../../context/userContex"
-import {Book} from "./../../components/books/book"
+import { userContext } from "../../../context/userContex"
+import {Book} from "../../../components/books/book"
 
 function ShowBooks(){
     const {jwt} = useContext(userContext)
