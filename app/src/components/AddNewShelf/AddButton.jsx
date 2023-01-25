@@ -12,7 +12,7 @@ export function AddButton({ background, background_btn }) {
     return (
 
         <div   >
-            {!clicked ? <button className={`btn-width ${background} text-green hover`} onClick={() => { setClicked(true) }}>Add</button> : <div ref={buttonRef} >
+            {!clicked ? <button className={`btn-width ${background} text-green hover `} onClick={() => { setClicked(true) }}>Add</button> : <div ref={buttonRef} >
                 <AddClicked setClicked={setClicked} background={background} background_btn={background_btn} />
             </div>}
         </div>
