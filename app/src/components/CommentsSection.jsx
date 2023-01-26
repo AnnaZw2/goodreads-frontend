@@ -1,23 +1,23 @@
 import { useState } from "react"
-import { useSelector,useDispatch } from "react-redux"
-import { addComment } from "../reducers/CommentsReducer"
+import { useDispatch } from "react-redux"
+import { CommentsList } from "../reducers/CommentsList"
+
 export function CommentsSection({bookId}){
-const dispatch = useDispatch()
-const mock_bookID = "bookID_1"
-const [input,setInput] = useState("")
-    const commentsList = useSelector((state) => state.comments[mock_bookID])
+
+   
   
 
    return(
-    <div>
-        <div className="addComment">
-           <textarea placeholder="Write your comment" onChange={(e)=> setInput(e.target.value)}></textarea>
-           <button className="bg-green  text-white rounded-sm p-1 hover:bg-dark-green" onClick={()=>{dispatch(addComment({commentId:1,bookId:mock_bookID, text:input}))}}>Add comment</button>
-           
-           <button className="bg-red  text-white rounded-sm p-1 hover:bg-dark-red hover:text-white">Delete comment</button>
-        </div>
+    <div className="ml-48 mr-48">
+        <div className="flex justify-center items-center mt-8 mb-6 gap-5 bg-dark-beige rounded-md p-5 ">
+           <textarea className="w-3/5 p-1" placeholder="Write your comment" onChange={(e)=> setInput(e.target.value)}></textarea>
+       
 
-        <ul className="displayComments flex justify-center  items-center flex-col gap-2"> {commentsList.map(el => <li className="bg-yellow w-2/3 " key={el.id}>{el.text}</li>)}</ul>
+           <button className="  bg-green w-22 m-0 h-12  text-white text-sm rounded-md p-1 hover:bg-dark-green hover:text-white">Add comment</button>
+           <button className="flex flex-col gap-1  text-sm  justify-center rounded-md bg-red  w-22 m-0 h-12 text-white  p-1 hover:bg-dark-red hover:text-white">Delete comment</button>
+        </div>
+<CommentsList/>
+  
 
     </div>
    )
