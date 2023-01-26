@@ -7,6 +7,7 @@ import { UpdateButton } from "../../../components/UpdateButton/UpdateButton";
 import { searchShelfContext } from "../../../context/searchContext";
 import { updateShelfContext } from "../../../context/updateShelfContext";
 import { userContext } from "../../../context/userContex";
+import { GoBack } from "../GoBackButton";
 import "./../../../index.css"
 import "./../Admin.css"
 
@@ -67,7 +68,7 @@ function ShowUsers() {
       <Navbar />
       <div className="flex flex-row justify-center items-center ">
         <h4 className="header-4 mt-6">Delete and edit users</h4>
-        <button className="bg-light-gray h-6 rounded-md  mt-4 pl-2 pr-2" onClick={() => navigate("/admin")}>Go back</button>
+        <GoBack/>
       </div>
       <div className="flex   overflow-auto justify-center flex-col items-center mt-5">
 
