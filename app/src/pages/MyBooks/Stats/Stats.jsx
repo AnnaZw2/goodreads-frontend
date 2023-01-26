@@ -1,16 +1,31 @@
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Navbar } from "../../../components/navbar";
+import { userContext } from "../../../context/userContex";
+import { NavigateMyBooks } from "../navigateMyBooks";
+import { BestRating } from "./BestaRating";
+import { BestUserRating } from "./BestUserRating";
 
-import { Navbar } from "../../../components/navbar"
-import { NavigateMyBooks } from "../navigateMyBooks"
 export function Stats() {
-    return (
-        <div>
-            <Navbar/>
-            <NavigateMyBooks />
 
-            <h3 className="font-medium leading-tight text-3xl mt-0 mb-2">Stats</h3>
+  return (
+    <div>
+    <Navbar/>
+    <div className="flex">
 
-            {/* Some stats to chose from and then after being selected display them */}
-            <p>Page is not completed yet</p>
-        </div>
-    )
+    <NavigateMyBooks />
+    <div>
+
+  <BestRating url="http://localhost:3000/stats?sort_direction=asc&limit=5" text="Books you rated the best"/>
+ <BestRating url="http://localhost:3000/stats?sort_direction=desc&limit=5&stat_type=global" text="Books all users rated the best"/>
+    </div>
+  </div>
+  </div>
+
+  
+  
+  
+  
+  
+  );
 }
