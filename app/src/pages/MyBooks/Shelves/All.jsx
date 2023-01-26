@@ -8,7 +8,7 @@ import { MyBooks } from "../MyBooks"
 export function All() {
     const [books, setBooks] = useState([]);
 const {jwt} = useContext(userContext)
-console.log(books)
+
 useEffect(() => {
     axios.get("http://localhost:3000/book-details", { headers: { Authorization: `Bearer ${jwt}` }, })
       .then((res) => res.data)
@@ -22,6 +22,7 @@ useEffect(() => {
           .then(resolvedData => setBooks(resolvedData))
           .catch(err => console.log(err));
       }).catch(err => console.log(err));
+      console.log(books)
   }, []);
     return (
     <MyBooks books={books} shelfName={"All"} setBooks={setBooks}/>

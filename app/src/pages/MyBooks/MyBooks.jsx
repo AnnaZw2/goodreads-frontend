@@ -3,15 +3,16 @@ import { Navbar } from "../../components/navbar"
 import { NavigateMyBooks } from "./navigateMyBooks"
 import "./MyBooks.css"
 import axios from "axios"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { userContext } from "../../context/userContex"
 export function MyBooks({shelfName,books,setBooks}) {
 const {jwt} =useContext(userContext)
 
+
     // function handleClick(bookId){
     //  const arr =books.filter(el => el._id!=bookId)
-    // //  setBooks(arr)
-    // //  axios.patch()
+    //  setBooks(arr)
+  
     // axios
     // .get(`http://localhost:3000/book-details?book_id=${bookId}`, {
     //   headers: { Authorization: `Bearer ${jwt}` },

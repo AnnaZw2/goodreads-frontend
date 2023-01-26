@@ -22,31 +22,35 @@ export function Shelf() {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => {
-      
+     console.log("res.data",res.data)
         const arr = res.data.map((el) => el.book_id);
-      
+        console.log("arr",arr)
         return arr;
       })
       .then((arr) => {
         if (arr.length != 0) {
-         
+          console.log("arr",arr)
 
           const requests = arr.map((id) =>
             axios.get(`http://localhost:3000/books/${id}`, {
               headers: { Authorization: `Bearer ${jwt}` },
-            })
+            }).then(res=> (res.data))
           );
 
           Promise.all(requests)
             .then((responses) => {
-              const booksData = responses.map((res) => res.data);
+              console.log(responses)
+              const booksData = responses
               setBooks(booksData);
+            
               setUpdateShelves(false)
             })
             .catch((err) => console.log(err));
         }
       })
       .catch((err) => console.log(err));
+  
+
   }, [updateShelves,id]);
 
 

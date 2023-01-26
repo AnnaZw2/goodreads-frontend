@@ -1,24 +1,16 @@
 import { Navbar } from "../components/navbar";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { searchShelfContext } from "../context/searchContext";
 import { Link } from "react-router-dom";
 import { userContext } from "../context/userContex";
 import { DeleteButton } from "../components/deleteButton";
 import axios from "axios";
-import { updateShelfContext } from "../context/updateShelfContext";
 
 export function Explore() {
-  const { searchValue, searchOutput,setSearchOutput } = useContext(searchShelfContext);
+  const { searchValue, searchOutput } = useContext(searchShelfContext);
   const { user, jwt } = useContext(userContext);
-  const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
-  console.log("lllklklk", searchOutput);
 
-  useEffect(() => {
-    setUpdateShelves(false);
-    axios.get("http://localhost:3000/books",{
-      headers: { Authorization: `Bearer ${jwt}` },
-    }).then((res)=> setSearchOutput(res.data))
-  }, [updateShelves]);
+  console.log("lllklklk", searchOutput);
   return (
     <div>
       <Navbar />
@@ -37,19 +29,17 @@ export function Explore() {
                           </p>
                         }
                         textButton={
-                          <i className="fa-regular text-black fa-trash-can text-sm"></i>
+                            <i className="fa-regular text-black fa-trash-can text-sm"></i>
                         }
                         request={() =>
                           axios
                             .delete(`http://localhost:3000/books/${el._id}`, {
                               headers: { Authorization: `Bearer ${jwt}` },
                             })
-                            .then(() => {
-                              setUpdateShelves(true);
-                            })
                             .catch((err) => console.log(err))
                         }
                       />
+
                     </div>
                   ) : null}
                   <Link className="links" to={`/details/${el._id}`}>
