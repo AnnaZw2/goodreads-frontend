@@ -23,7 +23,7 @@ import axios from "axios"
 import { searchShelfContext } from './context/searchContext';
 import { ShowUsers } from './pages/Admin/Show/ShowUsers';
 import { ShowComments } from './pages/Admin/Show/ShowComments';
-import { AdminForms } from './pages/Admin/AdminForms';
+import { AdminForms } from './pages/Admin/Forms/AdminForms';
 
 function App() {
 
@@ -79,7 +79,7 @@ function App() {
                 <Route path="/admin" element={<Admin />}></Route> : null}
               {user.role === "admin" ? <Route path='/admin/showusers' element={<ShowUsers />} /> : null}
               {user.role === "admin" ? <Route path='/admin/showcomments' element={<ShowComments />} /> : null}
-              {user.role === "admin" ? <Route path='/admin/forms' element={<AdminForms/>} /> : null}
+              {user.role === "admin" ? <Route path='/admin/forms' element={<AdminForms />} /> : null}
               <Route path='mybooks/shelves/all' element={<All />}></Route>
               <Route path='mybooks/stats' element={<Stats />}></Route>
               <Route path="mybooks/shelves/:name/:id" element={<Shelf />}></Route>
