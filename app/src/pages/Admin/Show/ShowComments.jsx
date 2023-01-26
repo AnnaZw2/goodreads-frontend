@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { userContext } from "../../../context/userContex";
-import { updateShelfContext } from "../../../context/updateShelfContext";
+import { updateContext } from "../../../context/updateContext";
 import { useState } from "react";
 import { searchShelfContext } from "../../../context/searchContext";
 import "./../Admin.css";
@@ -12,7 +12,7 @@ import { UpdateButton } from "../../../components/UpdateButton/UpdateButton";
 import { formatDate } from "../../../utils/functions/fromateDate";
 export function ShowComments() {
   const { jwt } = useContext(userContext);
-  const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
+  const { update, setupdate } = useContext(updateContext);
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
   const { searchAdmin, setSearchAdmin, searchOutput, setSearchOutput } =
@@ -29,7 +29,7 @@ export function ShowComments() {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => setComments(res.data))
-      .then(() => setUpdateShelves(false))
+      .then(() => setupdate(false))
       .catch((err) => console.log(err));
 
     axios
@@ -42,7 +42,7 @@ export function ShowComments() {
       .then((res) => {
         setComments(res.data);
       });
-  }, [updateShelves]);
+  }, [update]);
 
   useEffect(() => {
     axios

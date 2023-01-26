@@ -1,12 +1,12 @@
 import axios from "axios";
-import { useContext} from "react";
-import { updateShelfContext } from "../context/updateShelfContext";
+import { useContext } from "react";
+import { updateContext } from "../context/updateContext";
 import { useState } from "react";
 import { Modal } from "./Modal";
 
 
 export function DeleteButton({ request, textButton, textModal }) {
-    const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
+    const { update, setupdate } = useContext(updateContext);
     const [openConfirm, setOpenConfirm] = useState(false);
 
 
@@ -16,7 +16,7 @@ export function DeleteButton({ request, textButton, textModal }) {
     };
     const handleConfirm = () => {
         request();
-        setUpdateShelves(true);
+        setupdate(true);
     };
 
 

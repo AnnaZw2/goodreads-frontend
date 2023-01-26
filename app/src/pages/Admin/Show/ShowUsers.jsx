@@ -5,7 +5,7 @@ import { DeleteButton } from "../../../components/deleteButton";
 import { Navbar } from "../../../components/navbar";
 import { UpdateButton } from "../../../components/UpdateButton/UpdateButton";
 import { searchShelfContext } from "../../../context/searchContext";
-import { updateShelfContext } from "../../../context/updateShelfContext";
+import { updateContext } from "../../../context/updateContext";
 import { userContext } from "../../../context/userContex";
 import { GoBack } from "../GoBackButton";
 import "./../../../index.css"
@@ -13,7 +13,7 @@ import "./../Admin.css"
 
 function ShowUsers() {
   const { jwt } = useContext(userContext);
-  const { updateShelves, setUpdateShelves } = useContext(updateShelfContext)
+  const { update, setupdate } = useContext(updateContext)
   const [users, setUsers] = useState([]);
 
   const { searchAdmin, setSearchAdmin, searchOutput, setSearchOutput } = useContext(searchShelfContext)
@@ -21,7 +21,7 @@ function ShowUsers() {
     setSearchAdmin(event.target.value);
 
   };
- 
+
 
   useEffect(() => {
     axios
@@ -29,7 +29,7 @@ function ShowUsers() {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => setUsers(res.data))
-      .then(() => setUpdateShelves(false))
+      .then(() => setupdate(false))
       .catch((err) => console.log(err));
 
     axios
@@ -43,7 +43,7 @@ function ShowUsers() {
         setUsers(res.data);
 
       });
-  }, [updateShelves]);
+  }, [update]);
 
   useEffect(() => {
     axios
@@ -68,7 +68,7 @@ function ShowUsers() {
       <Navbar />
       <div className="flex flex-row justify-center items-center ">
         <h4 className="header-4 mt-6">Delete and edit users</h4>
-        <GoBack/>
+        <GoBack />
       </div>
       <div className="flex   overflow-auto justify-center flex-col items-center mt-5">
 
@@ -111,7 +111,7 @@ function ShowUsers() {
                   url={`http://localhost:3000/users/${el.email}`}
                 />
               </div>
-              <DeleteButton textModal={<p>Are you sure you want to delete <strong>{el.email}</strong> account?</p>} textButton={"Delete account"} request={() => axios.delete(`http://localhost:3000/users/${el.email}`, { headers: { "Authorization": `Bearer ${jwt}` } }).then(() => setUpdateShelves(true)).catch(err => console.log(err))} />
+              <DeleteButton textModal={<p>Are you sure you want to delete <strong>{el.email}</strong> account?</p>} textButton={"Delete account"} request={() => axios.delete(`http://localhost:3000/users/${el.email}`, { headers: { "Authorization": `Bearer ${jwt}` } }).then(() => setupdate(true)).catch(err => console.log(err))} />
             </li>
           )) : <p className="mt-4 text-lg">No users</p>}
 

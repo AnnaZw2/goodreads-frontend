@@ -1,5 +1,5 @@
 
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router';
 
 import './App.css'
@@ -9,13 +9,12 @@ import { Register } from './pages/BeforeLogIn/Register';
 import { LogIn } from './pages/BeforeLogIn/LogIn';
 import { NotLoggedIn } from "./pages/BeforeLogIn/NotLoggedIn"
 import { Settings } from './pages/Settings';
-import { MyBooks } from './pages/MyBooks/MyBooks';
 import { All } from './pages/MyBooks/Shelves/All';
 import { Stats } from './pages/MyBooks/Stats/Stats';
 import { Admin } from './pages/Admin/Admin';
 import { Shelf } from './pages/MyBooks/Shelves/Shelf';
 import { userContext } from './context/userContex';
-import { updateShelfContext } from './context/updateShelfContext';
+import { updateContext } from './context/updateContext';
 import { User } from './pages/User';
 import { NotFound } from "./pages/NotFound"
 import { Details } from "./pages/Details"
@@ -54,13 +53,13 @@ function App() {
   }, [jwt]);
 
 
-  const [updateShelves, setUpdateShelves] = useState(false)
+  const [update, setupdate] = useState(false)
 
 
 
   return (
     <div className="root bg-light-beige h-full " >
-      <updateShelfContext.Provider value={{ updateShelves: updateShelves, setUpdateShelves: setUpdateShelves }} >
+      <updateContext.Provider value={{ update: update, setupdate: setupdate }} >
 
         <userContext.Provider value={{ user: user, setUpdateUser: setUser, jwt: jwt }}>
           <searchShelfContext.Provider value={{ searchValue: searchValue, setSearchValue: setSearchValue, searchOutput: searchOutput, setSearchOutput: setSearchOutput, searchAdmin: searchAdmin, setSearchAdmin: setSearchAdmin }}>
@@ -88,7 +87,7 @@ function App() {
             </Routes>
           </searchShelfContext.Provider>
         </userContext.Provider>
-      </updateShelfContext.Provider>
+      </updateContext.Provider>
     </div>
   )
 }

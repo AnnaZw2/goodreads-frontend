@@ -3,7 +3,7 @@ import { useContext, useEffect, useReducer, useState, useRef } from "react";
 import "./addToShelf.css";
 import { userContext } from "../../context/userContex";
 import { AddButton } from "../../components/AddNewShelf/AddButton";
-import { updateShelfContext } from "../../context/updateShelfContext";
+import { updateContext } from "../../context/updateContext";
 
 export function AddToShelf({ bookId }) {
   const [shelves, setShelves] = useState([]);
@@ -11,7 +11,7 @@ export function AddToShelf({ bookId }) {
   const [standardIds, setStandardIds] = useState([]);
   const [customChecked, setCustomChecked] = useState({});
   const { jwt } = useContext(userContext);
-  const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
+  const { update, setupdate } = useContext(updateContext);
   const ref = useRef(false);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export function AddToShelf({ bookId }) {
         setShelves(res);
       })
       .catch((err) => console.log(err));
-  }, [updateShelves]);
+  }, [update]);
 
   const ACTIONS = {
     OPEN_MENU: "open-menu",
@@ -47,7 +47,7 @@ export function AddToShelf({ bookId }) {
   const [state, dispatch] = useReducer(reducer, { open: false, adding: false });
 
   function open() {
-    dispatch({ type: ACTIONS.OPEN_MENU});
+    dispatch({ type: ACTIONS.OPEN_MENU });
   }
   function close() {
     dispatch({ type: ACTIONS.CLOSE_MENU });
@@ -78,13 +78,13 @@ export function AddToShelf({ bookId }) {
 
 
   useEffect(() => {
- 
+
     const tmp = getArrayFromSelectedCustomShelves(customChecked);
-  
+
 
     if (ref.current) {
 
-   
+
 
       checkShelf(bookId);
     }
@@ -103,9 +103,9 @@ export function AddToShelf({ bookId }) {
       })
       .then((res) => {
         if (res.data.length != 0) {
-      
+
           if (state.open) {
-          
+
             axios
               .patch(
                 `http://localhost:3000/book-details/${res.data[0]._id}`,
@@ -121,12 +121,12 @@ export function AddToShelf({ bookId }) {
                   },
                 }
               )
-                .then(()=> setUpdateShelves(true))
+              .then(() => setupdate(true))
               .catch((err) => console.log(err));
           }
         } else {
-          
-      
+
+
           axios
             .post(
               `http://localhost:3000/book-details`,
@@ -144,8 +144,8 @@ export function AddToShelf({ bookId }) {
                 },
               }
             )
-         
-            .then(()=>setUpdateShelves(true))
+
+            .then(() => setupdate(true))
             .catch((err) => console.log(err));
         }
       })
@@ -164,7 +164,7 @@ export function AddToShelf({ bookId }) {
       })
       .then((info) => {
         if (info != undefined) {
-      
+
           axios
             .get(`http://localhost:3000/book-details/${info._id}`, {
               headers: { Authorization: `Bearer ${jwt}` },
@@ -177,7 +177,7 @@ export function AddToShelf({ bookId }) {
                 );
                 let data = [...new Set(tmp)];
 
-         
+
                 setSelectedStandardShelves(data);
 
                 let customObj = res.data.shelves.reduce((acc, curr) => {
@@ -186,11 +186,11 @@ export function AddToShelf({ bookId }) {
                   }
                   return acc;
                 }, {});
-  
+
                 setCustomChecked(customObj);
               }
 
-        
+
             })
 
             .catch((err) => console.log(err));
@@ -204,19 +204,19 @@ export function AddToShelf({ bookId }) {
   function handleCheckingStandard(shelf) {
     if (selectedStandardShelves.length == 1) {
       if (shelf._id == selectedStandardShelves[0]) {
-  
+
         setSelectedStandardShelves([]);
 
       } else {
         setSelectedStandardShelves([shelf._id]);
- 
+
       }
     } else {
       if (selectedStandardShelves.includes(shelf._id)) {
         const filtered = selectedStandardShelves.filter(
           (el) => el != shelf._id
         );
-    
+
         setSelectedStandardShelves(filtered);
 
       } else {
@@ -244,34 +244,33 @@ export function AddToShelf({ bookId }) {
       </button>
 
       <ul
-        className={`${
-          state.open ? ` border   ` : null
-        } dropdown-menu  absolute`}
+        className={`${state.open ? ` border   ` : null
+          } dropdown-menu  absolute`}
       >
         {state.open
           ? shelves.map((el) => (
-              <li key={el._id} className="flex items-center">
-                <button className="btn-width bg-white hover flex-center relative">
-                  {el.name}
-                  <input
-                    type="checkbox"
-                    className="checkbox absolute left-1 top-1"
-                    checked={
-                      el.type == "standard"
-                        ? selectedStandardShelves.includes(el._id) || false
-                        : customChecked[el._id] || false
-                    }
-                    onChange={() =>
-                      el.type == "standard"
-                        ? handleCheckingStandard(el)
-                        : handleCheckingCustom(el)
-                    }
-                  />
+            <li key={el._id} className="flex items-center">
+              <button className="btn-width bg-white hover flex-center relative">
+                {el.name}
+                <input
+                  type="checkbox"
+                  className="checkbox absolute left-1 top-1"
+                  checked={
+                    el.type == "standard"
+                      ? selectedStandardShelves.includes(el._id) || false
+                      : customChecked[el._id] || false
+                  }
+                  onChange={() =>
+                    el.type == "standard"
+                      ? handleCheckingStandard(el)
+                      : handleCheckingCustom(el)
+                  }
+                />
 
-                 
-                </button>
-              </li>
-            ))
+
+              </button>
+            </li>
+          ))
           : null}
 
         {state.open ? (

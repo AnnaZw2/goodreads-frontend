@@ -4,15 +4,15 @@ import { Navbar } from "../../../components/navbar";
 import { NavigateMyBooks } from "../navigateMyBooks";
 import axios from "axios";
 import { userContext } from "../../../context/userContex";
-import { updateShelfContext } from "../../../context/updateShelfContext";
+import { updateContext } from "../../../context/updateContext";
 import { MyBooks } from "../MyBooks";
 export function Shelf() {
   const { name, id } = useParams();
 
   const { jwt } = useContext(userContext);
-  const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
+  const { update, setupdate } = useContext(updateContext);
   const [books, setBooks] = useState([]);
- const shelfName = name.replaceAll("-"," ")
+  const shelfName = name.replaceAll("-", " ")
 
   useEffect(() => {
     setBooks([])
@@ -22,19 +22,19 @@ export function Shelf() {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => {
-     console.log("res.data",res.data)
+        console.log("res.data", res.data)
         const arr = res.data.map((el) => el.book_id);
-        console.log("arr",arr)
+        console.log("arr", arr)
         return arr;
       })
       .then((arr) => {
         if (arr.length != 0) {
-          console.log("arr",arr)
+          console.log("arr", arr)
 
           const requests = arr.map((id) =>
             axios.get(`http://localhost:3000/books/${id}`, {
               headers: { Authorization: `Bearer ${jwt}` },
-            }).then(res=> (res.data))
+            }).then(res => (res.data))
           );
 
           Promise.all(requests)
@@ -42,22 +42,22 @@ export function Shelf() {
               console.log(responses)
               const booksData = responses
               setBooks(booksData);
-            
-              setUpdateShelves(false)
+
+              setupdate(false)
             })
             .catch((err) => console.log(err));
         }
       })
       .catch((err) => console.log(err));
-  
 
-  }, [updateShelves,id]);
+
+  }, [update, id]);
 
 
 
   return (
-<MyBooks books={books} shelfName={shelfName} setBooks={setBooks}/>
+    <MyBooks books={books} shelfName={shelfName} setBooks={setBooks} />
 
-  
+
   );
 }

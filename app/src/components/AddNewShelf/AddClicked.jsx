@@ -2,7 +2,7 @@
 import { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import { userContext } from "../../context/userContex";
-import { updateShelfContext } from "../../context/updateShelfContext";
+import { updateContext } from "../../context/updateContext";
 
 
 // this is component for view when you open "add new shelf" button and click "add"
@@ -14,27 +14,27 @@ export function AddClicked({ setClicked, background, background_btn }) {
     const [shelves, setShelves] = useState([])
     const { jwt } = useContext(userContext)
 
-    const { updateShelves, setUpdateShelves } = useContext(updateShelfContext)
+    const { update, setupdate } = useContext(updateContext)
 
 
     const nameIsUnique =
         shelves.filter((el) => el.name == inputValue).length == 0;
 
-      
-    
-    
+
+
+
     useEffect(() => {
-        console.log(updateShelves)
+        console.log(update)
         console.log("get shelves");
         axios
             .get("http://localhost:3000/shelves", { headers: { "Authorization": `Bearer ${jwt}` } })
             .then((res) => res.data)
             .then((res) => {
                 setShelves(res);
-                setUpdateShelves(false)
+                setupdate(false)
             })
             .catch((err) => console.log(err));
-    }, [updateShelves]);
+    }, [update]);
 
 
     useEffect(() => {
@@ -77,7 +77,7 @@ export function AddClicked({ setClicked, background, background_btn }) {
                 .then((res) => {
                     if (res.status == 201) {
                         setClicked(false)
-                        setUpdateShelves(true)
+                        setupdate(true)
 
 
 
@@ -88,7 +88,7 @@ export function AddClicked({ setClicked, background, background_btn }) {
     }
 
     return (
-        <div  className={` ${background} btn-width border-t pb-1`}>
+        <div className={` ${background} btn-width border-t pb-1`}>
             <input
                 type="text"
                 placeholder="New shelf name"
