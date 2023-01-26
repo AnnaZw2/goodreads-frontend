@@ -12,7 +12,9 @@ const [input,setInput] = useState("")
     <div>
         <div className="addComment">
            <textarea placeholder="Write your comment" onChange={(e)=> setInput(e.target.value)}></textarea>
-           <button className="bg-green hover:bg-dark-green hover:text-white" onClick={()=>{dispatch(addComment({bookId:mock_bookID, text:input}))}}>Add comment</button>
+           <button className="bg-green  text-white rounded-sm p-1 hover:bg-dark-green" onClick={()=>{dispatch(addComment({commentId:1,bookId:mock_bookID, text:input}))}}>Add comment</button>
+           
+           <button className="bg-red  text-white rounded-sm p-1 hover:bg-dark-red hover:text-white">Delete comment</button>
         </div>
 
         <ul className="displayComments flex justify-center  items-center flex-col gap-2"> {commentsList.map(el => <li className="bg-yellow w-2/3 " key={el.id}>{el.text}</li>)}</ul>
