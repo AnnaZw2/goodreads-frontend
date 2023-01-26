@@ -4,6 +4,7 @@ import "./addToShelf.css";
 import { userContext } from "../../context/userContex";
 import { AddButton } from "../../components/AddNewShelf/AddButton";
 import { updateContext } from "../../context/updateContext";
+import { useClose } from "../../hooks/useClose";
 
 export function AddToShelf({ bookId }) {
   const [shelves, setShelves] = useState([]);
@@ -13,6 +14,9 @@ export function AddToShelf({ bookId }) {
   const { jwt } = useContext(userContext);
   const { update, setupdate } = useContext(updateContext);
   const ref = useRef(false);
+  const buttonRef = useRef()
+
+
 
   useEffect(() => {
     axios
@@ -30,7 +34,6 @@ export function AddToShelf({ bookId }) {
   const ACTIONS = {
     OPEN_MENU: "open-menu",
     CLOSE_MENU: "close-menu",
-    ADDING: "add",
   };
   function reducer(state, action) {
     switch (action.type) {
@@ -38,13 +41,12 @@ export function AddToShelf({ bookId }) {
         return { open: true, adding: false };
       case ACTIONS.CLOSE_MENU:
         return { open: false, adding: false };
-      case ACTIONS.ADDING:
-        return { open: true, adding: true };
+  
       default:
         return state;
     }
   }
-  const [state, dispatch] = useReducer(reducer, { open: false, adding: false });
+  const [state, dispatch] = useReducer(reducer, { open: false });
 
   function open() {
     dispatch({ type: ACTIONS.OPEN_MENU });
@@ -52,15 +54,15 @@ export function AddToShelf({ bookId }) {
   function close() {
     dispatch({ type: ACTIONS.CLOSE_MENU });
   }
-  function add() {
-    dispatch({ type: ACTIONS.ADDING });
-  }
+
 
   const compare = (a, b) => {
     if (a.sort > b.sort) return 1;
     else return -1;
   };
-
+  useClose(buttonRef,()=>{
+    close()
+  })
   useEffect(() => {
     axios
       .get(`http://localhost:3000/shelves`, {
@@ -244,6 +246,7 @@ export function AddToShelf({ bookId }) {
       </button>
 
       <ul
+      ref={buttonRef}
         className={`${state.open ? ` border   ` : null
           } dropdown-menu  absolute`}
       >
