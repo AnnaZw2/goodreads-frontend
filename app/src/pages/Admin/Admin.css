@@ -1,0 +1,32 @@
+.admin-links {
+    display: flex; 
+    margin-right: 12rem; 
+    margin-left: 12rem; 
+    background-color: #ffffff; 
+    justify-content: center; 
+    align-items: center; 
+    height: 2.75rem; 
+    border-width: 1px; 
+    border-radius: 0.125rem;
+    border-color: #C7C7C7;
+   
+
+}
+
+.admin-links:hover {
+    background-color:#C7C7C7 ;
+   
+}
+
+.display-panel{
+    display: flex; 
+padding: 1.5rem; 
+background-color: #ffffff; 
+flex-direction: column; 
+justify-content: flex-start; 
+align-items: flex-start; 
+width: 24rem; 
+border-width: 1px; 
+border-color: #C7C7C7;
+
+}

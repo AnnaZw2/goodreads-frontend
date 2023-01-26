@@ -1,17 +1,70 @@
 
 import { Navbar } from "../../components/navbar"
 import { NavigateMyBooks } from "./navigateMyBooks"
-export function MyBooks() {
+import "./MyBooks.css"
+import axios from "axios"
+import { useContext, useEffect } from "react"
+import { userContext } from "../../context/userContex"
+export function MyBooks({shelfName,books,setBooks}) {
+const {jwt} =useContext(userContext)
+
+
+    // function handleClick(bookId){
+    //  const arr =books.filter(el => el._id!=bookId)
+    //  setBooks(arr)
+  
+    // axios
+    // .get(`http://localhost:3000/book-details?book_id=${bookId}`, {
+    //   headers: { Authorization: `Bearer ${jwt}` },
+    // })
+    // .then((res) => {
+           
+    //       axios
+    //         .patch(
+    //           `http://localhost:3000/book-details/${res.data[0]._id}`,
+    //           {
+    //             shelves: selectedStandardShelves.concat(
+    //               getArrayFromSelectedCustomShelves(customChecked)
+    //             ),
+    //           },
+    //           {
+    //             headers: {
+    //               Authorization: `Bearer ${jwt}`,
+    //               "Content-type": "application/json",
+    //             },
+    //           }
+    //         )
+    //           .then(()=> setUpdateShelves(true))
+    //         .catch((err) => console.log(err));
+        
+     
+    // })
+    // .catch((err) => console.log(err));
+    // }
+
     return (
-        <div>
-             <Navbar/>
-            <NavigateMyBooks />
+<div className="flex flex-col min-h-screen">
+  <Navbar className="w-full" />
+  <div className="flex">
+    <NavigateMyBooks className="mr-2 mt-6" />
+    <div className="flex flex-col items-center justify-center w-full">
+        <h3 className="header-3 flex mt-10 text-center mx-auto">{shelfName}</h3>
+        { books.length !== 0 ? <div className="grid grid-cols-6 gap-5 ">{books.map(el =><div className="relative">
+          <img key={el._id} src={el.cover} className="my-1 h-48" ></img>
+        {/* <button onClick={()=>handleClick(el._id)}>  
+        <i className="fa-solid fa-minus  icon-position text-black"></i></button> */}
+          </div>)}</div> : <p className="text-center mx-auto mt-10">There are no books on this shel yet</p> }
+    </div>
+  </div>
+</div>
 
-            <h3 className="header-3">My Books</h3>
-            <p>Page is not completed yet</p>
-            {/* By default will display all books then user can change to their currently reading, read, want to read and finaly to their own shelves (also there is a button to add more shelves) */}
 
-        </div>
+
+
+
+
+
+
 
     )
 }

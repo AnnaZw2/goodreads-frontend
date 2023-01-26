@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+ 
+  .input-admin{
+    @apply flex flex-col items-start 
+}
+.error {
+  @apply text-sm text-red
+}
+
+}
+.container {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "header header header header"
+    "title edition part-sereis description"
+    "author publisher pages description"
+    "name-sereis publishin-date url description"
+    "button button button button";
+}
+
+.name-sereis { grid-area: name-sereis; }
+
+.author { grid-area: author; }
+
+.title { grid-area: title; }
+
+.publishin-date { grid-area: publishin-date; }
+
+.publisher { grid-area: publisher; }
+
+.edition { grid-area: edition; }
+
+.url { grid-area: url; }
+
+.pages { grid-area: pages; }
+
+.part-sereis { grid-area: part-sereis; }
+
+.description { grid-area: description; }
+
+.header { grid-area: header; }
+
+.button { grid-area: button; }

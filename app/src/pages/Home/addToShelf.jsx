@@ -1,16 +1,32 @@
 import axios from "axios";
-
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useReducer, useState, useRef } from "react";
 import "./addToShelf.css";
 import { userContext } from "../../context/userContex";
 import { AddButton } from "../../components/AddNewShelf/AddButton";
 import { updateShelfContext } from "../../context/updateShelfContext";
 
-export function AddToShelf() {
+export function AddToShelf({ bookId }) {
   const [shelves, setShelves] = useState([]);
-
+  const [selectedStandardShelves, setSelectedStandardShelves] = useState([]);
+  const [standardIds, setStandardIds] = useState([]);
+  const [customChecked, setCustomChecked] = useState({});
   const { jwt } = useContext(userContext);
   const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
+  const ref = useRef(false);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/shelves", {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((res) => res.data)
+      .then((res) => res.sort(compare))
+      .then((res) => {
+        setShelves(res);
+      })
+      .catch((err) => console.log(err));
+  }, [updateShelves]);
+
   const ACTIONS = {
     OPEN_MENU: "open-menu",
     CLOSE_MENU: "close-menu",
@@ -47,20 +63,176 @@ export function AddToShelf() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/shelves", {
+      .get(`http://localhost:3000/shelves`, {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => res.data)
-      .then((res) => res.sort(compare))
       .then((res) => {
-        setShelves(res);
+        const ids = res.filter((el) => el.type == "standard");
+        const arrIds = ids.map((el) => el._id);
+        setStandardIds(arrIds);
       })
       .catch((err) => console.log(err));
-  }, [updateShelves]);
+  }, []);
+
+
+
+  useEffect(() => {
+ 
+    const tmp = getArrayFromSelectedCustomShelves(customChecked);
+  
+
+    if (ref.current) {
+
+   
+
+      checkShelf(bookId);
+    }
+    ref.current = true;
+
+  }, [customChecked, selectedStandardShelves]);
+
+  function getArrayFromSelectedCustomShelves(_customChecked) {
+    return Object.keys(_customChecked).filter((el) => _customChecked[el]);
+  }
+
+  function checkShelf(bookId) {
+    axios
+      .get(`http://localhost:3000/book-details?book_id=${bookId}`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((res) => {
+        if (res.data.length != 0) {
+      
+          if (state.open) {
+          
+            axios
+              .patch(
+                `http://localhost:3000/book-details/${res.data[0]._id}`,
+                {
+                  shelves: selectedStandardShelves.concat(
+                    getArrayFromSelectedCustomShelves(customChecked)
+                  ),
+                },
+                {
+                  headers: {
+                    Authorization: `Bearer ${jwt}`,
+                    "Content-type": "application/json",
+                  },
+                }
+              )
+                .then(()=> setUpdateShelves(true))
+              .catch((err) => console.log(err));
+          }
+        } else {
+          
+      
+          axios
+            .post(
+              `http://localhost:3000/book-details`,
+              {
+                shelves: selectedStandardShelves.concat(
+                  getArrayFromSelectedCustomShelves(customChecked)
+                ),
+
+                book_id: bookId,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${jwt}`,
+                  "Content-type": "application/json",
+                },
+              }
+            )
+         
+            .then(()=>setUpdateShelves(true))
+            .catch((err) => console.log(err));
+        }
+      })
+      .catch((err) => console.log(err));
+  }
 
   const handleClick = () => {
+
+    axios
+      .get(`http://localhost:3000/book-details?book_id=${bookId}`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((res) => {
+        console.log("res data [0]", res.data);
+        return res.data[0];
+      })
+      .then((info) => {
+        if (info != undefined) {
+      
+          axios
+            .get(`http://localhost:3000/book-details/${info._id}`, {
+              headers: { Authorization: `Bearer ${jwt}` },
+            })
+            .then((res) => {
+              if (res.data.shelves) {
+
+                let tmp = res.data.shelves.filter((el) =>
+                  standardIds.includes(el)
+                );
+                let data = [...new Set(tmp)];
+
+         
+                setSelectedStandardShelves(data);
+
+                let customObj = res.data.shelves.reduce((acc, curr) => {
+                  if (!standardIds.includes(curr)) {
+                    acc[curr] = true;
+                  }
+                  return acc;
+                }, {});
+  
+                setCustomChecked(customObj);
+              }
+
+        
+            })
+
+            .catch((err) => console.log(err));
+        }
+      })
+
+      .catch((err) => console.log(err));
     state.open ? close() : open();
   };
+
+  function handleCheckingStandard(shelf) {
+    if (selectedStandardShelves.length == 1) {
+      if (shelf._id == selectedStandardShelves[0]) {
+  
+        setSelectedStandardShelves([]);
+
+      } else {
+        setSelectedStandardShelves([shelf._id]);
+ 
+      }
+    } else {
+      if (selectedStandardShelves.includes(shelf._id)) {
+        const filtered = selectedStandardShelves.filter(
+          (el) => el != shelf._id
+        );
+    
+        setSelectedStandardShelves(filtered);
+
+      } else {
+        setSelectedStandardShelves([...selectedStandardShelves, shelf._id]);
+
+      }
+    }
+  }
+
+  function handleCheckingCustom(shelf) {
+    setCustomChecked({
+      ...customChecked,
+      [shelf._id]: !customChecked[shelf._id],
+    });
+
+  }
 
   return (
     <div className="manu-container   btn-width self-center ">
@@ -78,8 +250,26 @@ export function AddToShelf() {
       >
         {state.open
           ? shelves.map((el) => (
-              <li key={el._id}>
-                <button className="btn-width bg-white hover">{el.name}</button>
+              <li key={el._id} className="flex items-center">
+                <button className="btn-width bg-white hover flex-center relative">
+                  {el.name}
+                  <input
+                    type="checkbox"
+                    className="checkbox absolute left-1 top-1"
+                    checked={
+                      el.type == "standard"
+                        ? selectedStandardShelves.includes(el._id) || false
+                        : customChecked[el._id] || false
+                    }
+                    onChange={() =>
+                      el.type == "standard"
+                        ? handleCheckingStandard(el)
+                        : handleCheckingCustom(el)
+                    }
+                  />
+
+                 
+                </button>
               </li>
             ))
           : null}
@@ -87,7 +277,6 @@ export function AddToShelf() {
         {state.open ? (
           <AddButton background_btn="bg-light-beige" background="bg-white" />
         ) : null}
-        {/* {state.open ? state.adding ? <li>{console.log("adding active")}<AddClicked style={{background_btn:"bg-light-beige",background:"bg-white"}} shelves={shelves} open={open} state={state}  /></li> : <li>{console.log("adding not active")}<AddNotClicked style={{background_btn:"bg-light-beige"}} state={state} open={open} add={add} /></li> : null} */}
       </ul>
     </div>
   );

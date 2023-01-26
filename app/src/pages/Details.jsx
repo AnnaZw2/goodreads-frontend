@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { userContext } from "../../context/userContex";
-import { Navbar } from "../navbar";
-import { CommentsSection } from "./CommentsSection";
-import { UpdateButton } from "../UpdateButton/UpdateButton";
+import { userContext } from "../context/userContex";
+import { Navbar } from "../components/navbar";
+import {CommentsSection} from "../components/CommentsSection"
+import { UpdateButton } from "../components/UpdateButton/UpdateButton";
 
 function Details() {
   const { id } = useParams();
@@ -22,12 +22,12 @@ function Details() {
       .then((res) => {
         setDetails(res.data);
         setLoading(false);
-       
+
       })
       .catch((err) => console.log(err));
   }, []);
 
- 
+
 
   return (
     <div>
@@ -81,7 +81,7 @@ function Details() {
               </h4>
 
               <div>
-                <p className="flex flex-row justify-center gap-2">
+                <div className="flex flex-row justify-center gap-2">
                   ({details.serie}
                   {user.role == "admin" ? (
                     <UpdateButton
@@ -121,10 +121,10 @@ function Details() {
                     />
                   ) : null}{" "}
                   )
-                </p>
+                </div>
               </div>
 
-              <p className="text-xl mb-10 flex justify-center gap-3">
+              <div className="text-xl mb-10 flex justify-center gap-3">
                 by {details.author}{" "}
 
                 {user.role == "admin" ? (
@@ -145,17 +145,17 @@ function Details() {
                     url={`http://localhost:3000/books/${details._id}`}
                   />
                 ) : null}
-              </p>
+              </div>
 
 
-<div>
-              <p className="ml-10 mr-10">{details.description}
-             
-              </p>
-              {user.role == "admin" ? (
+              <div>
+                <p className="ml-10 mr-10">{details.description}
+
+                </p>
+                {user.role == "admin" ? (
                   <UpdateButton
                     className="m-1 "
-                    style={{height:"h-64",width:"w-96"}}
+                    style={{ height: "h-64", width: "w-96" }}
                     textButton={
                       <i className="fa-solid fa-pen-to-square text-base text-green"></i>
                     }
@@ -175,11 +175,11 @@ function Details() {
             </div>
 
             <div className="flex  flex-col  ml-10 items-start justify-start mt-4">
-            <div className="flex gap-2">
-              <p>
-                <strong>Pages:</strong> {details.pages}
-              </p>
-              {user.role == "admin" ? (
+              <div className="flex gap-2">
+                <p>
+                  <strong>Pages:</strong> {details.pages}
+                </p>
+                {user.role == "admin" ? (
                   <UpdateButton
                     className="m-1 "
                     textButton={
@@ -200,11 +200,11 @@ function Details() {
               </div>
 
               <div className="flex gap-2">
-              <p>
-                <strong>Edition:</strong>
-                {details.edition}
-              </p>
-              {user.role == "admin" ? (
+                <p>
+                  <strong>Edition:</strong>
+                  {details.edition}
+                </p>
+                {user.role == "admin" ? (
                   <UpdateButton
                     className="m-1 "
                     textButton={
@@ -224,12 +224,12 @@ function Details() {
                 ) : null}
               </div>
 
-<div className="flex gap-2">
-              <p>
-                <strong>Publisher:</strong>
-                {details.publisher}
-              </p>
-              {user.role == "admin" ? (
+              <div className="flex gap-2">
+                <p>
+                  <strong>Publisher:</strong>
+                  {details.publisher}
+                </p>
+                {user.role == "admin" ? (
                   <UpdateButton
                     className="m-1 "
                     textButton={
@@ -251,16 +251,16 @@ function Details() {
               </div>
 
               <div className="flex gap-2">
-              <p>
-                <strong>Publishing date: </strong>
-                {details.publishing_date
-                  .slice(0, 10)
-                  .split("-")
-                  .reverse()
-                  .join("-")
-                  .replace("- ", "-")}
-              </p>
-              {user.role == "admin" ? (
+                <p>
+                  <strong>Publishing date: </strong>
+                  {details.publishing_date
+                    .slice(0, 10)
+                    .split("-")
+                    .reverse()
+                    .join("-")
+                    .replace("- ", "-")}
+                </p>
+                {user.role == "admin" ? (
                   <UpdateButton
                     className="m-1 "
                     textButton={
@@ -278,13 +278,13 @@ function Details() {
                     url={`http://localhost:3000/books/${details._id}`}
                   />
                 ) : null}
-            </div>
+              </div>
 
             </div>
           </div>
         </div>
       )}
-      <CommentsSection />
+      <CommentsSection/>
     </div>
   );
 }

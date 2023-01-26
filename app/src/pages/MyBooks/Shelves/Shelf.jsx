@@ -1,18 +1,63 @@
-
-import { useParams } from "react-router-dom"
-import { Navbar } from "../../../components/navbar"
-import { NavigateMyBooks } from "../navigateMyBooks"
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Navbar } from "../../../components/navbar";
+import { NavigateMyBooks } from "../navigateMyBooks";
+import axios from "axios";
+import { userContext } from "../../../context/userContex";
+import { updateShelfContext } from "../../../context/updateShelfContext";
+import { MyBooks } from "../MyBooks";
 export function Shelf() {
-    const {name} = useParams()
-    console.log(name)
-    return (
-        <div>
-        <Navbar/>
-           <NavigateMyBooks />
-          
-            <h3 className="header-3">{name}</h3>
-            <p>Page is not completed yet</p>
-           
-        </div>
-    )
+  const { name, id } = useParams();
+
+  const { jwt } = useContext(userContext);
+  const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
+  const [books, setBooks] = useState([]);
+ const shelfName = name.replaceAll("-"," ")
+
+  useEffect(() => {
+    setBooks([])
+
+    axios
+      .get(`http://localhost:3000/book-details/shelves/${id}`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+      .then((res) => {
+     console.log("res.data",res.data)
+        const arr = res.data.map((el) => el.book_id);
+        console.log("arr",arr)
+        return arr;
+      })
+      .then((arr) => {
+        if (arr.length != 0) {
+          console.log("arr",arr)
+
+          const requests = arr.map((id) =>
+            axios.get(`http://localhost:3000/books/${id}`, {
+              headers: { Authorization: `Bearer ${jwt}` },
+            }).then(res=> (res.data))
+          );
+
+          Promise.all(requests)
+            .then((responses) => {
+              console.log(responses)
+              const booksData = responses
+              setBooks(booksData);
+            
+              setUpdateShelves(false)
+            })
+            .catch((err) => console.log(err));
+        }
+      })
+      .catch((err) => console.log(err));
+  
+
+  }, [updateShelves,id]);
+
+
+
+  return (
+<MyBooks books={books} shelfName={shelfName} setBooks={setBooks}/>
+
+  
+  );
 }
