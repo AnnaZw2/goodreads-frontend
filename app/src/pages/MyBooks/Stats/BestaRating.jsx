@@ -4,7 +4,7 @@ import "./../../../index.css"
 import { userContext } from "../../../context/userContex";
 export function BestRating({url,text}) {
   const { jwt } = useContext(userContext);
-  const [userStats, setUserStats] = useState();
+
   const [userStatsBooks, setUserStatsBooks] = useState({});
   useEffect(() => {
     axios
@@ -12,8 +12,8 @@ export function BestRating({url,text}) {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => {
-        console.log(res.data.books);
-        // setUserStats(res.data.books);
+      
+
 
         res.data.books.map((el) => {
           axios
@@ -21,7 +21,7 @@ export function BestRating({url,text}) {
               headers: { Authorization: `Bearer ${jwt}` },
             })
             .then((res) => {
-              console.log(res.data);
+             
               setUserStatsBooks((prevState) => ({
                 ...prevState,
                 [res.data.cover]: el.average,
@@ -31,12 +31,12 @@ export function BestRating({url,text}) {
       });
   }, []);
 
-  console.log(userStatsBooks);
+
   const sortedBooks = Object.keys(userStatsBooks).sort((a, b) => {
     return userStatsBooks[b] - userStatsBooks[a];
   });
   return (
-    <div className="mt-5 ml-48">
+    <div className="mt-5 ">
       <h4 className="header-4">{text}</h4>
       <div className="flex flex-row justify-center items-center mr-2">
         {sortedBooks.map((cover) => (
