@@ -47,7 +47,7 @@ export function AddToShelf({ bookId }) {
   const [state, dispatch] = useReducer(reducer, { open: false, adding: false });
 
   function open() {
-    dispatch({ type: ACTIONS.OPEN_MENU });
+    dispatch({ type: ACTIONS.OPEN_MENU});
   }
   function close() {
     dispatch({ type: ACTIONS.CLOSE_MENU });
