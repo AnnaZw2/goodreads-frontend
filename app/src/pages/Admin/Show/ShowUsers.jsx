@@ -21,7 +21,7 @@ function ShowUsers() {
     setSearchAdmin(event.target.value);
 
   };
-  const navigate = useNavigate()
+ 
 
   useEffect(() => {
     axios

@@ -21,8 +21,9 @@ export function ShowComments() {
     setSearchAdmin(event.target.value);
   };
 
- 
+
   useEffect(() => {
+
     axios
       .get("http://localhost:3000/comments", {
         headers: { Authorization: `Bearer ${jwt}` },
