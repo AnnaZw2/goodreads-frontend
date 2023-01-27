@@ -20,7 +20,7 @@ export function Book({ title, cover, description, author, id, style }) {
       })
       .then((res) => res.data)
       .then((res) => {
-        if ("rating" in res[0]) {
+        if (res[0].rating) {
           setValue(res[0].rating);
         }
       });
@@ -59,14 +59,7 @@ export function Book({ title, cover, description, author, id, style }) {
         <div className="rating-container"></div>
 
         <div className="flex flex-col justify-center items-center">
-          {/* <ReactStars
-            count={5}
-            onChange={ratingChanged}
-            size={24}
-            value={5}
-            color2={"#ffd700"}
-            half={true}
-          /> */}
+         
           <StarsRating
             value={value}
             onChange={(newRating) => {
