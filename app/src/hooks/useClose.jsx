@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 function useClose(buttonRef, callback) {
-
   useEffect(() => {
     let handler = (e) => {
-      if (buttonRef.current && !buttonRef.current.contains(e.target) ) {
+      if (buttonRef.current && !buttonRef.current.contains(e.target)) {
         callback();
       }
     };

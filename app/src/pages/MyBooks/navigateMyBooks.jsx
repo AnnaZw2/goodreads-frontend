@@ -4,14 +4,14 @@ import axios from "axios";
 import { useContext, useEffect, useState, useRef } from "react";
 import { userContext } from "../../context/userContex";
 import { AddButton } from "../../components/AddNewShelf/AddButton";
-import { updateShelfContext } from "../../context/updateShelfContext";
+import { updateContext } from "../../context/updateContext";
 import { DeleteButton } from "../../components/deleteButton";
 import { useClose } from "../../hooks/useClose";
 import { UpdateButton } from "../../components/UpdateButton/UpdateButton";
 
 export function NavigateMyBooks() {
   const { jwt } = useContext(userContext);
-  const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
+  const { update, setupdate } = useContext(updateContext);
   const [shelves, setShelves] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -28,14 +28,14 @@ export function NavigateMyBooks() {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => {
-        setUpdateShelves(false);
+        setupdate(false);
         setShelves(res.data);
         const customArr = shelves.filter((el) => "custom" == el.type).length;
 
         customArr == 0 ? setHasCustom(false) : setHasCustom(true);
       })
       .catch((err) => console.log(err));
-  }, [updateShelves, hasCustom]);
+  }, [update, hasCustom]);
 
   const handleEdit = () => {
     editing ? setEditing(false) : setEditing(true);
@@ -71,9 +71,7 @@ export function NavigateMyBooks() {
             key={el._id}
           >
             <Link
-              to={`/mybooks/shelves/${el.name
-               
-                .replace(/\s+/g, "-")}/${el._id}`}
+              to={`/mybooks/shelves/${el.name.replace(/\s+/g, "-")}/${el._id}`}
               className="links"
             >
               {el.name}
@@ -96,14 +94,14 @@ export function NavigateMyBooks() {
                       .delete(`http://localhost:3000/shelves/${el._id}`, {
                         headers: { Authorization: `Bearer ${jwt}` },
                       })
-                      .then(() => setUpdateShelves(true))
+                      .then(() => setupdate(true))
                       .catch((err) => console.log(err))
                   }
                 />
                 <UpdateButton
                   className="m-1"
                   textButton={
-                    <i class="fa-solid fa-pen-to-square text-black"></i>
+                    <i className="fa-solid fa-pen-to-square text-black"></i>
                   }
                   textModal={
                     <p>
@@ -112,7 +110,6 @@ export function NavigateMyBooks() {
                     </p>
                   }
                   placeholder="Enter new name "
-                 
                   id={el._id}
                   patchKey={"name"}
                   url={`http://localhost:3000/shelves/${el._id}`}
@@ -128,15 +125,17 @@ export function NavigateMyBooks() {
             Stats
           </Link>
         </li>
-     <li >  {!clicked ? (
-          <button onClick={setClicked(true)}>Add</button>
-        ) : (
-          <AddButton
-            background_btn={"bg-white"}
-            background={"bg-light-beige"}
-          
-          />
-        )}</li> 
+        <li>
+          {" "}
+          {!clicked ? (
+            <button onClick={setClicked(true)}>Add</button>
+          ) : (
+            <AddButton
+              background_btn={"bg-white"}
+              background={"bg-light-beige"}
+            />
+          )}
+        </li>
       </ul>
     </div>
   );

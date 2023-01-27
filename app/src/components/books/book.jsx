@@ -3,8 +3,7 @@ import { AddToShelf } from "../../pages/Home/addToShelf";
 import { useEffect, useState } from "react";
 // import ReactStars from "react-stars";
 
-
-import StarsRating from 'react-star-rate';
+import StarsRating from "react-star-rate";
 import axios from "axios";
 import { useContext } from "react";
 
@@ -12,41 +11,41 @@ import { userContext } from "../../context/userContex";
 
 export function Book({ title, cover, description, author, id, style }) {
   const [value, setValue] = useState(0);
-  const {jwt} = useContext(userContext)
+  const { jwt } = useContext(userContext);
 
-  useEffect(()=>{
+  useEffect(() => {
     axios
-    .get(`http://localhost:3000/book-details?book_id=${id}`,{
-      headers: { Authorization: `Bearer ${jwt}` },
-    })  .then((res) => res.data).then((res)=>{
-      console.log("res",res)
-      if("rating" in  res[0]){
-     
-        setValue(res[0].rating)
-      }
-      
-
-    })
-  },[])
-  const ratingChanged = (newRating) => {
-    axios
-      .get(`http://localhost:3000/book-details?book_id=${id}`,{
+      .get(`http://localhost:3000/book-details?book_id=${id}`, {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => res.data)
       .then((res) => {
-        console.log(res[0]._id)
-        const tmpId = res[0]._id
-     
-        console.log(tmpId)
-          axios.patch(`http://localhost:3000/book-details/${tmpId}`,{rating: newRating},{
-            headers: { Authorization: `Bearer ${jwt}` },
-          }).then((res)=> console.log(res))
-        
+        if (res[0].rating) {
+          setValue(res[0].rating);
+        }
+      });
+  }, []);
+  const ratingChanged = (newRating) => {
+    axios
+      .get(`http://localhost:3000/book-details?book_id=${id}`, {
+        headers: { Authorization: `Bearer ${jwt}` },
       })
-      .catch((err)=> console.log(err))
-      setValue(newRating)
-    // console.log(newRating);
+      .then((res) => res.data)
+      .then((res) => {
+        const tmpId = res[0]._id;
+
+        axios
+          .patch(
+            `http://localhost:3000/book-details/${tmpId}`,
+            { rating: newRating },
+            {
+              headers: { Authorization: `Bearer ${jwt}` },
+            }
+          )
+          .then((res) => console.log(res));
+      })
+      .catch((err) => console.log(err));
+    setValue(newRating);
   };
 
   return (
@@ -60,20 +59,13 @@ export function Book({ title, cover, description, author, id, style }) {
         <div className="rating-container"></div>
 
         <div className="flex flex-col justify-center items-center">
-          {/* <ReactStars
-            count={5}
-            onChange={ratingChanged}
-            size={24}
-            value={5}
-            color2={"#ffd700"}
-            half={true}
-          /> */}
+         
           <StarsRating
-        value={value}
-        onChange={newRating => {
-          ratingChanged(newRating)
-        }}
-      />
+            value={value}
+            onChange={(newRating) => {
+              ratingChanged(newRating);
+            }}
+          />
 
           <Link className="links bg-white ml-2" to={`/details/${id}`}>
             More...

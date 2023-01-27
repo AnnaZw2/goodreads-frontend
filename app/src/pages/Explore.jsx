@@ -5,21 +5,21 @@ import { Link } from "react-router-dom";
 import { userContext } from "../context/userContex";
 import { DeleteButton } from "../components/deleteButton";
 import axios from "axios";
-import { updateShelfContext } from "../context/updateShelfContext";
+import { updateContext } from "../context/updateContext";
 
 export function Explore() {
   const { searchValue, searchOutput, setSearchOutput } =
     useContext(searchShelfContext);
   const { user, jwt } = useContext(userContext);
-  const { setUpdateShelves, updateShelves } = useContext(updateShelfContext);
+  const { setupdate, update } = useContext(updateContext);
   useEffect(() => {
-    setUpdateShelves(false);
+    setupdate(false);
     axios
       .get("http://localhost:3000/books", {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => setSearchOutput(res.data));
-  }, [updateShelves]);
+  }, [update]);
 
   return (
     <div>
@@ -47,7 +47,7 @@ export function Explore() {
                               headers: { Authorization: `Bearer ${jwt}` },
                             })
                             .then(() => {
-                              setUpdateShelves(true);
+                              setupdate(true);
                             })
                             .catch((err) => console.log(err))
                         }

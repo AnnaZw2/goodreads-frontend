@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import CommentsReducer from "../reducers/CommentsSlice";
+import CommentsReducer from "../fetaures/CommentsSlice";
 export const store = configureStore({
-    reducer:{
-  comments:CommentsReducer,
-    }
-  })
+  reducer: {
+    comments: CommentsReducer,
+  }
+})

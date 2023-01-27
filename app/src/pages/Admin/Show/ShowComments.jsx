@@ -1,39 +1,36 @@
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { userContext } from "../../../context/userContex";
-import { updateShelfContext } from "../../../context/updateShelfContext";
+import { updateContext } from "../../../context/updateContext";
 import { useState } from "react";
 import { searchShelfContext } from "../../../context/searchContext";
 import "./../Admin.css";
 import { Navbar } from "../../../components/navbar";
-import { useNavigate } from "react-router-dom";
 import { GoBack } from "../GoBackButton";
 import { UpdateButton } from "../../../components/UpdateButton/UpdateButton";
 import { formatDate } from "../../../utils/functions/fromateDate";
 export function ShowComments() {
   const { jwt } = useContext(userContext);
-  const { updateShelves, setUpdateShelves } = useContext(updateShelfContext);
+  const { update, setupdate } = useContext(updateContext);
   const [comments, setComments] = useState([]);
-  const navigate = useNavigate();
-  const { searchAdmin, setSearchAdmin, searchOutput, setSearchOutput } =
+
+  const { searchAdminCom, setSearchAdminCom, } =
     useContext(searchShelfContext);
   const handleInput = (event) => {
-    setSearchAdmin(event.target.value);
+    setSearchAdminCom(event.target.value);
   };
 
-
   useEffect(() => {
-
     axios
       .get("http://localhost:3000/comments", {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => setComments(res.data))
-      .then(() => setUpdateShelves(false))
+      .then(() => setupdate(false))
       .catch((err) => console.log(err));
 
     axios
-      .get(`http://localhost:3000/comments?search=${searchAdmin}`, {
+      .get(`http://localhost:3000/comments?search=${searchAdminCom}`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
           "Content-Type": "application/json",
@@ -42,11 +39,11 @@ export function ShowComments() {
       .then((res) => {
         setComments(res.data);
       });
-  }, [updateShelves]);
+  }, [update]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/comments?search=${searchAdmin}`, {
+      .get(`http://localhost:3000/comments?search=${searchAdminCom}`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
           "Content-Type": "application/json",
@@ -55,9 +52,7 @@ export function ShowComments() {
       .then((res) => {
         setComments(res.data);
       });
-  }, [searchAdmin]);
-
-  console.log(comments);
+  }, [searchAdminCom]);
 
   return (
     <div>
@@ -70,7 +65,7 @@ export function ShowComments() {
         <div className="input-container mb-10">
           <input
             type="search"
-            value={searchAdmin}
+            value={searchAdminCom}
             onChange={handleInput}
             placeholder="Search for content of comments"
             className="search rounded-md w-96"
@@ -91,12 +86,12 @@ export function ShowComments() {
                   <UpdateButton
                     className="m-1 ml-4"
                     textButton={
-                      <i class="fa-solid fa-pen-to-square text-green"></i>
+                      <i className="fa-solid fa-pen-to-square text-green"></i>
                     }
                     textModal={
                       <p>
-                        Are you sure you want to change content of comment published by{" "}
-                        <strong>{el.user}</strong>?
+                        Are you sure you want to change content of comment
+                        published by <strong>{el.user}</strong>?
                       </p>
                     }
                     placeholder="Enter new content "

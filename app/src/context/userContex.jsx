@@ -1,8 +1,4 @@
-import { createContext, useState } from 'react';
-// import jwt_decode from "jwt-decode";
-
-
-const token = localStorage.getItem("jwt")
-// const decode =jwt_decode(token)
+import { createContext } from "react";
+const token = localStorage.getItem("jwt");
 
 export const userContext = createContext(token);

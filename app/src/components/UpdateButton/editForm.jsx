@@ -1,13 +1,11 @@
 // import { useState } from "React";
 
-
-
 // function EditForm({placeholder}) {
 
 //     const [newValue, setNewValue] = useState("");
 //     const handleInput = (event) => {
 //         setNewValue(event.target.value);
-    
+
 //         console.log("value is:", event.target.value);
 //       };
 
@@ -24,7 +22,7 @@
 
 //       value={newValue}
 //     />
-   
+
 //   );
 // }
 

@@ -42,7 +42,7 @@ export function BestRating({url,text}) {
         {sortedBooks.map((cover) => (
           <div key={cover} className="w-1/5 p-2">
             <img src={cover} alt="" className="h-48 w-auto object-cover" />
-            <p className="text-xl font-medium">{userStatsBooks[cover]}</p>
+            <p className="text-xl font-medium">{userStatsBooks[cover].toFixed(2)}</p>
           </div>
         ))}
       </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext } from "react";
 import { useState } from "react";
-import { updateShelfContext } from "../../context/updateShelfContext";
+import { updateContext } from "../../context/updateContext";
 import { userContext } from "../../context/userContex";
 import { EditModal } from "./EditModal";
 export function UpdateButton({
@@ -10,13 +10,12 @@ export function UpdateButton({
   textButton,
   textModal,
   patchKey,
-  style
+  style,
 }) {
-
   const [openEditing, setOpenEditing] = useState(false);
 
   const { jwt } = useContext(userContext);
-const {setUpdateShelves} = useContext(updateShelfContext)
+  const { setupdate } = useContext(updateContext);
   const request = (newValue) =>
     axios
       .patch(
@@ -30,8 +29,8 @@ const {setUpdateShelves} = useContext(updateShelfContext)
         }
       )
       .then((res) => console.log(res))
-      .then(()=> setUpdateShelves(true))
-      
+      .then(() => setupdate(true))
+
       .catch((err) => console.log(err));
 
   const handleUpdate = () => {
@@ -53,10 +52,7 @@ const {setUpdateShelves} = useContext(updateShelfContext)
         {textButton}
       </button>
       {openEditing ? (
-        <div
-       
-          className="absolute left-6 -top-7 z-10 bg-beige rounded-md shadow-md border border-light-gray"
-        >
+        <div className="absolute left-6 -top-7 z-10 bg-beige rounded-md shadow-md border border-light-gray">
           <EditModal
             textModal={textModal}
             setOpenConfirm={setOpenEditing}

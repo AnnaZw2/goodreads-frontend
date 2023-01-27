@@ -16,7 +16,7 @@ export function Home() {
   }, []);
 
   useEffect(() => {
-    console.log("display books")
+
     axios
       .get("http://localhost:3000/books",{headers:{"Authorization":`Bearer ${jwt}`}})
       .then((res) => {

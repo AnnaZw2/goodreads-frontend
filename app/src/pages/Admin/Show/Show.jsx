@@ -1,22 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import { useContext,useEffect,useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { searchShelfContext } from "../../../context/searchContext";
 import { userContext } from "../../../context/userContex";
-import { updateShelfContext } from "../../../context/updateShelfContext";
+import { updateContext } from "../../../context/updateContext";
 import axios from "axios";
-export function Show({header,display,placeholder,searchingFor}) {
-    const navigate = useNavigate()
+export function Show({ header, display, placeholder, searchingFor }) {
+  const navigate = useNavigate();
 
-    const { jwt } = useContext(userContext);
-    const { updateShelves, setUpdateShelves } = useContext(updateShelfContext)
-    const [data, setData] = useState([]);
-    const { searchAdmin,setSearchAdmin}  = useContext(searchShelfContext)
- 
-    const handleInput = (event) => {
-      setSearchAdmin(event.target.value);
-  
-    };
+  const { jwt } = useContext(userContext);
+  const { update, setupdate } = useContext(updateContext);
+  const [data, setData] = useState([]);
+  const { searchAdmin, setSearchAdmin } = useContext(searchShelfContext);
 
+  const handleInput = (event) => {
+    setSearchAdmin(event.target.value);
+  };
 
   useEffect(() => {
     axios
@@ -24,7 +22,7 @@ export function Show({header,display,placeholder,searchingFor}) {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => setData(res.data))
-      .then(() => setUpdateShelves(false))
+      .then(() => setupdate(false))
       .catch((err) => console.log(err));
 
     axios
@@ -36,9 +34,8 @@ export function Show({header,display,placeholder,searchingFor}) {
       })
       .then((res) => {
         setData(res.data);
-
       });
-  }, [updateShelves]);
+  }, [update]);
 
   useEffect(() => {
     axios
@@ -49,14 +46,11 @@ export function Show({header,display,placeholder,searchingFor}) {
         },
       })
       .then((res) => {
-
         setData(res.data);
-
       });
   }, [searchAdmin]);
   return (
     <div>
-  
       <div className="flex flex-row justify-center items-center ">
         <h4 className="header-4 mt-6">{header}</h4>
         <button
@@ -76,7 +70,6 @@ export function Show({header,display,placeholder,searchingFor}) {
             className="search rounded-md w-96"
           ></input>
         </div>
-
 
         {display}
         {/* <ul className="mb-10">
@@ -122,7 +115,7 @@ export function Show({header,display,placeholder,searchingFor}) {
                       .delete(`http://localhost:3000/users/${el.email}`, {
                         headers: { Authorization: `Bearer ${jwt}` },
                       })
-                      .then(() => setUpdateShelves(true))
+                      .then(() => setupdate(true))
                       .catch((err) => console.log(err))
                   }
                 />
