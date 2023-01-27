@@ -6,7 +6,6 @@ import { Home } from './pages/Home/Home';
 import { Explore } from './pages/Explore';
 import { Register } from './pages/BeforeLogIn/Register';
 import { LogIn } from './pages/BeforeLogIn/LogIn';
-import { NotLoggedIn } from "./pages/BeforeLogIn/NotLoggedIn"
 import { Settings } from './pages/Settings';
 import { All } from './pages/MyBooks/Shelves/All';
 import { Stats } from './pages/MyBooks/Stats/Stats';
@@ -67,11 +66,11 @@ function App() {
 
               <Route path="/" element={<Home />}></Route>
               <Route path='/details/:id' element={<Details />}></Route>
-              <Route path='/sign' element={<Register />}></Route>
+              <Route path='/register' element={<Register />}></Route>
               <Route path='/login' element={<LogIn />}></Route>
               <Route path='/explore' element={<Explore />}></Route>
               <Route path='/settings' element={<Settings />}></Route>
-              <Route path="/notlogged" element={<NotLoggedIn />}></Route>
+
               <Route path='/mybooks' element={<All />}>    </Route>
               <Route path="/users" element={<User />} />
              

@@ -4,6 +4,7 @@ import "./Register.css";
 import * as yup from "yup";
 import axios from "axios";
 import { useState } from "react";
+import { SubmitButton } from "./SubmitButton";
 
 export function Register() {
   const validate = yup.object().shape({
@@ -155,9 +156,7 @@ export function Register() {
             <p className="errors"> {errors.confirmPassword}</p>
           ) : null}
         </div>
-        <button className="bg-white border" type="submit">
-          Submit
-        </button>
+      <SubmitButton/>
       </form>
     </div>
   );

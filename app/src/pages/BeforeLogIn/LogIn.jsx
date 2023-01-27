@@ -5,6 +5,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { userContext } from "../../context/userContex";
 import jwt_decode from "jwt-decode";
+import { SubmitButton } from "./SubmitButton";
 
 export function LogIn() {
   const [invalidDataError, setInvalidDataError] = useState(false);
@@ -59,7 +60,7 @@ export function LogIn() {
   return (
     <div>
       <Link
-        to="/sign"
+        to="/register"
         className=" text-light-brown border border-brown rounded-lg p-1 hover:bg-yellow hover:text-light-brown"
       >
         Register
@@ -106,9 +107,7 @@ export function LogIn() {
           ) : null}
         </div>
 
-        <button className="bg-white border" type="submit">
-          Submit
-        </button>
+        <SubmitButton/>
       </form>
     </div>
   );
