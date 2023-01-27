@@ -14,7 +14,7 @@ export function Register() {
       .required("Required!"),
     password: yup
       .string()
-      .min(5, "Password must be min 5 characters!")
+      .min(5, "Must be min 5 characters!")
       .required("Required!"),
     confirmPassword: yup
       .string()
