@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { DeleteButton } from "../../../components/deleteButton";
 import { Navbar } from "../../../components/navbar";
 import { UpdateButton } from "../../../components/UpdateButton/UpdateButton";
@@ -8,21 +7,20 @@ import { searchShelfContext } from "../../../context/searchContext";
 import { updateContext } from "../../../context/updateContext";
 import { userContext } from "../../../context/userContex";
 import { GoBack } from "../GoBackButton";
-import "./../../../index.css"
-import "./../Admin.css"
+import "./../../../index.css";
+import "./../Admin.css";
 
 function ShowUsers() {
   const { jwt } = useContext(userContext);
-  const { update, setupdate } = useContext(updateContext)
+  const { update, setupdate } = useContext(updateContext);
   const [users, setUsers] = useState([]);
 
-  const { searchAdmin, setSearchAdmin, searchOutput, setSearchOutput } = useContext(searchShelfContext)
+  const { searchAdmin, setSearchAdmin } =
+    useContext(searchShelfContext);
   const handleInput = (event) => {
     setSearchAdmin(event.target.value);
-
   };
-
-
+ 
   useEffect(() => {
     axios
       .get("http://localhost:3000/users", {
@@ -41,7 +39,6 @@ function ShowUsers() {
       })
       .then((res) => {
         setUsers(res.data);
-
       });
   }, [update]);
 
@@ -54,14 +51,9 @@ function ShowUsers() {
         },
       })
       .then((res) => {
-
         setUsers(res.data);
-
       });
   }, [searchAdmin]);
-
-
-
 
   return (
     <div>
@@ -71,7 +63,6 @@ function ShowUsers() {
         <GoBack />
       </div>
       <div className="flex   overflow-auto justify-center flex-col items-center mt-5">
-
         <div className="input-container mb-10">
           <input
             type="search"
@@ -80,41 +71,59 @@ function ShowUsers() {
             placeholder="Search for users"
             className="search rounded-md w-96"
           ></input>
-
         </div>
         <ul className="mb-10">
-          {users.length != 0 ? users.map((el) => (
-            <li key={el.email} className="display-panel">
-              <p>
-                <strong>Email: </strong>
-                {el.email}
-              </p>{" "}
-              <div className="flex flex-row gap-4">
+          {users.length != 0 ? (
+            users.map((el) => (
+              <li key={el.email} className="display-panel">
+                <p>
+                  <strong>Email: </strong>
+                  {el.email}
+                </p>{" "}
+                <div className="flex flex-row gap-4">
+                  <p>
+                    <strong>Username: </strong> {el.username}
+                  </p>
 
-                <p><strong>Username: </strong> {el.username}</p>
-
-                <UpdateButton
-                  className="m-1 ml-4"
-                  textButton={
-                    <i class="fa-solid fa-pen-to-square text-black"></i>
-                  }
+                  <UpdateButton
+                    className="m-1 ml-4"
+                    textButton={
+                      <i className="fa-solid fa-pen-to-square text-black"></i>
+                    }
+                    textModal={
+                      <p>
+                        Are you sure you want to change username of{" "}
+                        <strong>{el.username}</strong>?
+                      </p>
+                    }
+                    placeholder="Enter new name "
+                    id={el._id}
+                    patchKey={"username"}
+                    url={`http://localhost:3000/users/${el.email}`}
+                  />
+                </div>
+                <DeleteButton
                   textModal={
                     <p>
-                      Are you sure you want to change username of {" "}
-                      <strong>{el.username}</strong>?
+                      Are you sure you want to delete{" "}
+                      <strong>{el.email}</strong> account?
                     </p>
                   }
-                  placeholder="Enter new name "
-
-                  id={el._id}
-                  patchKey={"username"}
-                  url={`http://localhost:3000/users/${el.email}`}
+                  textButton={"Delete account"}
+                  request={() =>
+                    axios
+                      .delete(`http://localhost:3000/users/${el.email}`, {
+                        headers: { Authorization: `Bearer ${jwt}` },
+                      })
+                      .then(() => setupdate(true))
+                      .catch((err) => console.log(err))
+                  }
                 />
-              </div>
-              <DeleteButton textModal={<p>Are you sure you want to delete <strong>{el.email}</strong> account?</p>} textButton={"Delete account"} request={() => axios.delete(`http://localhost:3000/users/${el.email}`, { headers: { "Authorization": `Bearer ${jwt}` } }).then(() => setupdate(true)).catch(err => console.log(err))} />
-            </li>
-          )) : <p className="mt-4 text-lg">No users</p>}
-
+              </li>
+            ))
+          ) : (
+            <p className="mt-4 text-lg">No users</p>
+          )}
         </ul>
       </div>
     </div>

@@ -32,6 +32,6 @@ export function All() {
       })
       .catch((err) => console.log(err));
   }, []);
-  console.log(books);
+
   return <MyBooks books={books} shelfName={"All"} setBooks={setBooks} />;
 }

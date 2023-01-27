@@ -161,7 +161,7 @@ export function AddToShelf({ bookId }) {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => {
-        console.log("res data [0]", res.data);
+
         return res.data[0];
       })
       .then((info) => {

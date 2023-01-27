@@ -1,6 +1,12 @@
 import { Navbar } from "../../../components/navbar";
 import React, { useContext, useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage, setNestedObjectValues } from "formik";
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  setNestedObjectValues,
+} from "formik";
 import * as Yup from "yup";
 import "./AdminForms.css";
 import "./../../../index.css";
@@ -11,16 +17,12 @@ import { GoBack } from "../GoBackButton";
 
 export function AdminForms() {
   const [added, setAdded] = useState("");
-  const [forceUpdate, setForceUpdate] = useState(false);
+
   const { jwt } = useContext(userContext);
   useEffect(() => {
-setTimeout(()=>{
-  setAdded("")
-},3000)
-   
-   
-  
-   
+    setTimeout(() => {
+      setAdded("");
+    }, 3000);
   }, [added]);
   return (
     <div className="w-full">
@@ -39,7 +41,7 @@ setTimeout(()=>{
           publishing_date: "",
         }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting, isValid, touched ,resetForm}) => {
+        onSubmit={(values, { setSubmitting, isValid, touched, resetForm }) => {
           if (!isValid || !Object.keys(touched).length) {
             axios
               .post("http://localhost:3000/books", values, {
@@ -51,28 +53,22 @@ setTimeout(()=>{
               .then((res) => console.log(res))
               .then(() => setSubmitting(false))
               .then(() => setAdded("Book was sucesfully added!"))
-             .then(()=>{
-              resetForm()
-             })
+              .then(() => {
+                resetForm();
+              })
               .catch((err) => console.log(err));
-            // setTimeout(() => {
-            //   console.log(values);
-
-            //   setSubmitting(false);
-            // }, 400);
           }
         }}
       >
         {({ isValid, touched }) => (
           <Form className=" flex justify-center  items-center mx-auto my-24 w-4/5">
-            {console.log("touched", Object.keys(touched).length)}
             <div className="container border rounded-sm pl-11 pr-11 border-light-gray bg-dark-beige">
               <div className="header flex justify-center items-center flex-col ">
                 {added.length != 0 ? <p>{added}</p> : null}
+
                 <div className="flex flex-row items-center align-middle ">
-                <h3 className="header-3">Add new book</h3>
-                <GoBack />
-             
+                  <h3 className="header-3">Add new book</h3>
+                  <GoBack />
                 </div>
               </div>
               <div className="input-admin title">
@@ -161,9 +157,6 @@ div"
               </div>
 
               <div className="button flex justify-center items-center">
-                {console.log(Object.keys(touched).length == 0)}
-                {console.log(isValid)}
-
                 <button
                   type="submit"
                   className="col-start-1 col-end-8"

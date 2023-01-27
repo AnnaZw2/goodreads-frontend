@@ -7,29 +7,24 @@ import { userContext } from "../context/userContex";
 import { formatDate } from "../utils/functions/fromateDate";
 
 export function CommentsSection({ bookId }) {
-
   const [input, setInput] = useState("");
   function getCurrentDate() {
     return new Date().toISOString();
   }
-  const date = getCurrentDate()
-
-
-
+  const date = getCurrentDate();
 
   const { user } = useContext(userContext);
- 
+
   const dipatch = useDispatch();
- 
+
   return (
     <div className="ml-48 mr-48">
       <div className="flex justify-center items-center mt-8 mb-6 gap-5 bg-dark-beige rounded-md p-5 ">
         <textarea
-   
           className="w-3/5 p-1"
           placeholder="Write your comment"
           onChange={(e) => setInput(e.target.value)}
-     value={input}
+          value={input}
         ></textarea>
 
         <button
@@ -44,7 +39,6 @@ export function CommentsSection({ bookId }) {
               })
             ),
               setInput("");
-            
           }}
         >
           Add comment

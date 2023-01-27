@@ -22,14 +22,14 @@ export function Shelf() {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => {
-        console.log("res.data", res.data)
+   
         const arr = res.data.map((el) => el.book_id);
-        console.log("arr", arr)
+     
         return arr;
       })
       .then((arr) => {
         if (arr.length != 0) {
-          console.log("arr", arr)
+   
 
           const requests = arr.map((id) =>
             axios.get(`http://localhost:3000/books/${id}`, {
@@ -39,7 +39,7 @@ export function Shelf() {
 
           Promise.all(requests)
             .then((responses) => {
-              console.log(responses)
+         
               const booksData = responses
               setBooks(booksData);
 

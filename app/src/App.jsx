@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router';
-
 import './App.css'
 import { Home } from './pages/Home/Home';
 import { Explore } from './pages/Explore';
@@ -31,6 +30,7 @@ function App() {
 
   const [searchValue, setSearchValue] = useState("")
   const [searchAdmin, setSearchAdmin] = useState("")
+  const [searchAdminCom, setSearchAdminCom] = useState("")
   const [searchOutput, setSearchOutput] = useState([]);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ function App() {
       <updateContext.Provider value={{ update: update, setupdate: setupdate }} >
 
         <userContext.Provider value={{ user: user, setUpdateUser: setUser, jwt: jwt }}>
-          <searchShelfContext.Provider value={{ searchValue: searchValue, setSearchValue: setSearchValue, searchOutput: searchOutput, setSearchOutput: setSearchOutput, searchAdmin: searchAdmin, setSearchAdmin: setSearchAdmin }}>
+          <searchShelfContext.Provider value={{ searchValue: searchValue, setSearchValue: setSearchValue, searchOutput: searchOutput, setSearchOutput: setSearchOutput, searchAdminCom: searchAdminCom, setSearchAdminCom: setSearchAdminCom,searchAdmin: searchAdmin, setSearchAdmin: setSearchAdmin }}>
             <Routes>
 
               <Route path="/" element={<Home />}></Route>
@@ -74,11 +74,11 @@ function App() {
               <Route path="/notlogged" element={<NotLoggedIn />}></Route>
               <Route path='/mybooks' element={<All />}>    </Route>
               <Route path="/users" element={<User />} />
-              {user.role === "admin" ?
-                <Route path="/admin" element={<Admin />}></Route> : null}
-              {user.role === "admin" ? <Route path='/admin/showusers' element={<ShowUsers />} /> : null}
-              {user.role === "admin" ? <Route path='/admin/showcomments' element={<ShowComments />} /> : null}
-              {user.role === "admin" ? <Route path='/admin/forms' element={<AdminForms />} /> : null}
+             
+              {user && user.role === "admin" ? <Route path="/admin" element={<Admin />}></Route> : null}
+  {user && user.role === "admin" ? <Route path='/admin/showusers' element={<ShowUsers />} /> : null }
+  {user && user.role === "admin" ? <Route path='/admin/showcomments' element={<ShowComments />} /> : null}
+  {user && user.role === "admin" ? <Route path='/admin/forms' element={<AdminForms />} /> : null}
               <Route path='mybooks/shelves/all' element={<All />}></Route>
               <Route path='mybooks/stats' element={<Stats />}></Route>
               <Route path="mybooks/shelves/:name/:id" element={<Shelf />}></Route>

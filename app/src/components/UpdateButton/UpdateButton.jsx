@@ -10,13 +10,12 @@ export function UpdateButton({
   textButton,
   textModal,
   patchKey,
-  style
+  style,
 }) {
-
   const [openEditing, setOpenEditing] = useState(false);
 
   const { jwt } = useContext(userContext);
-  const { setupdate } = useContext(updateContext)
+  const { setupdate } = useContext(updateContext);
   const request = (newValue) =>
     axios
       .patch(
@@ -53,10 +52,7 @@ export function UpdateButton({
         {textButton}
       </button>
       {openEditing ? (
-        <div
-
-          className="absolute left-6 -top-7 z-10 bg-beige rounded-md shadow-md border border-light-gray"
-        >
+        <div className="absolute left-6 -top-7 z-10 bg-beige rounded-md shadow-md border border-light-gray">
           <EditModal
             textModal={textModal}
             setOpenConfirm={setOpenEditing}

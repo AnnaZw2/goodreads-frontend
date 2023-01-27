@@ -5,18 +5,16 @@ import { userContext } from "../../../context/userContex";
 import { updateContext } from "../../../context/updateContext";
 import axios from "axios";
 export function Show({ header, display, placeholder, searchingFor }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { jwt } = useContext(userContext);
-  const { update, setupdate } = useContext(updateContext)
+  const { update, setupdate } = useContext(updateContext);
   const [data, setData] = useState([]);
-  const { searchAdmin, setSearchAdmin } = useContext(searchShelfContext)
+  const { searchAdmin, setSearchAdmin } = useContext(searchShelfContext);
 
   const handleInput = (event) => {
     setSearchAdmin(event.target.value);
-
   };
-
 
   useEffect(() => {
     axios
@@ -36,7 +34,6 @@ export function Show({ header, display, placeholder, searchingFor }) {
       })
       .then((res) => {
         setData(res.data);
-
       });
   }, [update]);
 
@@ -49,14 +46,11 @@ export function Show({ header, display, placeholder, searchingFor }) {
         },
       })
       .then((res) => {
-
         setData(res.data);
-
       });
   }, [searchAdmin]);
   return (
     <div>
-
       <div className="flex flex-row justify-center items-center ">
         <h4 className="header-4 mt-6">{header}</h4>
         <button
@@ -76,7 +70,6 @@ export function Show({ header, display, placeholder, searchingFor }) {
             className="search rounded-md w-96"
           ></input>
         </div>
-
 
         {display}
         {/* <ul className="mb-10">
