@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { userContext } from "../context/userContex";
 import { Navbar } from "../components/navbar";
-import {CommentsSection} from "../components/CommentsSection"
+// import { CommentsSection } from "../components/Comments/CommentsSection"
 import { UpdateButton } from "../components/UpdateButton/UpdateButton";
+import { Comments } from "../components/Comments/Comments";
 
 function Details() {
   const { id } = useParams();
@@ -284,7 +285,8 @@ function Details() {
           </div>
         </div>
       )}
-      <CommentsSection/>
+      {/* <CommentsSection/>  with mock comments in redux*/}
+      <Comments bookId={id} />
     </div>
   );
 }
