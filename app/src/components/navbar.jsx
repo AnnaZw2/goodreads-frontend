@@ -74,6 +74,14 @@ export function Navbar() {
           ) : null
         ) : null}
 
+        {jwt != null ? (
+          user.role == "moderator" ? (
+            <Link to="/moderator" className="links-styling">
+              Moderator
+            </Link>
+          ) : null
+        ) : null}
+
         <Link to="/users" className="links-styling">
           My Profile
         </Link>

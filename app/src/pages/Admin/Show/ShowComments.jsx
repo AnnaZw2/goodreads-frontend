@@ -10,7 +10,10 @@ import { GoBack } from "../GoBackButton";
 import { UpdateButton } from "../../../components/UpdateButton/UpdateButton";
 import { DeleteButton } from "../../../components/deleteButton";
 import { formatDate } from "../../../utils/functions/fromateDate";
+
 export function ShowComments() {
+
+
   const { jwt } = useContext(userContext);
   const { update, setupdate } = useContext(updateContext);
   const [comments, setComments] = useState([]);
@@ -105,7 +108,7 @@ export function ShowComments() {
 
                 <div className="flex  gap-2">
                   <strong>Comment: </strong>
-                  {el.content}{" "}
+                 {el.blocked.is_blocked ?  <p className="text-red">{el.content}{" "}</p> :  <p >{el.content}{" "}</p> }
                   <UpdateButton
                     className="m-1 ml-4"
                     textButton={

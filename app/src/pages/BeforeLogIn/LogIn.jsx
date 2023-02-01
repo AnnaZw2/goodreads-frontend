@@ -33,7 +33,7 @@ export function LogIn() {
         }
       )
       .then((res) => {
-        console.log(res)
+   
         localStorage.setItem("jwt", res.data.token);
 
         const decode = jwt_decode(res.data.token).user;

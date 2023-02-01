@@ -48,7 +48,8 @@ sortComments(comments)
             }
         }).then(() => {
             setInput("")
-            setupdate(true)
+            setTimeout(() => {  setupdate(true)}, 1000)
+          
         }).catch((err) => { console.log(err) })
 
     }
@@ -66,7 +67,7 @@ sortComments(comments)
             </div>
                 <div className="flex flex-col justify-center items-center mb-6 gap-5 bg-dark-beige rounded-md p-5 mt-10 mr-20 ml-20  overflow-y-scroll " >
        
-            {comments.length>0 ?comments.reverse().map((el) => <SingleComment className="flex flex-col gap-5" el={el} />): null}
+            {comments.length>0 ?comments.reverse().map((el) => <SingleComment key={el._id} className="flex flex-col gap-5" el={el} />): null}
         </div>
         </div>
     )

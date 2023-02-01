@@ -31,6 +31,7 @@ function User() {
           <strong>Email: </strong>
           {user.email}
         </p>
+        <p>Role :{user.role}</p>
         <div className="flex flex-row justify-center gap-1">
           <p>
             <strong>Username:</strong> {user.username}

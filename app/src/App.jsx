@@ -21,7 +21,7 @@ import { searchShelfContext } from './context/searchContext';
 import { ShowUsers } from './pages/Admin/Show/ShowUsers';
 import { ShowComments } from './pages/Admin/Show/ShowComments';
 import { AdminForms } from './pages/Admin/Forms/AdminForms';
-
+import {Moderator} from "./pages/Moderator/Moderator"
 
 
 function App() {
@@ -78,8 +78,10 @@ function App() {
              
               {user && user.role === "admin" ? <Route path="/admin" element={<Admin />}></Route> : null}
   {user && user.role === "admin" ? <Route path='/admin/showusers' element={<ShowUsers />} /> : null }
-  {user && user.role === "admin" ? <Route path='/admin/showcomments' element={<ShowComments />} /> : null}
+  {user && user.role === "admin" ? <Route path='/admin/showcomments' element={<ShowComments goBack="/admin"/>} /> : null}
   {user && user.role === "admin" ? <Route path='/admin/forms' element={<AdminForms />} /> : null}
+  {user && user.role === "moderator" ? <Route path="/moderator" element={<Moderator />}></Route> : null}
+  {user && user.role === "moderator" ? <Route path="/moderator/showcomments" element={<ShowComments />}></Route> : null}
               <Route path='mybooks/shelves/all' element={<All />}></Route>
               <Route path='mybooks/stats' element={<Stats />}></Route>
             
