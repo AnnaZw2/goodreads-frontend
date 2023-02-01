@@ -34,7 +34,7 @@ export function Comments({ bookId }) {
           return dateA - dateB;
         });
       }
-
+sortComments(comments)
 
 
 

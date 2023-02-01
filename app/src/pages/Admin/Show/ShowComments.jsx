@@ -8,6 +8,7 @@ import "./../Admin.css";
 import { Navbar } from "../../../components/navbar";
 import { GoBack } from "../GoBackButton";
 import { UpdateButton } from "../../../components/UpdateButton/UpdateButton";
+import { DeleteButton } from "../../../components/deleteButton";
 import { formatDate } from "../../../utils/functions/fromateDate";
 export function ShowComments() {
   const { jwt } = useContext(userContext);
@@ -75,6 +76,28 @@ export function ShowComments() {
           {comments.length != 0 ? (
             comments.map((el) => (
               <li key={el._id} className="display-panel ">
+              <DeleteButton
+             
+                        textModal={
+                          <p>
+                            Are you sure you want to delete this comment?
+    
+                          </p>
+                        }
+                        textButton={
+                          <i className="fa-regular text-red fa-trash-can text-sm"></i>
+                        }
+                        request={() =>
+                          axios
+                            .delete(`http://localhost:3000/comments/${el._id}`, {
+                              headers: { Authorization: `Bearer ${jwt}` },
+                            })
+                            .then(() => {
+                              setupdate(true);
+                            })
+                            .catch((err) => console.log(err))
+                        }
+                      /> 
                 <p>
                   <strong>Created by: </strong>
                   {el.user}

@@ -10,6 +10,7 @@ import { GoBack } from "../GoBackButton";
 import "./../../../index.css";
 import "./../Admin.css";
 
+
 function ShowUsers() {
   const { jwt } = useContext(userContext);
   const { update, setupdate } = useContext(updateContext);
@@ -76,6 +77,7 @@ function ShowUsers() {
           {users.length != 0 ? (
             users.map((el) => (
               <li key={el.email} className="display-panel">
+             
                 <p>
                   <strong>Email: </strong>
                   {el.email}
