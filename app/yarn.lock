@@ -1388,6 +1388,16 @@ once@^1.3.0, once@^1.3.1, once@^1.4.0:
   dependencies:
     wrappy "1"
 
+paho-mqtt@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/paho-mqtt/-/paho-mqtt-1.1.0.tgz#8c10e29eb162e966fb15188d965c3dce505de9d9"
+  integrity sha512-KPbL9KAB0ASvhSDbOrZBaccXS+/s7/LIofbPyERww8hM5Ko71GUJQ6Nmg0BWqj8phAIT8zdf/Sd/RftHU9i2HA==
+
+paho@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/paho/-/paho-1.0.0.tgz#43caf1fef8fc6b313416a0e3095f640645e83ed1"
+  integrity sha512-quw+tR8uc/jiF7tJQ/t6qJGke6mx2f7nfP2ZN+iyl3kdrZxPjC831hjlQJ9A+EwTLjGVsG2eFZYJUSS6y/sJrw==
+
 path-is-absolute@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"

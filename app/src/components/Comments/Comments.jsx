@@ -35,7 +35,7 @@ export function Comments({ bookId }) {
         });
       }
 
-   console.log( sortComments(comments))
+
 
 
     function addComment() {

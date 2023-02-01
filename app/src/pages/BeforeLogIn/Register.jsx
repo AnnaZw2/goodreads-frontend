@@ -6,6 +6,7 @@ import axios from "axios";
 import { useState } from "react";
 import { SubmitButton } from "./SubmitButton";
 
+
 export function Register() {
   const validate = yup.object().shape({
     email: yup.string().email("Enter a valid email!").required("Required!"),

@@ -23,13 +23,17 @@ export function LogIn() {
           password: values.password,
         },
         {
+       
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
+         
+        
         }
       )
       .then((res) => {
+        console.log(res)
         localStorage.setItem("jwt", res.data.token);
 
         const decode = jwt_decode(res.data.token).user;

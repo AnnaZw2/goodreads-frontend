@@ -6,6 +6,7 @@ import { DeleteButton } from "../components/deleteButton";
 import axios from "axios";
 import { UpdateButton } from "../components/UpdateButton/UpdateButton";
 import { updateContext } from "../context/updateContext";
+import { BookAddedInfo } from "./MyBooks/BookAddedInfo";
 function User() {
   const { user, setUpdateUser, jwt } = useContext(userContext);
   const { update, setupdate } = useContext(updateContext);
@@ -55,6 +56,12 @@ function User() {
               .catch((err) => console.log(err))
           }
         />
+{user.role === "admin" ? 
+<div className="mt-10">
+<h4 className="header-4">New users info</h4>
+        <BookAddedInfo/> 
+        </div>: null
+        }
       </div>
     </div>
   );
