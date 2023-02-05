@@ -81,7 +81,7 @@ export function LogIn() {
         <div className="input-field">
           <label htmlFor="email">Email </label>
           <input
-            value={values.email}
+            value={values.email.trim(" ")}
             onChange={handleChange}
             id="email"
             type="email"
@@ -98,7 +98,7 @@ export function LogIn() {
         <div className="input-field">
           <label htmlFor="password">Password</label>
           <input
-            value={values.password}
+            value={values.password.trim(" ")}
             onChange={handleChange}
             id="password"
             type="password"

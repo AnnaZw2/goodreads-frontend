@@ -17,10 +17,15 @@ export function EditModal({
   });
   const [newValue, setNewValue] = useState("");
   const [erros, setErrors] = useState("");
+  const [touched, setTouched] = useState(false);
 
   const handleInput = (event) => {
+    setTouched(true);
     setNewValue(event.target.value);
-    newValue != 0 ? setErrors("") : null;
+
+  event.target.value.trim().length === 0 ? setErrors("Invalid input!") : setErrors("");
+  event.target.value.trim().length<3 ? setErrors("Must be at least 3 characters long!") : null;
+
   };
   return (
     <div className="modal-background fixed top-0 left-0 w-full h-full flex items-center justify-center z-10">
@@ -43,9 +48,10 @@ export function EditModal({
         </div>
         <div className="text-gray-700 mb-4">{textModal}</div>
         <div className="flex flex-col justify-center items-center ">
-          {erros.length != 0 ? (
+          {erros.length !== 0 ? (
             <p className="text-sm text-red">{erros}</p>
           ) : null}
+          {}
           <textarea
             autoFocus={true}
             placeholder={placeholder}
@@ -69,7 +75,8 @@ export function EditModal({
             Cancel
           </button>
           <button
-            className="bg-transparent  hover:bg-green text-green font-semibold hover:text-white py-2 px-4 border border-green hover:border-transparent rounded"
+            className={`bg-transparent  hover:bg-green  hover:text-white text-green font-semibold py-2 px-4 border border-green hover:border-transparent rounded`}
+            disabled={erros.length != 0}
             onClick={() => {
               if (newValue.length == 0) {
                 setErrors("Invalid input!");

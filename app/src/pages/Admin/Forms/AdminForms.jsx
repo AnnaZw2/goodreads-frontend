@@ -5,9 +5,9 @@ import {
   Form,
   Field,
   ErrorMessage,
-  setNestedObjectValues,
+
 } from "formik";
-import * as Yup from "yup";
+
 import "./AdminForms.css";
 import "./../../../index.css";
 import { validationSchema } from "./Validate";
@@ -43,6 +43,8 @@ export function AdminForms() {
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, isValid, touched, resetForm }) => {
           if (!isValid || !Object.keys(touched).length) {
+         
+         
             axios
               .post("http://localhost:3000/books", values, {
                 headers: {
@@ -57,8 +59,11 @@ export function AdminForms() {
                 resetForm();
               })
               .catch((err) => console.log(err));
+          }else{
+            setAdded("Please fill all fields! Empty fields are not allowed!")
           }
-        }}
+          }
+        }
       >
         {({ isValid, touched }) => (
           <Form className=" flex justify-center  items-center mx-auto my-24 w-4/5">
@@ -104,8 +109,7 @@ export function AdminForms() {
                 <Field name="publisher" type="text" />
                 <ErrorMessage
                   name="publisher"
-                  component="
-div"
+                  component="div"
                   className="error"
                 />
               </div>

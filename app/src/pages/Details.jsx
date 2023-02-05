@@ -6,34 +6,38 @@ import { Navbar } from "../components/navbar";
 // import { CommentsSection } from "../components/Comments/CommentsSection"
 import { UpdateButton } from "../components/UpdateButton/UpdateButton";
 import { Comments } from "../components/Comments/Comments";
+import { updateContext } from "../context/updateContext";
+
+
 
 function Details() {
   const { id } = useParams();
   const { jwt } = useContext(userContext);
   const [details, setDetails] = useState();
-  const [loading, setLoading] = useState(true);
   const { user } = useContext(userContext);
+  const {update, setupdate} = useContext(updateContext)
 
   useEffect(() => {
-    setLoading(true);
+    
     axios
       .get(`http://localhost:3000/books/${id}`, {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => {
         setDetails(res.data);
-        setLoading(false);
+    
+        setupdate(false)
 
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [update]);
 
 
 
   return (
     <div>
       <Navbar />
-      {loading ? null : (
+      {!details ? null : (
         <div className="flex mr-64 ml-64  mt-10 items-start">
           <img src={details.cover} className="h-80 mr-4 mt-5 "></img>
           {user.role == "admin" ? (

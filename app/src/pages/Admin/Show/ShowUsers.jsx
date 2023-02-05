@@ -95,7 +95,7 @@ function ShowUsers() {
                     textModal={
                       <p>
                         Are you sure you want to change username of{" "}
-                        <strong>{el.username}</strong>?
+                        <strong>{el.email}</strong>?
                       </p>
                     }
                     placeholder="Enter new name "

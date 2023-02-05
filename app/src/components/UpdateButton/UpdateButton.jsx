@@ -16,7 +16,11 @@ export function UpdateButton({
 
   const { jwt } = useContext(userContext);
   const { setupdate } = useContext(updateContext);
+
   const request = (newValue) =>
+
+  
+ 
     axios
       .patch(
         url,
@@ -30,8 +34,9 @@ export function UpdateButton({
       )
       .then((res) => console.log(res))
       .then(() => setupdate(true))
+    
 
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
 
   const handleUpdate = () => {
     openEditing ? setOpenEditing(false) : setOpenEditing(true);
@@ -54,6 +59,7 @@ export function UpdateButton({
       {openEditing ? (
         <div className="absolute left-6 -top-7 z-10 bg-beige rounded-md shadow-md border border-light-gray">
           <EditModal
+         
             textModal={textModal}
             setOpenConfirm={setOpenEditing}
             handleConfirm={handleConfirm}

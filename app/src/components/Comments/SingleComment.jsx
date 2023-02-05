@@ -12,7 +12,7 @@ const {jwt,user} = useContext(userContext)
 
 
         <div className="flex flex-col mb-2 mt-2 justify-start w-full bg-white items-start border border-light-gray rounded-md p-3">
-          <p>
+          <div>
 
           {user.email === el.created_by ?
           <DeleteButton
@@ -38,7 +38,7 @@ const {jwt,user} = useContext(userContext)
                       /> : null
 
           }
-          </p>
+          </div>
         <p>
           <strong>{el.created_by}</strong>
         </p>

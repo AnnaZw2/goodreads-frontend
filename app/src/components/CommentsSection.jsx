@@ -29,7 +29,7 @@ export function CommentsSection({ bookId }) {
           className="w-3/5 p-1"
           placeholder="Write your comment"
           onChange={(e) => {
-            setInput(e.target.value); if (input.length > 0) {
+            setInput(e.target.value); if (input.trim().length > 0) {
               setMsg("")
             }
           }}
@@ -50,6 +50,7 @@ export function CommentsSection({ bookId }) {
               ),
                 setInput("");
             } else {
+              if(input)
               setMsg("Comment content can't be empty!")
             }
           }}

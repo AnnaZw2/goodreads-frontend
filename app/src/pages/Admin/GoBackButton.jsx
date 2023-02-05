@@ -5,7 +5,7 @@ export function GoBack() {
   const location = useLocation();
   const path = location.pathname.split('/');
   const previousRoute = path.slice(0, path.length - 1).join('/');
-  console.log(previousRoute);
+  
   return (
     <button
       className="bg-light-gray h-6 rounded-md  mt-4 pl-2 pr-2"

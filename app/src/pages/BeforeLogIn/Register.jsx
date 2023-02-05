@@ -16,7 +16,7 @@ export function Register() {
       .required("Required!"),
     password: yup
       .string()
-      .min(5, "Must be min 5 characters!")
+      .min(8, "Must be min 8 characters!")
       .required("Required!"),
     confirmPassword: yup
       .string()
@@ -28,6 +28,7 @@ export function Register() {
   const [invalidRegistrationError, setInvalidRegistrationError] = useState("");
 
   const onSubmit = (values) => {
+    if(values.email.trim().length!=0 && values.password.trim().length!=0 && values.nickName.trim().length!=0) {
     axios
       .post(
         "http://localhost:3000/auth/signup",
@@ -47,8 +48,11 @@ export function Register() {
       .then(() => navigate("/login"))
       .catch((res) => {
         console.log(res.response.data);
-        setInvalidRegistrationError(res.response.data);
-      });
+  
+      });}
+      else{
+        setInvalidRegistrationError("Please fill all the fields with valid data! Empty fields are not allowed!")
+      }
   };
 
   const { values, handleBlur, handleChange, errors, touched, handleSubmit } =
@@ -75,8 +79,10 @@ export function Register() {
 
       <form
         className="p-3 bg-light-beige flex flex-col items-center justify-start h-screen  gap-3 w-screen"
-        onSubmit={handleSubmit}
+        onSubmit={
+          handleSubmit}
       >
+      {invalidRegistrationError.length!=0 ? <p className="errors">{invalidRegistrationError}</p> : null}
         <div className="input-field">
           <label htmlFor="email">Email </label>
           <input
