@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import "./../../../index.css"
 import { userContext } from "../../../context/userContex";
+import "./Stats.css"
 export function BestRating({url,text}) {
   const { jwt } = useContext(userContext);
 
@@ -38,8 +39,8 @@ export function BestRating({url,text}) {
   return (
     <div className="mt-5 ">
       <h4 className="header-4">{text}</h4>
-      <div className="flex flex-row justify-center items-center mr-2">
-        {sortedBooks.map((cover) => (
+      <div className="map-container">
+        {sortedBooks.slice(0,5).map((cover) => (
           <div key={cover} className="w-1/5 p-2">
             <img src={cover} alt="" className="h-48 w-auto object-cover" />
             <p className="text-xl font-medium">{userStatsBooks[cover].toFixed(2)}</p>
