@@ -22,6 +22,7 @@ import { ShowUsers } from './pages/Admin/Show/ShowUsers';
 import { ShowComments } from './pages/Admin/Show/ShowComments';
 import { AdminForms } from './pages/Admin/Forms/AdminForms';
 import {Moderator} from "./pages/Moderator/Moderator"
+import { useAuth } from './hooks/useAuth';
 
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
 
 
   const [update, setupdate] = useState(false)
-
+  const isLogin = useAuth();
 
 
   return (
@@ -64,30 +65,52 @@ function App() {
 
         <userContext.Provider value={{ user: user, setUpdateUser: setUser, jwt: jwt }}>
           <searchShelfContext.Provider value={{ searchValue: searchValue, setSearchValue: setSearchValue, searchOutput: searchOutput, setSearchOutput: setSearchOutput, searchAdminCom: searchAdminCom, setSearchAdminCom: setSearchAdminCom,searchAdmin: searchAdmin, setSearchAdmin: setSearchAdmin }}>
-            <Routes>
-
-              <Route path="/" element={<Home />}></Route>
-              <Route path='/details/:id' element={<Details />}></Route>
-              <Route path='/register' element={<Register />}></Route>
-              <Route path='/login' element={<LogIn />}></Route>
-              <Route path='/explore' element={<Explore />}></Route>
-              <Route path='/settings' element={<Settings />}></Route>
-
-              <Route path='/mybooks' element={<All />}>    </Route>
-              <Route path="/users" element={<User />} />
-             
-              {user && user.role === "admin" ? <Route path="/admin" element={<Admin />}></Route> : null}
-  {user && user.role === "admin" ? <Route path='/admin/showusers' element={<ShowUsers />} /> : null }
-  {user && user.role === "admin" ? <Route path='/admin/showcomments' element={<ShowComments goBack="/admin"/>} /> : null}
-  {user && user.role === "admin" ? <Route path='/admin/forms' element={<AdminForms />} /> : null}
-  {user && user.role === "moderator" ? <Route path="/moderator" element={<Moderator />}></Route> : null}
-  {user && user.role === "moderator" ? <Route path="/moderator/showcomments" element={<ShowComments />}></Route> : null}
-              <Route path='mybooks/shelves/all' element={<All />}></Route>
-              <Route path='mybooks/stats' element={<Stats />}></Route>
-            
-              <Route path="mybooks/shelves/:name/:id" element={<Shelf />}></Route>
-              <Route path='*' element={<NotFound />} />
-
+          <Routes>
+              {!isLogin ? (
+                <>
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/login" element={<LogIn />} />
+                </>
+              ) : (
+                <>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/details/:id" element={<Details />} />
+                  <Route path="/explore" element={<Explore />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/mybooks" element={<All />} />
+                  <Route path="/users" element={<User />} />
+                  {user && user.role === "admin" && (
+                    <>
+                      <Route path="/admin" element={<Admin />} />
+                      <Route
+                        path="/admin/showusers"
+                        element={<ShowUsers />}
+                      />
+                      <Route
+                        path="/admin/showcomments"
+                        element={<ShowComments goBack="/admin" />}
+                      />
+                      <Route path="/admin/forms" element={<AdminForms />} />
+                    </>
+                  )}
+                  {user && user.role === "moderator" && (
+                    <>
+                      <Route path="/moderator" element={<Moderator />} />
+                      <Route
+                        path="/moderator/showcomments"
+                        element={<ShowComments />}
+                      />
+                    </>
+                  )}
+                  <Route path="/mybooks/shelves/all" element={<All />} />
+                  <Route path="/mybooks/stats" element={<Stats />} />
+                  <Route
+                    path="mybooks/shelves/:name/:id"
+                    element={<Shelf />}
+                  />
+                  <Route path="*" element={<NotFound />} />
+                </>
+              )}
             </Routes>
           </searchShelfContext.Provider>
         </userContext.Provider>
