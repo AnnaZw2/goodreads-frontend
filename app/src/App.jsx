@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import { Route, Routes } from 'react-router';
 import './App.css'
 import { Home } from './pages/Home/Home';
@@ -24,46 +24,62 @@ import { AdminForms } from './pages/Admin/Forms/AdminForms';
 import {Moderator} from "./pages/Moderator/Moderator"
 import { useAuth } from './hooks/useAuth';
 
-
+import { decodeToken } from './utils/functions/decodeToken';
 function App() {
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("decoded")));
-  const jwt = localStorage.getItem("jwt")
+  // const jwt = localStorage.getItem("jwt")
 
   const [searchValue, setSearchValue] = useState("")
   const [searchAdmin, setSearchAdmin] = useState("")
   const [searchAdminCom, setSearchAdminCom] = useState("")
   const [searchOutput, setSearchOutput] = useState([]);
 
-  useEffect(() => {
-    const decode = JSON.parse(localStorage.getItem("decoded"));
+  // useEffect(() => {
+  //   const decode = JSON.parse(localStorage.getItem("decoded"));
 
-    setUser(decode)
-  }, [jwt])
-
-
-  useEffect(() => {
-
-    if (user != null) {
-      axios.get(`http://localhost:3000/users/${user.email}`, { headers: { Authorization: `Bearer ${jwt}` } }).then(res => { setUser(res.data); }).catch(err => console.log(err))
-
-    }
+  //   setUser(decode)
+  // }, [jwt])
 
 
+  // useEffect(() => {
+
+  //   if (user != null) {
+  //     axios.get(`http://localhost:3000/users/${user.email}`, { headers: { Authorization: `Bearer ${jwt}` } }).then(res => { setUser(res.data); }).catch(err => console.log(err))
+
+  //   }
 
 
-  }, [jwt]);
 
 
+  // }, [jwt]);
+
+  const isRun = useRef(false);
   const [update, setupdate] = useState(false)
-  const isLogin = useAuth();
+  const [isLogin,token] = useAuth();
+
+if (isLogin && !isRun.current) {
+  isRun.current = true;
+  console.log("token",token)
+  const decodedToken = decodeToken(token,import.meta.env.PUBLIC_KEY);
+if (decodedToken) {
+  console.log('Decoded token:', decodedToken);
+
+  const userEmail = decodedToken.email;
+
+  setUser(decodedToken.email);
+
+}
+
+
+}
 
 
   return (
     <div className="root bg-light-beige h-full " >
       <updateContext.Provider value={{ update: update, setupdate: setupdate }} >
 
-        <userContext.Provider value={{ user: user, setUpdateUser: setUser, jwt: jwt }}>
+        <userContext.Provider value={{ user: user, setUpdateUser: setUser, jwt: token }}>
           <searchShelfContext.Provider value={{ searchValue: searchValue, setSearchValue: setSearchValue, searchOutput: searchOutput, setSearchOutput: setSearchOutput, searchAdminCom: searchAdminCom, setSearchAdminCom: setSearchAdminCom,searchAdmin: searchAdmin, setSearchAdmin: setSearchAdmin }}>
           <Routes>
               {!isLogin ? (
