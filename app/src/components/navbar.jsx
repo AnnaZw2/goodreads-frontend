@@ -35,6 +35,9 @@ export function Navbar() {
     }
   }
 
+
+
+
   return (
     <nav className="navbar">
       <div className="div-center">
@@ -66,20 +69,21 @@ export function Navbar() {
       </div>
 
       <div className="div-center  ">
-        {jwt != null ? (
-          user.role == "admin" ? (
+        {user != null ? (
+          user.realm_access.roles.includes("admin") ? (
             <Link to="/admin" className="links-styling">
               Admin
             </Link>
           ) : null
         ) : null}
 
-        {jwt != null ? (
-          user.role == "moderator" ? (
-            <Link to="/moderator" className="links-styling">
-              Moderator
-            </Link>
-          ) : null
+        {user != null ? (
+          user.realm_access.roles.includes("moderator")
+            ? (
+              <Link to="/moderator" className="links-styling">
+                Moderator
+              </Link>
+            ) : null
         ) : null}
 
         <Link to="/users" className="links-styling">

@@ -7,26 +7,24 @@ const client = new Keycloak({
   clientId: import.meta.env.VITE_KEYCLOAK_CLIENT_ID,
 });
 
-
 const useAuth = () => {
-    const [isLogin, setIsLogin] = useState(false);
-    const isRun = useRef(false);
-    const [token, setToken] = useState(null);
-  
-    useEffect(() => {
-      if (isRun.current) return;
-  
-      isRun.current = true;
-  
-      client.init({ onLoad: "login-required" }).then(async (auth) => {
-        setIsLogin(auth);
-        console.log("auth",auth)
-        setToken(client.token);
-      
-      });
-    }, []);
-  
-    return [isLogin, token];
-  };
-  
-  export { useAuth };
+  const [isLogin, setIsLogin] = useState(false);
+  const isRun = useRef(false);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    if (isRun.current) return;
+
+    isRun.current = true;
+
+    client.init({ onLoad: "login-required" }).then(async (auth) => {
+      setIsLogin(auth);
+      console.log("auth", auth);
+      setToken(client.token);
+    });
+  }, []);
+
+  return [isLogin, token];
+};
+
+export { useAuth };
