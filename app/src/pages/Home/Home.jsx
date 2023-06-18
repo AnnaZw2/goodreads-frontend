@@ -4,16 +4,17 @@ import { DisplayBooks } from "../../components/books/displayBooks";
 import { Navbar } from "../../components/navbar";
 import { userContext } from "../../context/userContex";
 import axios from "axios"
+
 export function Home() {
   const navigate = useNavigate();
   const [books, setBooks] = useState([]);
   const {jwt} = useContext(userContext)
 
-  useEffect(() => {
-    {
-      localStorage.getItem("jwt") == null ? navigate("/login") : null;
-    }
-  }, []);
+  // useEffect(() => {
+  //   {
+  //     user == null ? navigate("/login") : null;
+  //   }
+  // }, []);
 
   useEffect(() => {
 

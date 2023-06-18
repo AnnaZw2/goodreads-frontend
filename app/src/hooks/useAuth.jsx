@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef ,useCallback} from "react";
 import Keycloak from "keycloak-js";
 
 const client = new Keycloak({
@@ -24,7 +24,9 @@ const useAuth = () => {
     });
   }, []);
 
-  return [isLogin, token];
+  return [isLogin, token, client];
 };
 
-export { useAuth };
+export { useAuth, client };
+
+
