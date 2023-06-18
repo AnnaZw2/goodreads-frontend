@@ -109,7 +109,7 @@ function App() {
                   <Route path="/explore" element={<Explore />} />
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/mybooks" element={<All />} />
-                  <Route path="/users" element={<User />} />
+                  {/* <Route path="/users" element={<User />} /> */}
                   {user && user.realm_access.roles.includes("admin") && (
                     <>
                       <Route path="/admin" element={<Admin />} />
@@ -133,7 +133,7 @@ function App() {
                   <Route path="/mybooks/shelves/all" element={<All />} />
                   <Route path="/mybooks/stats" element={<Stats />} />
                   <Route path="mybooks/shelves/:name/:id" element={<Shelf />} />
-                  {/* <Route path="*" element={<NotFound />} /> */}
+                  <Route path="*" element={<NotFound />} />
                 </>
               )}
             </Routes>

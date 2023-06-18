@@ -5,6 +5,7 @@ import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { searchShelfContext } from "../context/searchContext";
 import "./navbar.css";
+import { client } from "../hooks/useAuth";
 export function Navbar() {
   const navigate = useNavigate();
 
@@ -35,7 +36,9 @@ export function Navbar() {
     }
   }
 
-
+function handleLogout(){
+  client.logout();
+}
 
 
   return (
@@ -86,17 +89,13 @@ export function Navbar() {
             ) : null
         ) : null}
 
-        <Link to="/users" className="links-styling">
+        {/* <Link to="/users" className="links-styling">
           My Profile
-        </Link>
+        </Link> */}
 
         <button
           className="links-styling"
-          onClick={() => {
-            localStorage.removeItem("jwt");
-            localStorage.removeItem("decoded");
-            navigate("/login");
-          }}
+          onClick={handleLogout}
         >
           Sign Out
         </button>
