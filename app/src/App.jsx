@@ -121,7 +121,7 @@ function App() {
                       <Route path="/admin/forms" element={<AdminForms />} />
                     </>
                   )}
-                  {user && user.role === "moderator" && (
+                  {user && user.realm_access.roles.includes("moderator")  && (
                     <>
                       <Route path="/moderator" element={<Moderator />} />
                       <Route

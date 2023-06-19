@@ -57,7 +57,7 @@ function User() {
               .catch((err) => console.log(err))
           }
         />
-{user.role === "admin" ? 
+{user.realm_access.roles.includes("admin")  ? 
 <div className="mt-10">
 <h4 className="header-4">New users info</h4>
         <BookAddedInfo/> 

@@ -33,14 +33,14 @@ function Details() {
   }, [update]);
 
 
-
+console.log(user)
   return (
     <div>
       <Navbar />
       {!details ? null : (
         <div className="flex mr-64 ml-64  mt-10 items-start">
           <img src={details.cover} className="h-80 mr-4 mt-5 "></img>
-          {user.role == "admin" ? (
+          {user.realm_access.roles.includes("admin")  ? (
             <UpdateButton
               className="m-1"
               textButton={
@@ -64,7 +64,7 @@ function Details() {
               <h4 className="header-4  ">
                 <div className="flex justify-center items-center gap-3">
                   <strong>{details.title}</strong>
-                  {user.role == "admin" ? (
+                  {user.realm_access.roles.includes("admin")  ? (
                     <UpdateButton
                       className="m-1 "
                       textButton={
@@ -88,7 +88,7 @@ function Details() {
               <div>
                 <div className="flex flex-row justify-center gap-2">
                   ({details.serie}
-                  {user.role == "admin" ? (
+                  {user.realm_access.roles.includes("admin")  ? (
                     <UpdateButton
                       className="m-1 "
                       textButton={
@@ -107,7 +107,7 @@ function Details() {
                     />
                   ) : null}
                   #{details.part_of_series}{" "}
-                  {user.role == "admin" ? (
+                  {user.realm_access.roles.includes("admin")  ? (
                     <UpdateButton
                       className="m-1 "
                       textButton={
@@ -132,7 +132,7 @@ function Details() {
               <div className="text-xl mb-10 flex justify-center gap-3">
                 by {details.author}{" "}
 
-                {user.role == "admin" ? (
+                {user.realm_access.roles.includes("admin") ? (
                   <UpdateButton
                     className="m-1 "
                     textButton={
@@ -157,7 +157,7 @@ function Details() {
                 <p className="ml-10 mr-10">{details.description}
 
                 </p>
-                {user.role == "admin" ? (
+                {user.realm_access.roles.includes("admin")  ? (
                   <UpdateButton
                     className="m-1 "
                     style={{ height: "h-64", width: "w-96" }}
@@ -184,7 +184,7 @@ function Details() {
                 <p>
                   <strong>Pages:</strong> {details.pages}
                 </p>
-                {user.role == "admin" ? (
+                {user.realm_access.roles.includes("admin")  ? (
                   <UpdateButton
                     className="m-1 "
                     textButton={
@@ -209,7 +209,7 @@ function Details() {
                   <strong>Edition:</strong>
                   {details.edition}
                 </p>
-                {user.role == "admin" ? (
+                {user.realm_access.roles.includes("admin")  ? (
                   <UpdateButton
                     className="m-1 "
                     textButton={
@@ -234,7 +234,7 @@ function Details() {
                   <strong>Publisher:</strong>
                   {details.publisher}
                 </p>
-                {user.role == "admin" ? (
+                {user.realm_access.roles.includes("admin") ? (
                   <UpdateButton
                     className="m-1 "
                     textButton={
@@ -265,7 +265,7 @@ function Details() {
                     .join("-")
                     .replace("- ", "-")}
                 </p>
-                {user.role == "admin" ? (
+                {user.realm_access.roles.includes("admin")  ? (
                   <UpdateButton
                     className="m-1 "
                     textButton={

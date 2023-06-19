@@ -29,7 +29,7 @@ export function Explore() {
           {searchOutput.length !== 0
             ? searchOutput.map((el) => (
                 <li key={el._id} className="w-1/4 p-4">
-                  {user.role == "admin" ? (
+                  {user.realm_access.roles.includes("admin")  ? (
                     <div className="flex justify-end mr-5">
                       <DeleteButton
                         textModal={
