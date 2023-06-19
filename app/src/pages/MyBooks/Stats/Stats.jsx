@@ -19,16 +19,16 @@ export function Stats() {
         <NavigateMyBooks />
         <div className="flex justify-center flex-col w-full ml-40 mr-40">
 
-          <div className="separator">
+          {/* <div className="separator">
             <NumberReadBooks url="http://localhost:3000/stats/shelves?stat_type=user&shelf_id=63d95bb2e6d2a0a1706cdc8b&limit=5" text="you read" />
             <NumberReadBooks url="http://localhost:3000/stats/shelves?stat_type=global&shelf_id=63d95bb2e6d2a0a1706cdc8b&limit=5" text="all users read together" />
-          </div>
-          <div className="separator mt-0">
+          </div> */}
+          {/* <div className="separator mt-0">
             <PagesRead/>
-          </div>
-          <div className="separator">
+          </div> */}
+          {/* <div className="separator">
           <MostReadBooks/>
-          </div>
+          </div> */}
           <div className="separator">
           <TrendingNow/>
           </div>
