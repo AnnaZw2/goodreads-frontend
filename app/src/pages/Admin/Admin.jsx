@@ -10,9 +10,9 @@ function Admin() {
 
       <div className="mt-10">
         <h4 className="header-4">Admin navigation panel</h4>
-        <Link to="/admin/showusers" className="admin-links">
+        {/* <Link to="/admin/showusers" className="admin-links">
           Go to managing users
-        </Link>
+        </Link> */}
         <Link to="/explore" className="admin-links">
           Go to managing books
         </Link>
