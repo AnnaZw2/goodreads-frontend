@@ -14,7 +14,7 @@ export function AddButton({ background, background_btn }) {
     <div>
       {!clicked ? (
         <button
-          className={`btn-width ${background} text-green hover `}
+          className={`${background}  rounded w-full  text-green hover  `}
           onClick={() => {
             setClicked(true);
           }}
