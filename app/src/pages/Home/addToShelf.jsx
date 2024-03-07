@@ -237,7 +237,7 @@ export function AddToShelf({ bookId }) {
   }
 
   return (
-    <div className="manu-container   btn-width self-center ">
+    <div className="menu-container   btn-width self-center ">
       <button
         className="menu-trigger border border-1 btn-width   p-3 bg-green hover:bg-dark-green text-white cursor-pointer"
         onClick={handleClick}

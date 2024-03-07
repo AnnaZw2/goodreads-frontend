@@ -2,7 +2,7 @@ import { Book } from "./book";
 
 export function DisplayBooks({ books }) {
   return (
-    <div>
+    <div >
       <ul className="[&>*:nth-child(1)] mt-20">
         {books.map((el) => (
           <li key={el._id}>
