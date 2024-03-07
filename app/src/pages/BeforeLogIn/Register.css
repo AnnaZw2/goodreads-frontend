@@ -6,7 +6,9 @@
   .input-field {
     @apply flex flex-col items-start;
   }
-
+.center{
+  @apply h-screen flex flex-col justify-center items-center bg-white
+}
 }
 
 .errors {
@@ -17,41 +19,38 @@
 .input-errors {
   border: solid 1px #cc0000;
 }
-/* Register.css */
 
-
-.register-button{
-color:#0E635D;
-font-weight: medium;
+.register-button {
+  color: #0e635d;
+  font-weight: medium;
 }
 
-.register-button:hover{
+.register-button:hover {
   text-decoration: underline;
 }
 
-.register-text{
+.register-text {
   display: flex;
   justify-content: center;
   gap: 0.25em;
+  margin-top: 0.5rem;
 }
 
 .input-field {
   width: 100%;
   margin-bottom: 1rem;
   padding: 0.5rem;
- 
 }
 
-.input{
+.input {
   width: 100%;
-  height:3em;
+  height: 3em;
   border: solid 1px gray;
   border-radius: 1.25rem;
-  
 }
 .log-in-form {
-  max-width: 400px; 
-  margin: 0 auto; 
+  max-width: 400px;
+  margin: 0 auto;
   padding: 2rem;
   border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
@@ -59,6 +58,6 @@ font-weight: medium;
 }
 
 .header-3 {
-  text-align: center; /* Center the heading */
+  text-align: center;
   margin-bottom: 1rem;
 }

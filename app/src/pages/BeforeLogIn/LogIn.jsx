@@ -52,10 +52,13 @@ export function LogIn() {
     });
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-white">
+    <div className="center">
       <h2 className="header-2 text-color-dark-brown mb-8">Log In</h2>
 
-      <form className="log-in-form w-full max-w-md p-8   border border-gray-300" onSubmit={handleSubmit}>
+      <form
+        className="log-in-form w-full max-w-md p-8   border border-gray-300"
+        onSubmit={handleSubmit}
+      >
         {invalidDataError ? (
           <p className="errors mb-4">Invalid email or password!</p>
         ) : null}
@@ -69,7 +72,9 @@ export function LogIn() {
             name="email"
             autoComplete="email"
             onBlur={handleBlur}
-            className={`p-4  input ${errors.email && touched.email ? "input-errors" : ""}`}
+            className={`p-4  input ${
+              errors.email && touched.email ? "input-errors" : ""
+            }`}
           />
           {errors.email && touched.email ? (
             <p className="errors mt-2">{errors.email}</p>
@@ -94,10 +99,12 @@ export function LogIn() {
 
         <SubmitButton />
       </form>
-      
-      <div className="register-text mt-4">
+
+      <div className="register-text ">
         <p>Are you a new member?</p>
-        <Link to="/register" className="register-button">Register</Link>
+        <Link to="/register" className="register-button">
+          Register
+        </Link>
       </div>
     </div>
   );

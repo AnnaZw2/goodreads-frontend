@@ -72,17 +72,11 @@ export function Register() {
     });
 
   return (
-    <div className="h-full">
-      <Link
-        to="/login"
-        className=" text-light-brown border border-brown rounded-lg p-1 hover:bg-yellow hover:text-light-brown"
-      >
-        Log in
-      </Link>
-      <h3 className="header-3">Register</h3>
+    <div className="center">
+      <h2 className="header-2">Register</h2>
 
       <form
-        className="p-3 bg-light-beige flex flex-col items-center justify-start h-screen  gap-3 w-screen"
+        className="log-in-form w-full max-w-md p-8   border border-gray-300"
         onSubmit={handleSubmit}
       >
         {invalidRegistrationError.length != 0 ? (
@@ -97,12 +91,12 @@ export function Register() {
             type="email"
             autoComplete="email"
             onBlur={handleBlur}
-            className={
-              (errors.email && touched.email) ||
+            className={`input p-2
+              "" + (errors.email && touched.email) ||
               invalidRegistrationError == "email already exists"
                 ? "input-errors"
                 : ""
-            }
+            `}
           />
           {errors.email && touched.email ? (
             <p className="errors"> {errors.email}</p>
@@ -122,9 +116,9 @@ export function Register() {
             type="text"
             autoComplete="username"
             onBlur={handleBlur}
-            className={
+            className={`input p-2
               errors.nickName && touched.nickName ? "input-errors" : ""
-            }
+            `}
           />
           {errors.nickName && touched.nickName ? (
             <p className="errors"> {errors.nickName}</p>
@@ -140,9 +134,9 @@ export function Register() {
             type="password"
             onBlur={handleBlur}
             autoComplete="new-password"
-            className={
+            className={`input p-2
               errors.password && touched.password ? "input-errors" : ""
-            }
+            `}
           />
           {errors.password && touched.password ? (
             <p className="errors"> {errors.password}</p>
@@ -158,11 +152,11 @@ export function Register() {
             type="password"
             autoComplete="new-password"
             onBlur={handleBlur}
-            className={
+            className={`input p-2
               errors.confirmPassword && touched.confirmPassword
                 ? "input-errors"
                 : ""
-            }
+            `}
           />
           {errors.confirmPassword && touched.confirmPassword ? (
             <p className="errors"> {errors.confirmPassword}</p>
@@ -170,6 +164,12 @@ export function Register() {
         </div>
         <SubmitButton />
       </form>
+      <div className="register-text">
+        <p>Do you already have an account?</p>
+        <Link to="/login" className="register-button">
+          Log in
+        </Link>
+      </div>
     </div>
   );
 }
