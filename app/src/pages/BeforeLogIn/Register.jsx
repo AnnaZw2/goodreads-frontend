@@ -6,7 +6,6 @@ import axios from "axios";
 import { useState } from "react";
 import { SubmitButton } from "./SubmitButton";
 
-
 export function Register() {
   const validate = yup.object().shape({
     email: yup.string().email("Enter a valid email!").required("Required!"),
@@ -28,31 +27,36 @@ export function Register() {
   const [invalidRegistrationError, setInvalidRegistrationError] = useState("");
 
   const onSubmit = (values) => {
-    if(values.email.trim().length!=0 && values.password.trim().length!=0 && values.nickName.trim().length!=0) {
-    axios
-      .post(
-        "http://localhost:3000/auth/signup",
-        {
-          email: values.email,
-          username: values.nickName,
-          password: values.password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+    if (
+      values.email.trim().length != 0 &&
+      values.password.trim().length != 0 &&
+      values.nickName.trim().length != 0
+    ) {
+      axios
+        .post(
+          "http://localhost:3000/auth/signup",
+          {
+            email: values.email,
+            username: values.nickName,
+            password: values.password,
           },
-        }
-      )
-      .then((res) => console.log(res))
-      .then(() => navigate("/login"))
-      .catch((res) => {
-        console.log(res.response.data);
-  
-      });}
-      else{
-        setInvalidRegistrationError("Please fill all the fields with valid data! Empty fields are not allowed!")
-      }
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => console.log(res))
+        .then(() => navigate("/login"))
+        .catch((res) => {
+          console.log(res.response.data);
+        });
+    } else {
+      setInvalidRegistrationError(
+        "Please fill all the fields with valid data! Empty fields are not allowed!"
+      );
+    }
   };
 
   const { values, handleBlur, handleChange, errors, touched, handleSubmit } =
@@ -68,7 +72,7 @@ export function Register() {
     });
 
   return (
-    <div>
+    <div className="h-full">
       <Link
         to="/login"
         className=" text-light-brown border border-brown rounded-lg p-1 hover:bg-yellow hover:text-light-brown"
@@ -79,10 +83,11 @@ export function Register() {
 
       <form
         className="p-3 bg-light-beige flex flex-col items-center justify-start h-screen  gap-3 w-screen"
-        onSubmit={
-          handleSubmit}
+        onSubmit={handleSubmit}
       >
-      {invalidRegistrationError.length!=0 ? <p className="errors">{invalidRegistrationError}</p> : null}
+        {invalidRegistrationError.length != 0 ? (
+          <p className="errors">{invalidRegistrationError}</p>
+        ) : null}
         <div className="input-field">
           <label htmlFor="email">Email </label>
           <input
@@ -163,7 +168,7 @@ export function Register() {
             <p className="errors"> {errors.confirmPassword}</p>
           ) : null}
         </div>
-      <SubmitButton/>
+        <SubmitButton />
       </form>
     </div>
   );

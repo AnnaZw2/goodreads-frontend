@@ -1,17 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import "./Register.css";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { userContext } from "../../context/userContex";
 import jwt_decode from "jwt-decode";
 import { SubmitButton } from "./SubmitButton";
 
 export function LogIn() {
   const [invalidDataError, setInvalidDataError] = useState(false);
-
   const { user, setUpdateUser } = useContext(userContext);
-
   const navigate = useNavigate();
 
   const onSubmit = (values) => {
@@ -23,21 +20,15 @@ export function LogIn() {
           password: values.password,
         },
         {
-       
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-         
-        
         }
       )
       .then((res) => {
-   
         localStorage.setItem("jwt", res.data.token);
-
         const decode = jwt_decode(res.data.token).user;
-
         localStorage.setItem("decoded", JSON.stringify(decode));
       })
       .then(() => {
@@ -46,7 +37,6 @@ export function LogIn() {
       .then(() => {
         navigate("/");
       })
-
       .catch((err) => {
         setInvalidDataError(true);
       });
@@ -62,24 +52,15 @@ export function LogIn() {
     });
 
   return (
-    <div>
-      <Link
-        to="/register"
-        className=" text-light-brown border border-brown rounded-lg p-1 hover:bg-yellow hover:text-light-brown"
-      >
-        Register
-      </Link>
-      <h3 className="header-3">Log In</h3>
+    <div className="h-screen flex flex-col justify-center items-center bg-white">
+      <h2 className="header-2 text-color-dark-brown mb-8">Log In</h2>
 
-      <form
-        className="p-3 bg-light-beige flex flex-col items-center justify-start h-screen  gap-3 w-screen"
-        onSubmit={handleSubmit}
-      >
+      <form className="log-in-form w-full max-w-md p-8   border border-gray-300" onSubmit={handleSubmit}>
         {invalidDataError ? (
-          <p className="errors">Invalid email or password!</p>
+          <p className="errors mb-4">Invalid email or password!</p>
         ) : null}
-        <div className="input-field">
-          <label htmlFor="email">Email </label>
+        <div className="input-field mb-4">
+          <label htmlFor="email">Email</label>
           <input
             value={values.email.trim(" ")}
             onChange={handleChange}
@@ -88,14 +69,14 @@ export function LogIn() {
             name="email"
             autoComplete="email"
             onBlur={handleBlur}
-            className={errors.email && touched.email ? "input-errors" : ""}
+            className={`p-4  input ${errors.email && touched.email ? "input-errors" : ""}`}
           />
           {errors.email && touched.email ? (
-            <p className="errors"> {errors.email}</p>
+            <p className="errors mt-2">{errors.email}</p>
           ) : null}
         </div>
 
-        <div className="input-field">
+        <div className="input-field mb-4">
           <label htmlFor="password">Password</label>
           <input
             value={values.password.trim(" ")}
@@ -104,15 +85,20 @@ export function LogIn() {
             type="password"
             autoComplete="current-password"
             onBlur={handleBlur}
-            className={errors.password ? "input-errors" : ""}
+            className={`p-4 input ${errors.password ? "input-errors" : ""}`}
           />
           {errors.password && touched.password ? (
-            <p className="errors"> {errors.password}</p>
+            <p className="errors mt-2">{errors.password}</p>
           ) : null}
         </div>
 
-        <SubmitButton/>
+        <SubmitButton />
       </form>
+      
+      <div className="register-text mt-4">
+        <p>Are you a new member?</p>
+        <Link to="/register" className="register-button">Register</Link>
+      </div>
     </div>
   );
 }

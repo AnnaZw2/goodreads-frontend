@@ -29,6 +29,13 @@ body {
     @apply font-medium leading-tight text-2xl mt-0 mb-2
   }
 
+  .header-1 {
+    @apply font-medium leading-tight text-5xl mt-0 mb-2
+  }
+
+  .header-2 {
+    @apply font-medium leading-tight text-4xl mt-0 mb-2
+  }
 
 }
 

@@ -29,7 +29,7 @@ export function Home() {
   },[]);
 
   return (
-    <div className="min-w-screen">
+    <div className="min-w-screen h-full">
       <Navbar />
       {books!=undefined ?
       <DisplayBooks books={books} /> : null}

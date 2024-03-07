@@ -14,9 +14,7 @@ export function AddToShelf({ bookId }) {
   const { jwt } = useContext(userContext);
   const { update, setupdate } = useContext(updateContext);
   const ref = useRef(false);
-  const buttonRef = useRef()
-
-
+  const buttonRef = useRef();
 
   useEffect(() => {
     axios
@@ -41,7 +39,7 @@ export function AddToShelf({ bookId }) {
         return { open: true, adding: false };
       case ACTIONS.CLOSE_MENU:
         return { open: false, adding: false };
-  
+
       default:
         return state;
     }
@@ -55,14 +53,14 @@ export function AddToShelf({ bookId }) {
     dispatch({ type: ACTIONS.CLOSE_MENU });
   }
 
-
   const compare = (a, b) => {
     if (a.sort > b.sort) return 1;
     else return -1;
   };
-  useClose(buttonRef,()=>{
-    close()
-  })
+
+  useClose(buttonRef, () => {
+    close();
+  });
   useEffect(() => {
     axios
       .get(`http://localhost:3000/shelves`, {
@@ -77,21 +75,13 @@ export function AddToShelf({ bookId }) {
       .catch((err) => console.log(err));
   }, []);
 
-
-
   useEffect(() => {
-
     const tmp = getArrayFromSelectedCustomShelves(customChecked);
 
-
     if (ref.current) {
-
-
-
       checkShelf(bookId);
     }
     ref.current = true;
-
   }, [customChecked, selectedStandardShelves]);
 
   function getArrayFromSelectedCustomShelves(_customChecked) {
@@ -105,9 +95,7 @@ export function AddToShelf({ bookId }) {
       })
       .then((res) => {
         if (res.data.length != 0) {
-
           if (state.open) {
-
             axios
               .patch(
                 `http://localhost:3000/book-details/${res.data[0]._id}`,
@@ -127,8 +115,6 @@ export function AddToShelf({ bookId }) {
               .catch((err) => console.log(err));
           }
         } else {
-
-
           axios
             .post(
               `http://localhost:3000/book-details`,
@@ -155,30 +141,27 @@ export function AddToShelf({ bookId }) {
   }
 
   const handleClick = () => {
-
+    state.open ? close() : open();
+    console.log("clicked",state.open);
     axios
       .get(`http://localhost:3000/book-details?book_id=${bookId}`, {
         headers: { Authorization: `Bearer ${jwt}` },
       })
       .then((res) => {
-
         return res.data[0];
       })
       .then((info) => {
         if (info != undefined) {
-
           axios
             .get(`http://localhost:3000/book-details/${info._id}`, {
               headers: { Authorization: `Bearer ${jwt}` },
             })
             .then((res) => {
               if (res.data.shelves) {
-
                 let tmp = res.data.shelves.filter((el) =>
                   standardIds.includes(el)
                 );
                 let data = [...new Set(tmp)];
-
 
                 setSelectedStandardShelves(data);
 
@@ -191,8 +174,6 @@ export function AddToShelf({ bookId }) {
 
                 setCustomChecked(customObj);
               }
-
-
             })
 
             .catch((err) => console.log(err));
@@ -200,18 +181,14 @@ export function AddToShelf({ bookId }) {
       })
 
       .catch((err) => console.log(err));
-    state.open ? close() : open();
   };
 
   function handleCheckingStandard(shelf) {
     if (selectedStandardShelves.length == 1) {
       if (shelf._id == selectedStandardShelves[0]) {
-
         setSelectedStandardShelves([]);
-
       } else {
         setSelectedStandardShelves([shelf._id]);
-
       }
     } else {
       if (selectedStandardShelves.includes(shelf._id)) {
@@ -220,10 +197,8 @@ export function AddToShelf({ bookId }) {
         );
 
         setSelectedStandardShelves(filtered);
-
       } else {
         setSelectedStandardShelves([...selectedStandardShelves, shelf._id]);
-
       }
     }
   }
@@ -233,52 +208,49 @@ export function AddToShelf({ bookId }) {
       ...customChecked,
       [shelf._id]: !customChecked[shelf._id],
     });
-
   }
 
   return (
-    <div className="menu-container   btn-width self-center ">
+    <div className="btn-width  self-center">
       <button
-        className="menu-trigger border border-1 btn-width   p-3 bg-green hover:bg-dark-green text-white cursor-pointer"
+        className="menu-trigger border  border-1  rounded  btn-width p-3 bg-green hover:bg-dark-green text-white cursor-pointer"
         onClick={handleClick}
       >
         Add to shelf
       </button>
 
       <ul
-      ref={buttonRef}
-        className={`${state.open ? ` border   ` : null
-          } dropdown-menu  absolute`}
+        ref={buttonRef}
+        className={`${
+          state.open ? "border" : null
+        } dropdown-menu absolute w-48  rounded bg-white shadow-lg z-10`}
       >
-        {state.open
-          ? shelves.map((el) => (
-            <li key={el._id} className="flex items-center">
-              <button className="btn-width bg-white hover flex-center relative">
-                {el.name}
+        {state.open &&
+          shelves.map((el) => (
+            <li key={el._id}>
+              <label className="flex items-center space-x-3 p-2">
                 <input
                   type="checkbox"
-                  className="checkbox absolute left-1 top-1"
+                  className="form-checkbox h-5 w-5 text-blue-600"
                   checked={
-                    el.type == "standard"
-                      ? selectedStandardShelves.includes(el._id) || false
-                      : customChecked[el._id] || false
+                    el.type === "standard"
+                      ? selectedStandardShelves.includes(el._id)
+                      : customChecked[el._id]
                   }
                   onChange={() =>
-                    el.type == "standard"
+                    el.type === "standard"
                       ? handleCheckingStandard(el)
                       : handleCheckingCustom(el)
                   }
                 />
-
-
-              </button>
+                <span className="text-gray-900">{el.name}</span>
+              </label>
             </li>
-          ))
-          : null}
+          ))}
 
-        {state.open ? (
+        {state.open && (
           <AddButton background_btn="bg-light-beige" background="bg-white" />
-        ) : null}
+        )}
       </ul>
     </div>
   );
