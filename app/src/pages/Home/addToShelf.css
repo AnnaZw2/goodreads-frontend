@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  .btn-width {
+    @apply w-48
+  }
+
+  .btn-style {
+    @apply btn-width
+  }
+
+  .hover {
+    @apply hover:bg-beige
+  }
+
+}
+

@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+
+
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  font-family: sans-serif;
+  background-color: #F9F7F3;
+}
+
+
+@layer components {
+  .header-3 {
+    @apply font-medium leading-tight text-3xl mt-0 mb-2
+  }
+
+  .header-4 {
+    @apply font-medium leading-tight text-2xl mt-0 mb-2
+  }
+
+  .header-1 {
+    @apply font-medium leading-tight text-5xl mt-0 mb-2
+  }
+
+  .header-2 {
+    @apply font-medium leading-tight text-4xl mt-0 mb-2
+  }
+
+}
+
+

@@ -1,0 +1,115 @@
+.modal-background {
+  background-color: rgb(0, 0, 0, 0.7);
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+}
+
+
+.modal-content {
+  background-color: white;
+  opacity: 1;
+  position: relative;
+  z-index: 20;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border-width: 1px;
+}
+
+.x-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.75rem;
+
+}
+
+.x-button {
+  display: flex;
+  color: #000000;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.125rem;
+
+}
+
+.x-button:hover {
+  background-color: #C7C7C7;
+
+}
+
+.confirm-container {
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+
+}
+
+.text {
+  margin-bottom: 1rem;
+  color: #374151;
+
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+
+}
+
+.cancel {
+  width: 6.5rem;
+  padding-top: 0.5rem;
+  color: #cc0000;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: transparent;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  border-color: #cc0000;
+
+}
+
+.cancel:hover {
+  background-color: #cc0000;
+  color: white;
+}
+
+.continue {
+  width: 6.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: transparent;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  border-color: #3D9363;
+  color: #3D9363;
+}
+
+.continue:hover {
+  background-color: #3D9363;
+  color: rgb(255, 255, 255);
+
+}
+
+.text {
+  margin-bottom: 1rem;
+  color: #374151;
+}

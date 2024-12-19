@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+ 
+  .map-container{
+    @apply flex flex-row justify-center items-center mr-2
+  }
+  .separator {
+   @apply border-b  border-light-gray mt-5 mb-5 p-2
+  }
+
+  }
